@@ -10,9 +10,9 @@
 	<version>0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>OfficeToolkit</name>
+	<name>FxCadToolkit</name>
 	<url>https://github.com/mhschmieder/pdftoolkit</url>
-	<description>CAD toolkit for common concepts</description>
+	<description>JavaFX based CAD toolkit for common concepts</description>
 
 	<licenses>
 		<license>
@@ -23,9 +23,9 @@
 	</licenses>
 
 	<scm>
-		<url>https://github.com/mhschmieder/cadtoolkit</url>
-		<connection>scm:git:git://github.com/mhschmieder/cadtoolkit.git</connection>
-		<developerConnection>scm:git:git@github.com:mhschmieder/cadtoolkit.git</developerConnection>
+		<url>https://github.com/mhschmieder/fxcadtoolkit</url>
+		<connection>scm:git:git://github.com/mhschmieder/fxcadtoolkit.git</connection>
+		<developerConnection>scm:git:git@github.com:mhschmieder/fxcadtoolkit.git</developerConnection>
 	</scm>
 
 	<developers>

@@ -21,14 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the CadToolkit Library
+ * This file is part of the FxCadToolkit Library
  *
  * You should have received a copy of the MIT License along with the
- * CadToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * FxCadToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/cadtoolkit
+ * Project: https://github.com/mhschmieder/fxcadtoolkit
  */
-package com.mhschmieder.cadtoolkit;
+package com.mhschmieder.fxcadtoolkit;
 
 import java.util.List;
 
