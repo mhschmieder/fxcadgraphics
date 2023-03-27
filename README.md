@@ -1,5 +1,5 @@
-# cadtoolkit
-CAD concepts that tend to be shared across different technical drawing applications
+# fxcadtoolkit
+JavaFX based CAD concepts that tend to be shared across different technical drawing applications
 
 This is another long-overdue publicxation of a library originally intended to post right as the pandemic threw things into turmoil.
 
