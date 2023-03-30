@@ -33,5 +33,15 @@
 			<attribute name="maven.scope" value="compile"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="/fxgraphicstoolkit"/>
+	<classpathentry kind="lib" path="/server/deployment/jars/commons-math3-3.6.1.jar" sourcepath="/server/deployment/jars/commons-math3-3.6.1-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/server/deployment/jars/commons-math3-3.6.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="/mathtoolkit"/>
+	<classpathentry kind="src" path="/physicstoolkit"/>
+	<classpathentry kind="src" path="/commonstoolkit"/>
+	<classpathentry kind="src" path="/pdftoolkit"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

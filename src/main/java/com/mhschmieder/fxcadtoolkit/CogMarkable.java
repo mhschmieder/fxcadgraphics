@@ -42,5 +42,4 @@ import javafx.scene.shape.Shape;
 public interface CogMarkable {
 
     List< Shape > getCogMarkerGraphics();
-
 }
