@@ -43,5 +43,6 @@
 	<classpathentry kind="src" path="/physicstoolkit"/>
 	<classpathentry kind="src" path="/commonstoolkit"/>
 	<classpathentry kind="src" path="/pdftoolkit"/>
+	<classpathentry kind="src" path="/fxlayergraphics"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

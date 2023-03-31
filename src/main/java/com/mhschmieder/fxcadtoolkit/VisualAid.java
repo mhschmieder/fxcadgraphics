@@ -36,11 +36,10 @@ import java.util.List;
 import org.apache.commons.math3.util.FastMath;
 
 import com.mhschmieder.commonstoolkit.lang.LabeledObject;
-import com.mhschmieder.fxgraphicstoolkit.GraphicalObject;
 import com.mhschmieder.fxgraphicstoolkit.geometry.GeometryUtilities;
-import com.mhschmieder.fxgraphicstoolkit.layer.LayerProperties;
 import com.mhschmieder.fxgraphicstoolkit.shape.ShapeGroup;
 import com.mhschmieder.fxgraphicstoolkit.shape.ShapeUtilities;
+import com.mhschmieder.fxlayergraphics.model.LayerProperties;
 
 import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;

@@ -32,9 +32,8 @@ package com.mhschmieder.fxcadtoolkit;
 
 import org.apache.commons.math3.util.FastMath;
 
-import com.mhschmieder.fxgraphicstoolkit.GraphicalObject;
-import com.mhschmieder.fxgraphicstoolkit.layer.LayerProperties;
-import com.mhschmieder.fxgraphicstoolkit.layer.LayerUtilities;
+import com.mhschmieder.fxlayergraphics.model.LayerProperties;
+import com.mhschmieder.fxlayergraphics.LayerUtilities;
 
 import javafx.geometry.Point2D;
 import javafx.scene.shape.Line;

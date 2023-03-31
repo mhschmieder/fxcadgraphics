@@ -33,12 +33,11 @@ package com.mhschmieder.fxcadtoolkit;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.apache.commons.math3.util.FastMath;
 
-import com.mhschmieder.fxgraphicstoolkit.GraphicalObject;
 import com.mhschmieder.fxgraphicstoolkit.geometry.FacingDirection;
 import com.mhschmieder.fxgraphicstoolkit.geometry.GeometryUtilities;
 import com.mhschmieder.fxgraphicstoolkit.geometry.Orientation;
-import com.mhschmieder.fxgraphicstoolkit.layer.LayerProperties;
-import com.mhschmieder.fxgraphicstoolkit.layer.LayerUtilities;
+import com.mhschmieder.fxlayergraphics.model.LayerProperties;
+import com.mhschmieder.fxlayergraphics.LayerUtilities;
 import com.mhschmieder.mathtoolkit.geometry.euclidian.Axis;
 import com.mhschmieder.mathtoolkit.geometry.euclidian.OrthogonalAxes;
 import com.mhschmieder.mathtoolkit.geometry.euclidian.VectorUtilities;

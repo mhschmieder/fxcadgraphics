@@ -33,8 +33,6 @@ package com.mhschmieder.fxcadtoolkit;
 import java.util.Collection;
 import java.util.HashSet;
 
-import com.mhschmieder.fxgraphicstoolkit.GraphicalObjectCollection;
-
 /**
  * This is a utility class for Visual Aids -- especially actions on collections
  * that otherwise would require class derivation of GraphicalObjectCollection.

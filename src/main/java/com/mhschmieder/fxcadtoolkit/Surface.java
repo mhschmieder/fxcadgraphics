@@ -30,7 +30,7 @@
  */
 package com.mhschmieder.fxcadtoolkit;
 
-import com.mhschmieder.fxgraphicstoolkit.layer.LayerUtilities;
+import com.mhschmieder.fxlayergraphics.LayerUtilities;
 import com.mhschmieder.physicstoolkit.SurfaceMaterialNames;
 
 import javafx.scene.shape.Line;
