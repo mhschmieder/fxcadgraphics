@@ -28,7 +28,7 @@
  *
  * Project: https://github.com/mhschmieder/fxcadtoolkit
  */
-package com.mhschmieder.fxcadtoolkit;
+package com.mhschmieder.fxcadgraphics;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;

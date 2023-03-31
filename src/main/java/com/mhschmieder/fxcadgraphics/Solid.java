@@ -28,7 +28,7 @@
  *
  * Project: https://github.com/mhschmieder/fxcadtoolkit
  */
-package com.mhschmieder.fxcadtoolkit;
+package com.mhschmieder.fxcadgraphics;
 
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.apache.commons.math3.util.FastMath;

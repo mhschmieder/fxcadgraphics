@@ -28,7 +28,7 @@
  *
  * Project: https://github.com/mhschmieder/fxcommonstoolkit
  */
-package com.mhschmieder.fxcadtoolkit;
+package com.mhschmieder.fxcadgraphics;
 
 import java.util.Collection;
 import java.util.List;

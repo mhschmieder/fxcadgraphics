@@ -28,7 +28,7 @@
  *
  * Project: https://github.com/mhschmieder/fxcadtoolkit
  */
-package com.mhschmieder.fxcadtoolkit;
+package com.mhschmieder.fxcadgraphics;
 
 // NOTE: This is a placeholder class to deal with Catch-22 situations where we
 // would otherwise be assigning variables back and forth between AWT and JavaFX

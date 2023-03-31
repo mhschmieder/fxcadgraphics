@@ -28,7 +28,7 @@
  *
  * Project: https://github.com/mhschmieder/fxcadtoolkit
  */
-package com.mhschmieder.fxcadtoolkit;
+package com.mhschmieder.fxcadgraphics;
 
 import com.mhschmieder.physicstoolkit.SurfaceMaterialNames;
 

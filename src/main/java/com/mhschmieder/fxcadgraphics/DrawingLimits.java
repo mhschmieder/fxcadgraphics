@@ -28,7 +28,7 @@
  *
  * Project: https://github.com/mhschmieder/fxcadtoolkit
  */
-package com.mhschmieder.fxcadtoolkit;
+package com.mhschmieder.fxcadgraphics;
 
 import com.mhschmieder.commonstoolkit.lang.NumberUtilities;
 import com.mhschmieder.fxgraphicstoolkit.geometry.Extents2D;

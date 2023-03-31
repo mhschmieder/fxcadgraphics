@@ -6,13 +6,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.mhschmieder</groupId>
-	<artifactId>cadtoolkit</artifactId>
+	<artifactId>fxcadgraphics</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>FxCadToolkit</name>
-	<url>https://github.com/mhschmieder/pdftoolkit</url>
-	<description>JavaFX based CAD toolkit for common concepts</description>
+	<name>FxCadGraphics</name>
+	<url>https://github.com/mhschmieder/fxcadgraphics</url>
+	<description>JavaFX based toolkit for common CAD concepts</description>
 
 	<licenses>
 		<license>
@@ -23,9 +23,9 @@
 	</licenses>
 
 	<scm>
-		<url>https://github.com/mhschmieder/fxcadtoolkit</url>
-		<connection>scm:git:git://github.com/mhschmieder/fxcadtoolkit.git</connection>
-		<developerConnection>scm:git:git@github.com:mhschmieder/fxcadtoolkit.git</developerConnection>
+		<url>https://github.com/mhschmieder/fxcadgraphics</url>
+		<connection>scm:git:git://github.com/mhschmieder/fxcadgraphics.git</connection>
+		<developerConnection>scm:git:git@github.com:mhschmieder/fxcadgraphics.git</developerConnection>
 	</scm>
 
 	<developers>
