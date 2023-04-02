@@ -39,74 +39,74 @@ import java.util.HashSet;
  */
 public final class VisualAidUtilities {
 
-    public static Collection< ArchitecturalVisualAid > getSelectedArchitecturalTargetPlanes( final GraphicalObjectCollection< ArchitecturalVisualAid > architecturalVisualAidCollection ) {
+    public static Collection< ArchitecturalVisualAid > getSelectedArchitecturalProjectors( final GraphicalObjectCollection< ArchitecturalVisualAid > architecturalVisualAidCollection ) {
         // Get all of the selected Architectural Visual Aids that are marked as
-        // Target Planes.
-        final Collection< ArchitecturalVisualAid > selectedArchitecturalTargetPlanes =
+        // Projectors.
+        final Collection< ArchitecturalVisualAid > selectedArchitecturalProjectors =
                                                                                        new HashSet<>( 20 );
         final Collection< ArchitecturalVisualAid > selectedArchitecturalVisualAids =
                                                                                    architecturalVisualAidCollection
                                                                                            .getSelection();
         selectedArchitecturalVisualAids.forEach( architecturalVisualAid -> {
-            if ( architecturalVisualAid.isUseAsTargetPlane() ) {
-                selectedArchitecturalTargetPlanes.add( architecturalVisualAid );
+            if ( architecturalVisualAid.isUseAsProjector() ) {
+                selectedArchitecturalProjectors.add( architecturalVisualAid );
             }
         } );
-        return selectedArchitecturalTargetPlanes;
+        return selectedArchitecturalProjectors;
     }
 
-    public static Collection< MultilevelVisualAid > getSelectedMultilevelTargetPlanes( final GraphicalObjectCollection< MultilevelVisualAid > multilevelVisualAidCollection ) {
+    public static Collection< MultilevelVisualAid > getSelectedMultilevelProjectors( final GraphicalObjectCollection< MultilevelVisualAid > multilevelVisualAidCollection ) {
         // Get all of the selected Multilevel Visual Aids that are marked as
-        // Target Planes.
-        final Collection< MultilevelVisualAid > selectedMultilevelTargetPlanes =
+        // Projectors.
+        final Collection< MultilevelVisualAid > selectedMultilevelProjectors =
                                                                                  new HashSet<>( 20 );
         final Collection< MultilevelVisualAid > selectedMultilevelVisualAids =
                                                                              multilevelVisualAidCollection
                                                                                      .getSelection();
         selectedMultilevelVisualAids.forEach( multilevelVisualAid -> {
-            if ( multilevelVisualAid.isUseAsTargetPlane() ) {
-                selectedMultilevelTargetPlanes.add( multilevelVisualAid );
+            if ( multilevelVisualAid.isUseAsProjector() ) {
+                selectedMultilevelProjectors.add( multilevelVisualAid );
             }
         } );
-        return selectedMultilevelTargetPlanes;
+        return selectedMultilevelProjectors;
     }
 
-    public static void selectAllArchitecturalTargetPlanes( final GraphicalObjectCollection< ArchitecturalVisualAid > architecturalVisualAidCollection ) {
+    public static void selectAllArchitecturalProjectors( final GraphicalObjectCollection< ArchitecturalVisualAid > architecturalVisualAidCollection ) {
         // Fill the Visual Aids selection set with all of the Visual Aids that
-        // are marked as Target Planes.
+        // are marked as Projectors.
         final Collection< ArchitecturalVisualAid > collection = architecturalVisualAidCollection
                 .getCollection();
         final Collection< ArchitecturalVisualAid > deselection = architecturalVisualAidCollection
                 .getDeselection();
 
-        // Fill the Visual Aids selection set with all of the Target Planes.
+        // Fill the Visual Aids selection set with all of the Projectors.
         // NOTE: It is safer to avoid parallel streams right after clearing one
         // of the collections as a bulk action.
         collection.stream().filter( ArchitecturalVisualAid::isEditable )
                 .forEach( architecturalVisualAid -> {
                     if ( architecturalVisualAid.isEditable()
-                            && architecturalVisualAid.isUseAsTargetPlane() ) {
+                            && architecturalVisualAid.isUseAsProjector() ) {
                         architecturalVisualAidCollection.addToSelection( architecturalVisualAid );
                         deselection.add( architecturalVisualAid );
                     }
                 } );
     }
 
-    public static void selectAllMultilevelTargetPlanes( final GraphicalObjectCollection< MultilevelVisualAid > multilevelVisualAidCollection ) {
+    public static void selectAllMultilevelProjectors( final GraphicalObjectCollection< MultilevelVisualAid > multilevelVisualAidCollection ) {
         // Fill the Visual Aids selection set with all of the Visual Aids that
-        // are marked as Target Planes.
+        // are marked as Projectors.
         final Collection< MultilevelVisualAid > collection = multilevelVisualAidCollection
                 .getCollection();
         final Collection< MultilevelVisualAid > deselection = multilevelVisualAidCollection
                 .getDeselection();
 
-        // Fill the Visual Aids selection set with all of the Target Planes.
+        // Fill the Visual Aids selection set with all of the Projectors.
         // NOTE: It is safer to avoid parallel streams right after clearing one
         // of the collections as a bulk action.
         collection.stream().filter( MultilevelVisualAid::isEditable )
                 .forEach( multilevelVisualAid -> {
                     if ( multilevelVisualAid.isEditable()
-                            && multilevelVisualAid.isUseAsTargetPlane() ) {
+                            && multilevelVisualAid.isUseAsProjector() ) {
                         multilevelVisualAidCollection.addToSelection( multilevelVisualAid );
                         deselection.add( multilevelVisualAid );
                     }

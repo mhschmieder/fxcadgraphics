@@ -76,8 +76,8 @@ public class ArchitecturalVisualAid extends VisualAid {
               Y2_DEFAULT,
               ARCHITECTURAL_VISUAL_AID_LABEL_DEFAULT,
               LayerUtilities.makeDefaultLayer(),
-              USE_AS_TARGET_PLANE_DEFAULT,
-              NUMBER_OF_TARGET_ZONES_DEFAULT );
+              USE_AS_PROJECTOR_DEFAULT,
+              NUMBER_OF_PROJECTION_ZONES_DEFAULT );
     }
 
     public ArchitecturalVisualAid( final ArchitecturalVisualAid architecturalVisualAid ) {
@@ -92,8 +92,8 @@ public class ArchitecturalVisualAid extends VisualAid {
                                    final double y2,
                                    final String architecturalVisualAidLabel,
                                    final LayerProperties layer,
-                                   final boolean useAsTargetPlane,
-                                   final int numberOfTargetZones ) {
+                                   final boolean useAsProjector,
+                                   final int numberOfProjectionZones ) {
         super();
 
         setArchitecturalVisualAid( x1,
@@ -102,8 +102,8 @@ public class ArchitecturalVisualAid extends VisualAid {
                                    y2,
                                    architecturalVisualAidLabel,
                                    layer,
-                                   useAsTargetPlane,
-                                   numberOfTargetZones );
+                                   useAsProjector,
+                                   numberOfProjectionZones );
     }
 
     public ArchitecturalVisualAid( final Line line,
@@ -112,23 +112,23 @@ public class ArchitecturalVisualAid extends VisualAid {
         this( line,
               architecturalVisualAidLabel,
               layer,
-              USE_AS_TARGET_PLANE_DEFAULT,
-              NUMBER_OF_TARGET_ZONES_DEFAULT );
+              USE_AS_PROJECTOR_DEFAULT,
+              NUMBER_OF_PROJECTION_ZONES_DEFAULT );
     }
 
     public ArchitecturalVisualAid( final Line line,
                                    final String architecturalVisualAidLabel,
                                    final LayerProperties layer,
-                                   final boolean useAsTargetPlane,
-                                   final int numberOfTargetZones ) {
+                                   final boolean useAsProjector,
+                                   final int numberOfProjectionZones ) {
         this( line.getStartX(),
               line.getStartY(),
               line.getEndX(),
               line.getEndY(),
               architecturalVisualAidLabel,
               layer,
-              useAsTargetPlane,
-              numberOfTargetZones );
+              useAsProjector,
+              numberOfProjectionZones );
     }
 
     public ArchitecturalVisualAid( final Point2D p1,
@@ -139,24 +139,24 @@ public class ArchitecturalVisualAid extends VisualAid {
               p2,
               architecturalVisualAidLabel,
               layer,
-              USE_AS_TARGET_PLANE_DEFAULT,
-              NUMBER_OF_TARGET_ZONES_DEFAULT );
+              USE_AS_PROJECTOR_DEFAULT,
+              NUMBER_OF_PROJECTION_ZONES_DEFAULT );
     }
 
     public ArchitecturalVisualAid( final Point2D p1,
                                    final Point2D p2,
                                    final String architecturalVisualAidLabel,
                                    final LayerProperties layer,
-                                   final boolean useAsTargetPlane,
-                                   final int numberOfTargetZones ) {
+                                   final boolean useAsProjector,
+                                   final int numberOfProjectionZones ) {
         super();
 
         setArchitecturalVisualAid( p1,
                                    p2,
                                    architecturalVisualAidLabel,
                                    layer,
-                                   useAsTargetPlane,
-                                   numberOfTargetZones );
+                                   useAsProjector,
+                                   numberOfProjectionZones );
     }
 
     @Override
@@ -238,8 +238,8 @@ public class ArchitecturalVisualAid extends VisualAid {
         setArchitecturalVisualAid( architecturalVisualAid.getLine(),
                                    architecturalVisualAid.getLabel(),
                                    architecturalVisualAid.getLayer(),
-                                   architecturalVisualAid.isUseAsTargetPlane(),
-                                   architecturalVisualAid.getNumberOfTargetZones() );
+                                   architecturalVisualAid.isUseAsProjector(),
+                                   architecturalVisualAid.getNumberOfProjectionZones() );
     }
 
     public final void setArchitecturalVisualAid( final double x1,
@@ -248,19 +248,19 @@ public class ArchitecturalVisualAid extends VisualAid {
                                                  final double y2,
                                                  final String architecturalVisualAidLabel,
                                                  final LayerProperties layer,
-                                                 final boolean useAsTargetPlane,
-                                                 final int numberOfTargetZones ) {
+                                                 final boolean useAsProjector,
+                                                 final int numberOfProjectionZones ) {
         setLine( x1, y1, x2, y2 );
-        setVisualAid( architecturalVisualAidLabel, layer, useAsTargetPlane, numberOfTargetZones );
+        setVisualAid( architecturalVisualAidLabel, layer, useAsProjector, numberOfProjectionZones );
     }
 
     public final void setArchitecturalVisualAid( final Line line,
                                                  final String architecturalVisualAidLabel,
                                                  final LayerProperties layer,
-                                                 final boolean useAsTargetPlane,
-                                                 final int numberOfTargetZones ) {
+                                                 final boolean useAsProjector,
+                                                 final int numberOfProjectionZones ) {
         setLine( line );
-        setVisualAid( architecturalVisualAidLabel, layer, useAsTargetPlane, numberOfTargetZones );
+        setVisualAid( architecturalVisualAidLabel, layer, useAsProjector, numberOfProjectionZones );
     }
 
     public final void setArchitecturalVisualAid( final Point2D p1,
@@ -268,20 +268,20 @@ public class ArchitecturalVisualAid extends VisualAid {
                                                  final double distance,
                                                  final String architecturalVisualAidLabel,
                                                  final LayerProperties layer,
-                                                 final boolean useAsTargetPlane,
-                                                 final int numberOfTargetZones ) {
+                                                 final boolean useAsProjector,
+                                                 final int numberOfProjectionZones ) {
         setLine( p1, angleDegrees, distance );
-        setVisualAid( architecturalVisualAidLabel, layer, useAsTargetPlane, numberOfTargetZones );
+        setVisualAid( architecturalVisualAidLabel, layer, useAsProjector, numberOfProjectionZones );
     }
 
     public final void setArchitecturalVisualAid( final Point2D p1,
                                                  final Point2D p2,
                                                  final String architecturalVisualAidLabel,
                                                  final LayerProperties layer,
-                                                 final boolean useAsTargetPlane,
-                                                 final int numberOfTargetZones ) {
+                                                 final boolean useAsProjector,
+                                                 final int numberOfProjectionZones ) {
         setLine( p1, p2 );
-        setVisualAid( architecturalVisualAidLabel, layer, useAsTargetPlane, numberOfTargetZones );
+        setVisualAid( architecturalVisualAidLabel, layer, useAsProjector, numberOfProjectionZones );
     }
 
     @Override

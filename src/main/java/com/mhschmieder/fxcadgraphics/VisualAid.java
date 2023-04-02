@@ -55,19 +55,20 @@ import javafx.scene.shape.StrokeType;
 
 /**
  * The <code>VisualAid</code> class is the abstract base class for all Visual
- * Aids.
+ * Aids. Visual Aids are essentially enhanced 2D Lines that can also act as
+ * Projectors, with concrete derived classes for Cartesian or Polar Coordinates.
  */
 public abstract class VisualAid extends GraphicalObject implements LabeledObject {
 
     // Declare the default Visual Aid Label.
     public static final String  VISUAL_AID_LABEL_DEFAULT = "Visual Aid"; //$NON-NLS-1$
 
-    public static final boolean USE_AS_TARGET_PLANE_DEFAULT = false;
-    public static final int     NUMBER_OF_TARGET_ZONES_DEFAULT = 1;
+    public static final boolean USE_AS_PROJECTOR_DEFAULT = false;
+    public static final int     NUMBER_OF_PROJECTION_ZONES_DEFAULT = 1;
 
     private String              _label;
-    private boolean             _useAsTargetPlane;
-    private int                 _numberOfTargetZones;
+    private boolean             _useAsProjector;
+    private int                 _numberOfProjectionZones;
 
     public VisualAid() {
         this( VISUAL_AID_LABEL_DEFAULT );
@@ -77,8 +78,8 @@ public abstract class VisualAid extends GraphicalObject implements LabeledObject
         super();
 
         _label = labelDefault;
-        _useAsTargetPlane = USE_AS_TARGET_PLANE_DEFAULT;
-        _numberOfTargetZones = NUMBER_OF_TARGET_ZONES_DEFAULT;
+        _useAsProjector = USE_AS_PROJECTOR_DEFAULT;
+        _numberOfProjectionZones = NUMBER_OF_PROJECTION_ZONES_DEFAULT;
     }
 
     /**
@@ -96,19 +97,19 @@ public abstract class VisualAid extends GraphicalObject implements LabeledObject
                                  line.getEndX(),
                                  line.getEndY() );
 
-        // Conditionally add the Target Plane cues for the Target Zones.
-        if ( isUseAsTargetPlane() ) {
+        // Conditionally add the Projector cues for the Projection Zones.
+        if ( isUseAsProjector() ) {
             // First, draw the baseline below the Visual Aid's minimum y point.
             final double baselineY = FastMath.min( line.getStartY(), line.getEndY() );
             ShapeUtilities
                     .drawLine( lines, line.getStartX(), baselineY, line.getEndX(), baselineY );
 
-            // Now, draw as many vertical drop-lines as there are Target Zones.
+            // Now, draw as many additional drop-lines as there are Projection Zones.
             final double xDiff = line.getEndX() - line.getStartX();
             final double yDiff = line.getEndY() - line.getStartY();
-            final double xDelta = xDiff / _numberOfTargetZones;
-            final double yDelta = yDiff / _numberOfTargetZones;
-            for ( int i = 0; i <= _numberOfTargetZones; i++ ) {
+            final double xDelta = xDiff / _numberOfProjectionZones;
+            final double yDelta = yDiff / _numberOfProjectionZones;
+            for ( int i = 0; i <= _numberOfProjectionZones; i++ ) {
                 final double baselineX = line.getStartX() + ( xDelta * i );
                 final double slopelineY = line.getStartY() + ( yDelta * i );
                 ShapeUtilities.drawLine( lines, baselineX, baselineY, baselineX, slopelineY );
@@ -197,10 +198,10 @@ public abstract class VisualAid extends GraphicalObject implements LabeledObject
         if ( !getLabel().equals( other.getLabel() ) ) {
             return false;
         }
-        if ( isUseAsTargetPlane() != other.isUseAsTargetPlane() ) {
+        if ( isUseAsProjector() != other.isUseAsProjector() ) {
             return false;
         }
-        return ( getNumberOfTargetZones() == other.getNumberOfTargetZones() );
+        return ( getNumberOfProjectionZones() == other.getNumberOfProjectionZones() );
     }
 
     @Override
@@ -220,8 +221,8 @@ public abstract class VisualAid extends GraphicalObject implements LabeledObject
      */
     public abstract Line getLine();
 
-    public final int getNumberOfTargetZones() {
-        return _numberOfTargetZones;
+    public final int getNumberOfProjectionZones() {
+        return _numberOfProjectionZones;
     }
 
     public final Point2D getP1() {
@@ -246,7 +247,7 @@ public abstract class VisualAid extends GraphicalObject implements LabeledObject
     @Override
     public ShapeGroup getVectorGraphics( final boolean previewContext ) {
         // We need to use a Path with multiple visual elements so that we have a
-        // common object for all cases, including Target Planes.
+        // common object for all cases, including Projectors.
         final Path visualAid = new Path();
         final ObservableList< PathElement > visualAidElements = visualAid.getElements();
 
@@ -392,8 +393,8 @@ public abstract class VisualAid extends GraphicalObject implements LabeledObject
         return dragTargetWithinBounds;
     }
 
-    public final boolean isUseAsTargetPlane() {
-        return _useAsTargetPlane;
+    public final boolean isUseAsProjector() {
+        return _useAsProjector;
     }
 
     @Override
@@ -472,21 +473,21 @@ public abstract class VisualAid extends GraphicalObject implements LabeledObject
                                   final double x2,
                                   final double y2 );
 
-    public final void setNumberOfTargetZones( final int pNumberOfTargetZones ) {
-        _numberOfTargetZones = pNumberOfTargetZones;
+    public final void setNumberOfProjectionZones( final int pNumberOfProjectionZones ) {
+        _numberOfProjectionZones = pNumberOfProjectionZones;
     }
 
-    public final void setUseAsTargetPlane( final boolean pUseAsTargetPlane ) {
-        _useAsTargetPlane = pUseAsTargetPlane;
+    public final void setUseAsProjector( final boolean pUseAsProjector ) {
+        _useAsProjector = pUseAsProjector;
     }
 
     protected final void setVisualAid( final String pVisualAidLabel,
                                        final LayerProperties pLayer,
-                                       final boolean pUseAsTargetPlane,
-                                       final int pNumberOfTargetZones ) {
+                                       final boolean pUseAsProjector,
+                                       final int pNumberOfProjectionZones ) {
         setLabel( pVisualAidLabel );
         setLayer( pLayer );
-        setUseAsTargetPlane( pUseAsTargetPlane );
-        setNumberOfTargetZones( pNumberOfTargetZones );
+        setUseAsProjector( pUseAsProjector );
+        setNumberOfProjectionZones( pNumberOfProjectionZones );
     }
 }

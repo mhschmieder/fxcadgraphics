@@ -80,8 +80,8 @@ public class MultilevelVisualAid extends VisualAid {
               END_DISTANCE_DEFAULT,
               MULTILEVEL_VISUAL_AID_LABEL_DEFAULT,
               LayerUtilities.makeDefaultLayer(),
-              USE_AS_TARGET_PLANE_DEFAULT,
-              NUMBER_OF_TARGET_ZONES_DEFAULT );
+              USE_AS_PROJECTOR_DEFAULT,
+              NUMBER_OF_PROJECTION_ZONES_DEFAULT );
     }
 
     public MultilevelVisualAid( final double x,
@@ -92,8 +92,8 @@ public class MultilevelVisualAid extends VisualAid {
                                 final double endDistance,
                                 final String multilevelVisualAidLabel,
                                 final LayerProperties layer,
-                                final boolean useAsTargetPlane,
-                                final int numberOfTargetZones ) {
+                                final boolean useAsProjector,
+                                final int numberOfProjectionZones ) {
         super();
 
         setMultilevelVisualAid( x,
@@ -104,8 +104,8 @@ public class MultilevelVisualAid extends VisualAid {
                                 endDistance,
                                 multilevelVisualAidLabel,
                                 layer,
-                                useAsTargetPlane,
-                                numberOfTargetZones );
+                                useAsProjector,
+                                numberOfProjectionZones );
     }
 
     public MultilevelVisualAid( final MultilevelVisualAid multilevelVisualAid ) {
@@ -121,8 +121,8 @@ public class MultilevelVisualAid extends VisualAid {
                                 final double endDistance,
                                 final String multilevelVisualAidLabel,
                                 final LayerProperties layer,
-                                final boolean useAsTargetPlane,
-                                final int numberOfTargetZones ) {
+                                final boolean useAsProjector,
+                                final int numberOfProjectionZones ) {
         this( referencePoint.getX(),
               referencePoint.getY(),
               startAngleDegrees,
@@ -131,8 +131,8 @@ public class MultilevelVisualAid extends VisualAid {
               endDistance,
               multilevelVisualAidLabel,
               layer,
-              useAsTargetPlane,
-              numberOfTargetZones );
+              useAsProjector,
+              numberOfProjectionZones );
     }
 
     @Override
@@ -333,8 +333,8 @@ public class MultilevelVisualAid extends VisualAid {
                                               final double endDistance,
                                               final String multilevelVisualAidLabel,
                                               final LayerProperties layer,
-                                              final boolean useAsTargetPlane,
-                                              final int numberOfTargetZones ) {
+                                              final boolean useAsProjector,
+                                              final int numberOfProjectionZones ) {
         setLine( inclinometerPositionX,
                  inclinometerPositionY,
                  startAngleDegrees,
@@ -342,7 +342,7 @@ public class MultilevelVisualAid extends VisualAid {
                  endAngleDegrees,
                  endDistance );
 
-        setVisualAid( multilevelVisualAidLabel, layer, useAsTargetPlane, numberOfTargetZones );
+        setVisualAid( multilevelVisualAidLabel, layer, useAsProjector, numberOfProjectionZones );
     }
 
     public final void setMultilevelVisualAid( final MultilevelVisualAid multiLevelVisualAid ) {
@@ -353,8 +353,8 @@ public class MultilevelVisualAid extends VisualAid {
                                 multiLevelVisualAid.getEndDistance(),
                                 multiLevelVisualAid.getLabel(),
                                 multiLevelVisualAid.getLayer(),
-                                multiLevelVisualAid.isUseAsTargetPlane(),
-                                multiLevelVisualAid.getNumberOfTargetZones() );
+                                multiLevelVisualAid.isUseAsProjector(),
+                                multiLevelVisualAid.getNumberOfProjectionZones() );
     }
 
     public final void setMultilevelVisualAid( final Point2D referencePoint,
@@ -364,8 +364,8 @@ public class MultilevelVisualAid extends VisualAid {
                                               final double endDistance,
                                               final String multilevelVisualAidLabel,
                                               final LayerProperties layer,
-                                              final boolean useAsTargetPlane,
-                                              final int numberOfTargetZones ) {
+                                              final boolean useAsProjector,
+                                              final int numberOfProjectionZones ) {
         setMultilevelVisualAid( referencePoint.getX(),
                                 referencePoint.getY(),
                                 startAngleDegrees,
@@ -374,8 +374,8 @@ public class MultilevelVisualAid extends VisualAid {
                                 endDistance,
                                 multilevelVisualAidLabel,
                                 layer,
-                                useAsTargetPlane,
-                                numberOfTargetZones );
+                                useAsProjector,
+                                numberOfProjectionZones );
     }
 
     @Override
