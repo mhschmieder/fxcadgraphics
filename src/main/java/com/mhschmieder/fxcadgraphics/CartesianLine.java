@@ -39,15 +39,13 @@ import javafx.geometry.Point2D;
 import javafx.scene.shape.Line;
 
 /**
- * The <code>ArchitecturalVisualAid</code> class is the concrete class for
- * architectural visual aids as used in some CAD apps. It is really nothing
- * more than a line that is selectable.
+ * The <code>CartesianLine</code> class is the concrete class for Cartesian
+ * Lines. It is really not much more than a line that is selectable.
  */
-public class ArchitecturalVisualAid extends LinearObject {
+public class CartesianLine extends LinearObject {
 
-    // Declare the default Architectural Visual Aid label.
-    public static final String    ARCHITECTURAL_VISUAL_AID_LABEL_DEFAULT =
-                                                                         "Architectural Visual Aid"; //$NON-NLS-1$
+    // Declare the default Cartesian Line label.
+    public static final String    CARTESIAN_LINE_LABEL_DEFAULT = "Cartesian Line"; //$NON-NLS-1$
 
     // Declare default constants, where appropriate, for all fields.
     protected static final double X1_DEFAULT                             = 0.0d;
@@ -55,12 +53,8 @@ public class ArchitecturalVisualAid extends LinearObject {
     protected static final double X2_DEFAULT                             = 1.0d;
     protected static final double Y2_DEFAULT                             = 1.0d;
 
-    public static final String getArchitecturalVisualAidLabelDefault() {
-        return ARCHITECTURAL_VISUAL_AID_LABEL_DEFAULT;
-    }
-
-    public static ArchitecturalVisualAid getDefaultArchitecturalVisualAid() {
-        return new ArchitecturalVisualAid();
+    public static CartesianLine getDefaultCartesianLine() {
+        return new CartesianLine();
     }
 
     // Declare variables for Cartesian Space coordinates.
@@ -70,99 +64,99 @@ public class ArchitecturalVisualAid extends LinearObject {
     // we cannot just invoke the super-constructor from each constructor, but
     // need to invoke incrementally more complex local constructors instead.
     // TODO: Make better use of parent class constructors and setters.
-    public ArchitecturalVisualAid() {
+    public CartesianLine() {
         this( X1_DEFAULT,
               Y1_DEFAULT,
               X2_DEFAULT,
               Y2_DEFAULT,
-              ARCHITECTURAL_VISUAL_AID_LABEL_DEFAULT,
+              CARTESIAN_LINE_LABEL_DEFAULT,
               LayerUtilities.makeDefaultLayer(),
               USE_AS_PROJECTOR_DEFAULT,
               NUMBER_OF_PROJECTION_ZONES_DEFAULT );
     }
 
-    public ArchitecturalVisualAid( final ArchitecturalVisualAid architecturalVisualAid ) {
-        super( architecturalVisualAid );
+    public CartesianLine( final CartesianLine cartesianLine ) {
+        super( cartesianLine );
 
-        setArchitecturalVisualAid( architecturalVisualAid );
+        setCartesianLine( cartesianLine );
     }
 
-    public ArchitecturalVisualAid( final double x1,
-                                   final double y1,
-                                   final double x2,
-                                   final double y2,
-                                   final String architecturalVisualAidLabel,
-                                   final LayerProperties layer,
-                                   final boolean useAsProjector,
-                                   final int numberOfProjectionZones ) {
-        super( architecturalVisualAidLabel, useAsProjector, numberOfProjectionZones );
+    public CartesianLine( final double x1,
+                          final double y1,
+                          final double x2,
+                          final double y2,
+                          final String cartesianLineLabel,
+                          final LayerProperties layer,
+                          final boolean useAsProjector,
+                          final int numberOfProjectionZones ) {
+        super( cartesianLineLabel, useAsProjector, numberOfProjectionZones );
 
-        setArchitecturalVisualAid( x1,
-                                   y1,
-                                   x2,
-                                   y2,
-                                   architecturalVisualAidLabel,
-                                   layer,
-                                   useAsProjector,
-                                   numberOfProjectionZones );
+        setCartesianLine( x1,
+                          y1,
+                          x2,
+                          y2,
+                          cartesianLineLabel,
+                          layer,
+                          useAsProjector,
+                          numberOfProjectionZones );
     }
 
-    public ArchitecturalVisualAid( final Line line,
-                                   final String architecturalVisualAidLabel,
-                                   final LayerProperties layer ) {
+    public CartesianLine( final Line line,
+                          final String cartesianLineLabel,
+                          final LayerProperties layer ) {
         this( line,
-              architecturalVisualAidLabel,
+              cartesianLineLabel,
               layer,
               USE_AS_PROJECTOR_DEFAULT,
               NUMBER_OF_PROJECTION_ZONES_DEFAULT );
     }
 
-    public ArchitecturalVisualAid( final Line line,
-                                   final String architecturalVisualAidLabel,
-                                   final LayerProperties layer,
-                                   final boolean useAsProjector,
-                                   final int numberOfProjectionZones ) {
+    public CartesianLine( final Line line,
+                          final String cartesianLineLabel,
+                          final LayerProperties layer,
+                          final boolean useAsProjector,
+                          final int numberOfProjectionZones ) {
         this( line.getStartX(),
               line.getStartY(),
               line.getEndX(),
               line.getEndY(),
-              architecturalVisualAidLabel,
+              cartesianLineLabel,
               layer,
               useAsProjector,
               numberOfProjectionZones );
     }
 
-    public ArchitecturalVisualAid( final Point2D p1,
-                                   final Point2D p2,
-                                   final String architecturalVisualAidLabel,
-                                   final LayerProperties layer ) {
+    public CartesianLine( final Point2D p1,
+                          final Point2D p2,
+                          final String cartesianLineLabel,
+                          final LayerProperties layer ) {
         this( p1,
               p2,
-              architecturalVisualAidLabel,
+              cartesianLineLabel,
               layer,
               USE_AS_PROJECTOR_DEFAULT,
               NUMBER_OF_PROJECTION_ZONES_DEFAULT );
     }
 
-    public ArchitecturalVisualAid( final Point2D p1,
-                                   final Point2D p2,
-                                   final String architecturalVisualAidLabel,
-                                   final LayerProperties layer,
-                                   final boolean useAsProjector,
-                                   final int numberOfProjectionZones ) {
+    public CartesianLine( final Point2D p1,
+                          final Point2D p2,
+                          final String cartesianLineLabel,
+                          final LayerProperties layer,
+                          final boolean useAsProjector,
+                          final int numberOfProjectionZones ) {
         super();
 
-        setArchitecturalVisualAid( p1,
-                                   p2,
-                                   architecturalVisualAidLabel,
-                                   layer,
-                                   useAsProjector,
-                                   numberOfProjectionZones );
+        setCartesianLine( p1,
+                          p2,
+                          cartesianLineLabel,
+                          layer,
+                          useAsProjector,
+                          numberOfProjectionZones );
     }
 
     @Override
     public final void drag( final double deltaX, final double deltaY ) {
-        // Compute the new Line End Points for the Architectural Visual Aid by
+        // Compute the new Line End Points for the Cartesian Line by
         // combining the deltas with the original Line End Points.
         // TODO: Embed this logic in an overridden setLocation() method?
         final Line line = getLine();
@@ -178,14 +172,14 @@ public class ArchitecturalVisualAid extends LinearObject {
 
     @Override
     public boolean equals( final Object obj ) {
-        if ( !( obj instanceof ArchitecturalVisualAid ) ) {
+        if ( !( obj instanceof CartesianLine ) ) {
             return false;
         }
 
         // NOTE: We invoke getter methods vs. directly accessing data
         // members, so that derived classes produce the correct results when
         // comparing two objects.
-        final ArchitecturalVisualAid other = ( ArchitecturalVisualAid ) obj;
+        final CartesianLine other = ( CartesianLine ) obj;
         if ( !super.equals( obj ) ) {
             return false;
         }
@@ -209,10 +203,9 @@ public class ArchitecturalVisualAid extends LinearObject {
 
     @Override
     public final GraphicalObject getDeepClonedObject() {
-        final ArchitecturalVisualAid architecturalVisualAidClone =
-                                                                 new ArchitecturalVisualAid( this );
+        final CartesianLine cartesianLineClone = new CartesianLine( this );
 
-        return architecturalVisualAidClone;
+        return cartesianLineClone;
     }
 
     public final double getDistance() {
@@ -235,54 +228,54 @@ public class ArchitecturalVisualAid extends LinearObject {
         return super.hashCode();
     }
 
-    public final void setArchitecturalVisualAid( final ArchitecturalVisualAid architecturalVisualAid ) {
-        setArchitecturalVisualAid( architecturalVisualAid.getLine(),
-                                   architecturalVisualAid.getLabel(),
-                                   architecturalVisualAid.getLayer(),
-                                   architecturalVisualAid.isUseAsProjector(),
-                                   architecturalVisualAid.getNumberOfProjectionZones() );
+    public final void setCartesianLine( final CartesianLine cartesianLine ) {
+        setCartesianLine( cartesianLine.getLine(),
+                          cartesianLine.getLabel(),
+                          cartesianLine.getLayer(),
+                          cartesianLine.isUseAsProjector(),
+                          cartesianLine.getNumberOfProjectionZones() );
     }
 
-    public final void setArchitecturalVisualAid( final double x1,
-                                                 final double y1,
-                                                 final double x2,
-                                                 final double y2,
-                                                 final String architecturalVisualAidLabel,
-                                                 final LayerProperties layer,
-                                                 final boolean useAsProjector,
-                                                 final int numberOfProjectionZones ) {
+    public final void setCartesianLine( final double x1,
+                                        final double y1,
+                                        final double x2,
+                                        final double y2,
+                                        final String cartesianLineLabel,
+                                        final LayerProperties layer,
+                                        final boolean useAsProjector,
+                                        final int numberOfProjectionZones ) {
         setLine( x1, y1, x2, y2 );
-        setLineObject( architecturalVisualAidLabel, layer, useAsProjector, numberOfProjectionZones );
+        setLineObject( cartesianLineLabel, layer, useAsProjector, numberOfProjectionZones );
     }
 
-    public final void setArchitecturalVisualAid( final Line line,
-                                                 final String architecturalVisualAidLabel,
-                                                 final LayerProperties layer,
-                                                 final boolean useAsProjector,
-                                                 final int numberOfProjectionZones ) {
+    public final void setCartesianLine( final Line line,
+                                        final String cartesianLineLabel,
+                                        final LayerProperties layer,
+                                        final boolean useAsProjector,
+                                        final int numberOfProjectionZones ) {
         setLine( line );
-        setLineObject( architecturalVisualAidLabel, layer, useAsProjector, numberOfProjectionZones );
+        setLineObject( cartesianLineLabel, layer, useAsProjector, numberOfProjectionZones );
     }
 
-    public final void setArchitecturalVisualAid( final Point2D p1,
-                                                 final double angleDegrees,
-                                                 final double distance,
-                                                 final String architecturalVisualAidLabel,
-                                                 final LayerProperties layer,
-                                                 final boolean useAsProjector,
-                                                 final int numberOfProjectionZones ) {
+    public final void setCartesianLine( final Point2D p1,
+                                        final double angleDegrees,
+                                        final double distance,
+                                        final String cartesianLineLabel,
+                                        final LayerProperties layer,
+                                        final boolean useAsProjector,
+                                        final int numberOfProjectionZones ) {
         setLine( p1, angleDegrees, distance );
-        setLineObject( architecturalVisualAidLabel, layer, useAsProjector, numberOfProjectionZones );
+        setLineObject( cartesianLineLabel, layer, useAsProjector, numberOfProjectionZones );
     }
 
-    public final void setArchitecturalVisualAid( final Point2D p1,
-                                                 final Point2D p2,
-                                                 final String architecturalVisualAidLabel,
-                                                 final LayerProperties layer,
-                                                 final boolean useAsProjector,
-                                                 final int numberOfProjectionZones ) {
+    public final void setCartesianLine( final Point2D p1,
+                                        final Point2D p2,
+                                        final String cartesianLineLabel,
+                                        final LayerProperties layer,
+                                        final boolean useAsProjector,
+                                        final int numberOfProjectionZones ) {
         setLine( p1, p2 );
-        setLineObject( architecturalVisualAidLabel, layer, useAsProjector, numberOfProjectionZones );
+        setLineObject( cartesianLineLabel, layer, useAsProjector, numberOfProjectionZones );
     }
 
     @Override

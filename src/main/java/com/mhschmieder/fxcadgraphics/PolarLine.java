@@ -39,25 +39,22 @@ import javafx.geometry.Point2D;
 import javafx.scene.shape.Line;
 
 /**
- * The <code>MultilevelVisualAid</code> class is the concrete class for
- * multilevel visual aids as used in some CAD apps.
+ * The <code>PolarLine</code> class is the concrete class for Polar Lines.
+ * It mostly follows the Wiki definition for Polar Lines as there is an
+ * inclinometer involved alongside an initial offset before the line starts.
  */
-public class MultilevelVisualAid extends LinearObject {
+public class PolarLine extends LinearObject {
 
-    // Declare the default Multilevel Visual Aid Label.
-    public static final String MULTILEVEL_VISUAL_AID_LABEL_DEFAULT = "Multilevel Visual Aid"; //$NON-NLS-1$
+    // Declare the default Polar Line label.
+    public static final String POLAR_LINE_LABEL_DEFAULT = "Polar Line"; //$NON-NLS-1$
 
     public static final double START_ANGLE_DEGREES_DEFAULT         = 0.0d;
     public static final double START_DISTANCE_DEFAULT              = 1.0d;
     public static final double END_ANGLE_DEGREES_DEFAULT           = 45d;
     public static final double END_DISTANCE_DEFAULT                = 1.0d;
 
-    public static final MultilevelVisualAid getDefaultMultilevelVisualAid() {
-        return new MultilevelVisualAid();
-    }
-
-    public static final String getMultilevelVisualAidLabelDefault() {
-        return MULTILEVEL_VISUAL_AID_LABEL_DEFAULT;
+    public static final PolarLine getDefaultPolarLine() {
+        return new PolarLine();
     }
 
     // Declare variables for Cartesian Space Inclinometer Position (meters), and
@@ -72,65 +69,65 @@ public class MultilevelVisualAid extends LinearObject {
     // we cannot just invoke the super-constructor from each constructor, but
     // need to invoke incrementally more complex local constructors instead.
     // TODO: Make better use of parent class constructors and setters.
-    public MultilevelVisualAid() {
+    public PolarLine() {
         this( X_DEFAULT,
               Y_DEFAULT,
               START_ANGLE_DEGREES_DEFAULT,
               START_DISTANCE_DEFAULT,
               END_ANGLE_DEGREES_DEFAULT,
               END_DISTANCE_DEFAULT,
-              MULTILEVEL_VISUAL_AID_LABEL_DEFAULT,
+              POLAR_LINE_LABEL_DEFAULT,
               LayerUtilities.makeDefaultLayer(),
               USE_AS_PROJECTOR_DEFAULT,
               NUMBER_OF_PROJECTION_ZONES_DEFAULT );
     }
 
-    public MultilevelVisualAid( final double x,
-                                final double y,
-                                final double startAngleDegrees,
-                                final double startDistance,
-                                final double endAngleDegrees,
-                                final double endDistance,
-                                final String multilevelVisualAidLabel,
-                                final LayerProperties layer,
-                                final boolean useAsProjector,
-                                final int numberOfProjectionZones ) {
-        super( multilevelVisualAidLabel, useAsProjector, numberOfProjectionZones );
+    public PolarLine( final double x,
+                      final double y,
+                      final double startAngleDegrees,
+                      final double startDistance,
+                      final double endAngleDegrees,
+                      final double endDistance,
+                      final String polarLineLabel,
+                      final LayerProperties layer,
+                      final boolean useAsProjector,
+                      final int numberOfProjectionZones ) {
+        super( polarLineLabel, useAsProjector, numberOfProjectionZones );
 
-        setMultilevelVisualAid( x,
-                                y,
-                                startAngleDegrees,
-                                startDistance,
-                                endAngleDegrees,
-                                endDistance,
-                                multilevelVisualAidLabel,
-                                layer,
-                                useAsProjector,
-                                numberOfProjectionZones );
+        setPolarLine( x,
+                      y,
+                      startAngleDegrees,
+                      startDistance,
+                      endAngleDegrees,
+                      endDistance,
+                      polarLineLabel,
+                      layer,
+                      useAsProjector,
+                      numberOfProjectionZones );
     }
 
-    public MultilevelVisualAid( final MultilevelVisualAid multilevelVisualAid ) {
-        super( multilevelVisualAid );
+    public PolarLine( final PolarLine polarLine ) {
+        super( polarLine );
 
-        setMultilevelVisualAid( multilevelVisualAid );
+        setPolarLine( polarLine );
     }
 
-    public MultilevelVisualAid( final Point2D referencePoint,
-                                final double startAngleDegrees,
-                                final double startDistance,
-                                final double endAngleDegrees,
-                                final double endDistance,
-                                final String multilevelVisualAidLabel,
-                                final LayerProperties layer,
-                                final boolean useAsProjector,
-                                final int numberOfProjectionZones ) {
+    public PolarLine( final Point2D referencePoint,
+                      final double startAngleDegrees,
+                      final double startDistance,
+                      final double endAngleDegrees,
+                      final double endDistance,
+                      final String polarLineLabel,
+                      final LayerProperties layer,
+                      final boolean useAsProjector,
+                      final int numberOfProjectionZones ) {
         this( referencePoint.getX(),
               referencePoint.getY(),
               startAngleDegrees,
               startDistance,
               endAngleDegrees,
               endDistance,
-              multilevelVisualAidLabel,
+              polarLineLabel,
               layer,
               useAsProjector,
               numberOfProjectionZones );
@@ -138,7 +135,7 @@ public class MultilevelVisualAid extends LinearObject {
 
     @Override
     public final void drag( final double deltaX, final double deltaY ) {
-        // Compute the new Reference Point for the Multilevel Visual Aid by
+        // Compute the new Reference Point for the Polar Line by
         // combining the deltas with the original Reference Point.
         // TODO: Embed this logic in an overridden setLocation() method?
         final Point2D referencePoint = getInclinometerPosition();
@@ -152,14 +149,14 @@ public class MultilevelVisualAid extends LinearObject {
 
     @Override
     public boolean equals( final Object obj ) {
-        if ( !( obj instanceof MultilevelVisualAid ) ) {
+        if ( !( obj instanceof PolarLine ) ) {
             return false;
         }
 
         // NOTE: We invoke getter methods vs. directly accessing data
         // members, so that derived classes produce the correct results when
         // comparing two objects.
-        final MultilevelVisualAid other = ( MultilevelVisualAid ) obj;
+        final PolarLine other = ( PolarLine ) obj;
         if ( !super.equals( obj ) ) {
             return false;
         }
@@ -189,9 +186,9 @@ public class MultilevelVisualAid extends LinearObject {
 
     @Override
     public final GraphicalObject getDeepClonedObject() {
-        final MultilevelVisualAid multilevelVisualAidClone = new MultilevelVisualAid( this );
+        final PolarLine polarLineClone = new PolarLine( this );
 
-        return multilevelVisualAidClone;
+        return polarLineClone;
     }
 
     public final double getEndAngleDegrees() {
@@ -326,16 +323,16 @@ public class MultilevelVisualAid extends LinearObject {
                  endDistance );
     }
 
-    public final void setMultilevelVisualAid( final double inclinometerPositionX,
-                                              final double inclinometerPositionY,
-                                              final double startAngleDegrees,
-                                              final double startDistance,
-                                              final double endAngleDegrees,
-                                              final double endDistance,
-                                              final String multilevelVisualAidLabel,
-                                              final LayerProperties layer,
-                                              final boolean useAsProjector,
-                                              final int numberOfProjectionZones ) {
+    public final void setPolarLine( final double inclinometerPositionX,
+                                    final double inclinometerPositionY,
+                                    final double startAngleDegrees,
+                                    final double startDistance,
+                                    final double endAngleDegrees,
+                                    final double endDistance,
+                                    final String polarLineLabel,
+                                    final LayerProperties layer,
+                                    final boolean useAsProjector,
+                                    final int numberOfProjectionZones ) {
         setLine( inclinometerPositionX,
                  inclinometerPositionY,
                  startAngleDegrees,
@@ -343,40 +340,40 @@ public class MultilevelVisualAid extends LinearObject {
                  endAngleDegrees,
                  endDistance );
 
-        setLineObject( multilevelVisualAidLabel, layer, useAsProjector, numberOfProjectionZones );
+        setLineObject( polarLineLabel, layer, useAsProjector, numberOfProjectionZones );
     }
 
-    public final void setMultilevelVisualAid( final MultilevelVisualAid multiLevelVisualAid ) {
-        setMultilevelVisualAid( multiLevelVisualAid.getInclinometerPosition(),
-                                multiLevelVisualAid.getStartAngleDegrees(),
-                                multiLevelVisualAid.getStartDistance(),
-                                multiLevelVisualAid.getEndAngleDegrees(),
-                                multiLevelVisualAid.getEndDistance(),
-                                multiLevelVisualAid.getLabel(),
-                                multiLevelVisualAid.getLayer(),
-                                multiLevelVisualAid.isUseAsProjector(),
-                                multiLevelVisualAid.getNumberOfProjectionZones() );
+    public final void setPolarLine( final PolarLine polarLine ) {
+        setPolarLine( polarLine.getInclinometerPosition(),
+                      polarLine.getStartAngleDegrees(),
+                      polarLine.getStartDistance(),
+                      polarLine.getEndAngleDegrees(),
+                      polarLine.getEndDistance(),
+                      polarLine.getLabel(),
+                      polarLine.getLayer(),
+                      polarLine.isUseAsProjector(),
+                      polarLine.getNumberOfProjectionZones() );
     }
 
-    public final void setMultilevelVisualAid( final Point2D referencePoint,
-                                              final double startAngleDegrees,
-                                              final double startDistance,
-                                              final double endAngleDegrees,
-                                              final double endDistance,
-                                              final String multilevelVisualAidLabel,
-                                              final LayerProperties layer,
-                                              final boolean useAsProjector,
-                                              final int numberOfProjectionZones ) {
-        setMultilevelVisualAid( referencePoint.getX(),
-                                referencePoint.getY(),
-                                startAngleDegrees,
-                                startDistance,
-                                endAngleDegrees,
-                                endDistance,
-                                multilevelVisualAidLabel,
-                                layer,
-                                useAsProjector,
-                                numberOfProjectionZones );
+    public final void setPolarLine( final Point2D referencePoint,
+                                    final double startAngleDegrees,
+                                    final double startDistance,
+                                    final double endAngleDegrees,
+                                    final double endDistance,
+                                    final String polarLineLabel,
+                                    final LayerProperties layer,
+                                    final boolean useAsProjector,
+                                    final int numberOfProjectionZones ) {
+        setPolarLine( referencePoint.getX(),
+                      referencePoint.getY(),
+                      startAngleDegrees,
+                      startDistance,
+                      endAngleDegrees,
+                      endDistance,
+                      polarLineLabel,
+                      layer,
+                      useAsProjector,
+                      numberOfProjectionZones );
     }
 
     @Override

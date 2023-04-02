@@ -41,80 +41,72 @@ import java.util.HashSet;
  */
 public final class ProjectorUtilities {
 
-    public static Collection< ArchitecturalVisualAid > getSelectedArchitecturalProjectors( final GraphicalObjectCollection< ArchitecturalVisualAid > architecturalVisualAidCollection ) {
-        // Get all of the selected Architectural Visual Aids that are marked as
-        // Projectors.
-        final Collection< ArchitecturalVisualAid > selectedArchitecturalProjectors =
-                                                                                       new HashSet<>( 20 );
-        final Collection< ArchitecturalVisualAid > selectedArchitecturalVisualAids =
-                                                                                   architecturalVisualAidCollection
-                                                                                           .getSelection();
-        selectedArchitecturalVisualAids.forEach( architecturalVisualAid -> {
-            if ( architecturalVisualAid.isUseAsProjector() ) {
-                selectedArchitecturalProjectors.add( architecturalVisualAid );
+    public static Collection< CartesianLine > getSelectedCartesianProjectors( final GraphicalObjectCollection< CartesianLine > cartesianLineCollection ) {
+        // Get all of the selected Cartesian Lines that are marked as Projectors.
+        final Collection< CartesianLine > selectedCartesianProjectors = new HashSet<>( 20 );
+        final Collection< CartesianLine > selectedCartesianLines = cartesianLineCollection.getSelection();
+        selectedCartesianLines.forEach( cartesianLine -> {
+            if ( cartesianLine.isUseAsProjector() ) {
+                selectedCartesianProjectors.add( cartesianLine );
             }
         } );
-        return selectedArchitecturalProjectors;
+        return selectedCartesianProjectors;
     }
 
-    public static Collection< MultilevelVisualAid > getSelectedMultilevelProjectors( final GraphicalObjectCollection< MultilevelVisualAid > multilevelVisualAidCollection ) {
-        // Get all of the selected Multilevel Visual Aids that are marked as
-        // Projectors.
-        final Collection< MultilevelVisualAid > selectedMultilevelProjectors =
-                                                                                 new HashSet<>( 20 );
-        final Collection< MultilevelVisualAid > selectedMultilevelVisualAids =
-                                                                             multilevelVisualAidCollection
-                                                                                     .getSelection();
-        selectedMultilevelVisualAids.forEach( multilevelVisualAid -> {
-            if ( multilevelVisualAid.isUseAsProjector() ) {
-                selectedMultilevelProjectors.add( multilevelVisualAid );
+    public static Collection< PolarLine > getSelectedPolarProjectors( final GraphicalObjectCollection< PolarLine > polarLineCollection ) {
+        // Get all of the selected Polar Lines that are marked as Projectors.
+        final Collection< PolarLine > selectedPolarProjectors = new HashSet<>( 20 );
+        final Collection< PolarLine > selectedPolarLines = polarLineCollection.getSelection();
+        selectedPolarLines.forEach( polarLine -> {
+            if ( polarLine.isUseAsProjector() ) {
+                selectedPolarProjectors.add( polarLine );
             }
         } );
-        return selectedMultilevelProjectors;
+        return selectedPolarProjectors;
     }
 
     // TODO: Continue to try to genericize to just one combined method for all 
     //  types of Linear Objects. So far every effort fails to compile.
-    public static void selectAllArchitecturalProjectors( final GraphicalObjectCollection< ArchitecturalVisualAid > architecturalVisualAidCollection ) {
+    public static void selectAllCartesianProjectors( final GraphicalObjectCollection< CartesianLine > cartesianLineCollection ) {
         // Fill the Linear Objects selection set with all of the Linear Objects that
         // are marked as Projectors.
-        final Collection< ArchitecturalVisualAid > collection = architecturalVisualAidCollection
+        final Collection< CartesianLine > collection = cartesianLineCollection
                 .getCollection();
-        final Collection< ArchitecturalVisualAid > deselection = architecturalVisualAidCollection
+        final Collection< CartesianLine > deselection = cartesianLineCollection
                 .getDeselection();
 
         // Fill the Linear Objects selection set with all of the Projectors.
         // NOTE: It is safer to avoid parallel streams right after clearing one
         // of the collections as a bulk action.
         collection.stream().filter( GraphicalObject::isEditable )
-                .forEach( architecturalVisualAid -> {
-                    if ( architecturalVisualAid.isEditable()
-                            && architecturalVisualAid.isUseAsProjector() ) {
-                        architecturalVisualAidCollection.addToSelection( architecturalVisualAid );
-                        deselection.add( architecturalVisualAid );
+                .forEach( cartesianLine -> {
+                    if ( cartesianLine.isEditable()
+                            && cartesianLine.isUseAsProjector() ) {
+                        cartesianLineCollection.addToSelection( cartesianLine );
+                        deselection.add( cartesianLine );
                     }
                 } );
     }
 
     // TODO: Continue to try to genericize to just one combined method for all 
     //  types of Linear Objects. So far every effort fails to compile.
-    public static void selectAllMultilevelProjectors( final GraphicalObjectCollection< MultilevelVisualAid > multilevelVisualAidCollection ) {
+    public static void selectAllPolarProjectors( final GraphicalObjectCollection< PolarLine > polarLineCollection ) {
         // Fill the Linear Objects selection set with all of the Linear Objects that
         // are marked as Projectors.
-        final Collection< MultilevelVisualAid > collection = multilevelVisualAidCollection
+        final Collection< PolarLine > collection = polarLineCollection
                 .getCollection();
-        final Collection< MultilevelVisualAid > deselection = multilevelVisualAidCollection
+        final Collection< PolarLine > deselection = polarLineCollection
                 .getDeselection();
 
         // Fill the Linear Objects selection set with all of the Projectors.
         // NOTE: It is safer to avoid parallel streams right after clearing one
         // of the collections as a bulk action.
         collection.stream().filter( GraphicalObject::isEditable )
-                .forEach( multilevelVisualAid -> {
-                    if ( multilevelVisualAid.isEditable()
-                            && multilevelVisualAid.isUseAsProjector() ) {
-                        multilevelVisualAidCollection.addToSelection( multilevelVisualAid );
-                        deselection.add( multilevelVisualAid );
+                .forEach( polarLine -> {
+                    if ( polarLine.isEditable()
+                            && polarLine.isUseAsProjector() ) {
+                        polarLineCollection.addToSelection( polarLine );
+                        deselection.add( polarLine );
                     }
                 } );
     }

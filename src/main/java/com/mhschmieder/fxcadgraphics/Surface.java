@@ -43,7 +43,7 @@ import javafx.scene.shape.Line;
  * NOTE: This class is kept around in case of future use, but is effectively
  * replaced by the newer {@code SurfaceProperties} observable class.
  */
-public final class Surface extends ArchitecturalVisualAid {
+public final class Surface extends CartesianLine {
 
     // Surfaces are bypassed by default as they are only approximate.
     public static final boolean BYPASSED_DEFAULT       = true;
@@ -60,14 +60,14 @@ public final class Surface extends ArchitecturalVisualAid {
 
     // This is the default constructor; it sets all instance variables to
     // default values.
-    // NOTE: Since this class declares additional fields to the parent class,
-    // we cannot just invoke the super-constructor from each constructor, but
+    // NOTE: As this class declares additional fields to the parent class, we
+    // cannot just invoke the super-constructor from each constructor, so we
     // need to invoke incrementally more complex local constructors instead.
     public Surface() {
         this( SURFACE_NUMBER_DEFAULT );
     }
 
-    // This is the preferred default constructor using a unique surface ID.
+    // This is the preferred default constructor using a unique Surface ID.
     public Surface( final int surfaceNumber ) {
         this( surfaceNumber, BYPASSED_DEFAULT, MATERIAL_NAME_DEFAULT );
     }
@@ -78,10 +78,10 @@ public final class Surface extends ArchitecturalVisualAid {
         this( surfaceNumber,
               bypassed,
               materialName,
-              ArchitecturalVisualAid.X1_DEFAULT,
-              ArchitecturalVisualAid.Y1_DEFAULT,
-              ArchitecturalVisualAid.X2_DEFAULT,
-              ArchitecturalVisualAid.Y2_DEFAULT );
+              CartesianLine.X1_DEFAULT,
+              CartesianLine.Y1_DEFAULT,
+              CartesianLine.X2_DEFAULT,
+              CartesianLine.Y2_DEFAULT );
     }
 
     // This is the fully qualified constructor, using separate coordinates.
@@ -194,7 +194,7 @@ public final class Surface extends ArchitecturalVisualAid {
                                final int surfaceNumber,
                                final boolean bypassed,
                                final String materialName ) {
-        setArchitecturalVisualAid( line, "", LayerUtilities.makeDefaultLayer(), false, 1 );
+        setCartesianLine( line, "", LayerUtilities.makeDefaultLayer(), false, 1 );
         setSurfaceNumber( surfaceNumber );
         setBypassed( bypassed );
         setMaterialName( materialName );
