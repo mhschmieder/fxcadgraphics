@@ -76,7 +76,7 @@ public class ArchitecturalVisualAid extends VisualAid {
               Y2_DEFAULT,
               ARCHITECTURAL_VISUAL_AID_LABEL_DEFAULT,
               LayerUtilities.makeDefaultLayer(),
-              USE_AS_LISTENER_PLANE_DEFAULT,
+              USE_AS_TARGET_PLANE_DEFAULT,
               NUMBER_OF_TARGET_ZONES_DEFAULT );
     }
 
@@ -92,7 +92,7 @@ public class ArchitecturalVisualAid extends VisualAid {
                                    final double y2,
                                    final String architecturalVisualAidLabel,
                                    final LayerProperties layer,
-                                   final boolean useAsListenerPlane,
+                                   final boolean useAsTargetPlane,
                                    final int numberOfTargetZones ) {
         super();
 
@@ -102,7 +102,7 @@ public class ArchitecturalVisualAid extends VisualAid {
                                    y2,
                                    architecturalVisualAidLabel,
                                    layer,
-                                   useAsListenerPlane,
+                                   useAsTargetPlane,
                                    numberOfTargetZones );
     }
 
@@ -112,14 +112,14 @@ public class ArchitecturalVisualAid extends VisualAid {
         this( line,
               architecturalVisualAidLabel,
               layer,
-              USE_AS_LISTENER_PLANE_DEFAULT,
+              USE_AS_TARGET_PLANE_DEFAULT,
               NUMBER_OF_TARGET_ZONES_DEFAULT );
     }
 
     public ArchitecturalVisualAid( final Line line,
                                    final String architecturalVisualAidLabel,
                                    final LayerProperties layer,
-                                   final boolean useAsListenerPlane,
+                                   final boolean useAsTargetPlane,
                                    final int numberOfTargetZones ) {
         this( line.getStartX(),
               line.getStartY(),
@@ -127,7 +127,7 @@ public class ArchitecturalVisualAid extends VisualAid {
               line.getEndY(),
               architecturalVisualAidLabel,
               layer,
-              useAsListenerPlane,
+              useAsTargetPlane,
               numberOfTargetZones );
     }
 
@@ -139,7 +139,7 @@ public class ArchitecturalVisualAid extends VisualAid {
               p2,
               architecturalVisualAidLabel,
               layer,
-              USE_AS_LISTENER_PLANE_DEFAULT,
+              USE_AS_TARGET_PLANE_DEFAULT,
               NUMBER_OF_TARGET_ZONES_DEFAULT );
     }
 
@@ -147,7 +147,7 @@ public class ArchitecturalVisualAid extends VisualAid {
                                    final Point2D p2,
                                    final String architecturalVisualAidLabel,
                                    final LayerProperties layer,
-                                   final boolean useAsListenerPlane,
+                                   final boolean useAsTargetPlane,
                                    final int numberOfTargetZones ) {
         super();
 
@@ -155,7 +155,7 @@ public class ArchitecturalVisualAid extends VisualAid {
                                    p2,
                                    architecturalVisualAidLabel,
                                    layer,
-                                   useAsListenerPlane,
+                                   useAsTargetPlane,
                                    numberOfTargetZones );
     }
 
@@ -238,7 +238,7 @@ public class ArchitecturalVisualAid extends VisualAid {
         setArchitecturalVisualAid( architecturalVisualAid.getLine(),
                                    architecturalVisualAid.getLabel(),
                                    architecturalVisualAid.getLayer(),
-                                   architecturalVisualAid.isUseAsListenerPlane(),
+                                   architecturalVisualAid.isUseAsTargetPlane(),
                                    architecturalVisualAid.getNumberOfTargetZones() );
     }
 
@@ -248,19 +248,19 @@ public class ArchitecturalVisualAid extends VisualAid {
                                                  final double y2,
                                                  final String architecturalVisualAidLabel,
                                                  final LayerProperties layer,
-                                                 final boolean useAsListenerPlane,
+                                                 final boolean useAsTargetPlane,
                                                  final int numberOfTargetZones ) {
         setLine( x1, y1, x2, y2 );
-        setVisualAid( architecturalVisualAidLabel, layer, useAsListenerPlane, numberOfTargetZones );
+        setVisualAid( architecturalVisualAidLabel, layer, useAsTargetPlane, numberOfTargetZones );
     }
 
     public final void setArchitecturalVisualAid( final Line line,
                                                  final String architecturalVisualAidLabel,
                                                  final LayerProperties layer,
-                                                 final boolean useAsListenerPlane,
+                                                 final boolean useAsTargetPlane,
                                                  final int numberOfTargetZones ) {
         setLine( line );
-        setVisualAid( architecturalVisualAidLabel, layer, useAsListenerPlane, numberOfTargetZones );
+        setVisualAid( architecturalVisualAidLabel, layer, useAsTargetPlane, numberOfTargetZones );
     }
 
     public final void setArchitecturalVisualAid( final Point2D p1,
@@ -268,20 +268,20 @@ public class ArchitecturalVisualAid extends VisualAid {
                                                  final double distance,
                                                  final String architecturalVisualAidLabel,
                                                  final LayerProperties layer,
-                                                 final boolean useAsListenerPlane,
+                                                 final boolean useAsTargetPlane,
                                                  final int numberOfTargetZones ) {
         setLine( p1, angleDegrees, distance );
-        setVisualAid( architecturalVisualAidLabel, layer, useAsListenerPlane, numberOfTargetZones );
+        setVisualAid( architecturalVisualAidLabel, layer, useAsTargetPlane, numberOfTargetZones );
     }
 
     public final void setArchitecturalVisualAid( final Point2D p1,
                                                  final Point2D p2,
                                                  final String architecturalVisualAidLabel,
                                                  final LayerProperties layer,
-                                                 final boolean useAsListenerPlane,
+                                                 final boolean useAsTargetPlane,
                                                  final int numberOfTargetZones ) {
         setLine( p1, p2 );
-        setVisualAid( architecturalVisualAidLabel, layer, useAsListenerPlane, numberOfTargetZones );
+        setVisualAid( architecturalVisualAidLabel, layer, useAsTargetPlane, numberOfTargetZones );
     }
 
     @Override

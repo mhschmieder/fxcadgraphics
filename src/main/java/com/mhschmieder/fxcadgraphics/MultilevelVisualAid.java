@@ -80,7 +80,7 @@ public class MultilevelVisualAid extends VisualAid {
               END_DISTANCE_DEFAULT,
               MULTILEVEL_VISUAL_AID_LABEL_DEFAULT,
               LayerUtilities.makeDefaultLayer(),
-              USE_AS_LISTENER_PLANE_DEFAULT,
+              USE_AS_TARGET_PLANE_DEFAULT,
               NUMBER_OF_TARGET_ZONES_DEFAULT );
     }
 
@@ -92,7 +92,7 @@ public class MultilevelVisualAid extends VisualAid {
                                 final double endDistance,
                                 final String multilevelVisualAidLabel,
                                 final LayerProperties layer,
-                                final boolean useAsListenerPlane,
+                                final boolean useAsTargetPlane,
                                 final int numberOfTargetZones ) {
         super();
 
@@ -104,7 +104,7 @@ public class MultilevelVisualAid extends VisualAid {
                                 endDistance,
                                 multilevelVisualAidLabel,
                                 layer,
-                                useAsListenerPlane,
+                                useAsTargetPlane,
                                 numberOfTargetZones );
     }
 
@@ -121,7 +121,7 @@ public class MultilevelVisualAid extends VisualAid {
                                 final double endDistance,
                                 final String multilevelVisualAidLabel,
                                 final LayerProperties layer,
-                                final boolean useAsListenerPlane,
+                                final boolean useAsTargetPlane,
                                 final int numberOfTargetZones ) {
         this( referencePoint.getX(),
               referencePoint.getY(),
@@ -131,7 +131,7 @@ public class MultilevelVisualAid extends VisualAid {
               endDistance,
               multilevelVisualAidLabel,
               layer,
-              useAsListenerPlane,
+              useAsTargetPlane,
               numberOfTargetZones );
     }
 
@@ -333,7 +333,7 @@ public class MultilevelVisualAid extends VisualAid {
                                               final double endDistance,
                                               final String multilevelVisualAidLabel,
                                               final LayerProperties layer,
-                                              final boolean useAsListenerPlane,
+                                              final boolean useAsTargetPlane,
                                               final int numberOfTargetZones ) {
         setLine( inclinometerPositionX,
                  inclinometerPositionY,
@@ -342,7 +342,7 @@ public class MultilevelVisualAid extends VisualAid {
                  endAngleDegrees,
                  endDistance );
 
-        setVisualAid( multilevelVisualAidLabel, layer, useAsListenerPlane, numberOfTargetZones );
+        setVisualAid( multilevelVisualAidLabel, layer, useAsTargetPlane, numberOfTargetZones );
     }
 
     public final void setMultilevelVisualAid( final MultilevelVisualAid multiLevelVisualAid ) {
@@ -353,7 +353,7 @@ public class MultilevelVisualAid extends VisualAid {
                                 multiLevelVisualAid.getEndDistance(),
                                 multiLevelVisualAid.getLabel(),
                                 multiLevelVisualAid.getLayer(),
-                                multiLevelVisualAid.isUseAsListenerPlane(),
+                                multiLevelVisualAid.isUseAsTargetPlane(),
                                 multiLevelVisualAid.getNumberOfTargetZones() );
     }
 
@@ -364,7 +364,7 @@ public class MultilevelVisualAid extends VisualAid {
                                               final double endDistance,
                                               final String multilevelVisualAidLabel,
                                               final LayerProperties layer,
-                                              final boolean useAsListenerPlane,
+                                              final boolean useAsTargetPlane,
                                               final int numberOfTargetZones ) {
         setMultilevelVisualAid( referencePoint.getX(),
                                 referencePoint.getY(),
@@ -374,7 +374,7 @@ public class MultilevelVisualAid extends VisualAid {
                                 endDistance,
                                 multilevelVisualAidLabel,
                                 layer,
-                                useAsListenerPlane,
+                                useAsTargetPlane,
                                 numberOfTargetZones );
     }
 

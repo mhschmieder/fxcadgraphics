@@ -59,21 +59,25 @@ import javafx.scene.shape.StrokeType;
  */
 public abstract class VisualAid extends GraphicalObject implements LabeledObject {
 
-    // Declare the default Listener Plane Label.
-    public static final String  LISTENER_PLANE_LABEL_DEFAULT   = "Listener Plane"; //$NON-NLS-1$
+    // Declare the default Visual Aid Label.
+    public static final String  VISUAL_AID_LABEL_DEFAULT = "Visual Aid"; //$NON-NLS-1$
 
-    public static final boolean USE_AS_LISTENER_PLANE_DEFAULT  = false;
+    public static final boolean USE_AS_TARGET_PLANE_DEFAULT = false;
     public static final int     NUMBER_OF_TARGET_ZONES_DEFAULT = 1;
 
     private String              _label;
-    private boolean             _useAsListenerPlane;
+    private boolean             _useAsTargetPlane;
     private int                 _numberOfTargetZones;
 
     public VisualAid() {
+        this( VISUAL_AID_LABEL_DEFAULT );
+    }
+
+    public VisualAid( final String labelDefault ) {
         super();
 
-        _label = LISTENER_PLANE_LABEL_DEFAULT;
-        _useAsListenerPlane = USE_AS_LISTENER_PLANE_DEFAULT;
+        _label = labelDefault;
+        _useAsTargetPlane = USE_AS_TARGET_PLANE_DEFAULT;
         _numberOfTargetZones = NUMBER_OF_TARGET_ZONES_DEFAULT;
     }
 
@@ -92,8 +96,8 @@ public abstract class VisualAid extends GraphicalObject implements LabeledObject
                                  line.getEndX(),
                                  line.getEndY() );
 
-        // Conditionally add the Listener Plane cues for the Target Zones.
-        if ( isUseAsListenerPlane() ) {
+        // Conditionally add the Target Plane cues for the Target Zones.
+        if ( isUseAsTargetPlane() ) {
             // First, draw the baseline below the Visual Aid's minimum y point.
             final double baselineY = FastMath.min( line.getStartY(), line.getEndY() );
             ShapeUtilities
@@ -193,7 +197,7 @@ public abstract class VisualAid extends GraphicalObject implements LabeledObject
         if ( !getLabel().equals( other.getLabel() ) ) {
             return false;
         }
-        if ( isUseAsListenerPlane() != other.isUseAsListenerPlane() ) {
+        if ( isUseAsTargetPlane() != other.isUseAsTargetPlane() ) {
             return false;
         }
         return ( getNumberOfTargetZones() == other.getNumberOfTargetZones() );
@@ -242,7 +246,7 @@ public abstract class VisualAid extends GraphicalObject implements LabeledObject
     @Override
     public ShapeGroup getVectorGraphics( final boolean previewContext ) {
         // We need to use a Path with multiple visual elements so that we have a
-        // common object for all cases, including Listener Planes.
+        // common object for all cases, including Target Planes.
         final Path visualAid = new Path();
         final ObservableList< PathElement > visualAidElements = visualAid.getElements();
 
@@ -388,8 +392,8 @@ public abstract class VisualAid extends GraphicalObject implements LabeledObject
         return dragTargetWithinBounds;
     }
 
-    public final boolean isUseAsListenerPlane() {
-        return _useAsListenerPlane;
+    public final boolean isUseAsTargetPlane() {
+        return _useAsTargetPlane;
     }
 
     @Override
@@ -472,17 +476,17 @@ public abstract class VisualAid extends GraphicalObject implements LabeledObject
         _numberOfTargetZones = pNumberOfTargetZones;
     }
 
-    public final void setUseAsListenerPlane( final boolean pUseAsListenerPlane ) {
-        _useAsListenerPlane = pUseAsListenerPlane;
+    public final void setUseAsTargetPlane( final boolean pUseAsTargetPlane ) {
+        _useAsTargetPlane = pUseAsTargetPlane;
     }
 
     protected final void setVisualAid( final String pVisualAidLabel,
                                        final LayerProperties pLayer,
-                                       final boolean pUseAsListenerPlane,
+                                       final boolean pUseAsTargetPlane,
                                        final int pNumberOfTargetZones ) {
         setLabel( pVisualAidLabel );
         setLayer( pLayer );
-        setUseAsListenerPlane( pUseAsListenerPlane );
+        setUseAsTargetPlane( pUseAsTargetPlane );
         setNumberOfTargetZones( pNumberOfTargetZones );
     }
 }
