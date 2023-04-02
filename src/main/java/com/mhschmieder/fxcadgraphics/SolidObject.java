@@ -46,7 +46,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.transform.Affine;
 
 /**
- * The <code>Solid</code> class is the abstract base class for all solid
+ * The <code>SolidObject</code> class is the abstract base class for all solid
  * objects. It describes the attributes that are common to all solid objects in
  * a 3D view, such as orientation, and whether inverted in that orientation.
  * <p>
@@ -60,7 +60,7 @@ import javafx.scene.transform.Affine;
  * Also, this means member variables should not be accessed directly, in case of
  * overrides on getter methods in subclasses.
  */
-public abstract class Solid extends GraphicalObject {
+public abstract class SolidObject extends GraphicalObject {
 
     public static final Vector3D           GC_IN_VENUE_COORDINATES_DEFAULT = Vector3D.ZERO;
 
@@ -87,11 +87,11 @@ public abstract class Solid extends GraphicalObject {
     // need to invoke incrementally more complex local constructors instead.
     //
     // Default constructor (disabled since this is an abstract class)
-    protected Solid() {
+    protected SolidObject() {
         this( X_DEFAULT, Y_DEFAULT, ANGLE_DEGREES_DEFAULT );
     }
 
-    private Solid( final double locationX, final double locationY, final double angleDegrees ) {
+    private SolidObject( final double locationX, final double locationY, final double angleDegrees ) {
         this( locationX,
               locationY,
               angleDegrees,
@@ -100,7 +100,7 @@ public abstract class Solid extends GraphicalObject {
               INVERTED_DEFAULT );
     }
 
-    protected Solid( final double locationX,
+    protected SolidObject( final double locationX,
                      final double locationY,
                      final double angleDegrees,
                      final Orientation orientation,
@@ -116,7 +116,7 @@ public abstract class Solid extends GraphicalObject {
     }
 
     // Fully qualified constructor, using standard Location.
-    protected Solid( final LayerProperties layer,
+    protected SolidObject( final LayerProperties layer,
                      final double locationX,
                      final double locationY,
                      final double angleDegrees,
@@ -139,7 +139,7 @@ public abstract class Solid extends GraphicalObject {
     }
 
     // Fully qualified constructor, using Geometric Center.
-    protected Solid( final LayerProperties layer,
+    protected SolidObject( final LayerProperties layer,
                      final Vector3D gcInVenueCoordinates,
                      final double angleDegrees,
                      final Orientation orientation,
@@ -152,7 +152,7 @@ public abstract class Solid extends GraphicalObject {
 
     @Override
     public boolean equals( final Object obj ) {
-        if ( !( obj instanceof Solid ) ) {
+        if ( !( obj instanceof SolidObject ) ) {
             return false;
         }
 
@@ -165,7 +165,7 @@ public abstract class Solid extends GraphicalObject {
         // TODO: Pass in the level of precision so that it isn't hard-wired,
         // which could become brittle if code changes elsewhere in the
         // application. Pass in the allowed delta as a double, for simplicity.
-        final Solid other = ( Solid ) obj;
+        final SolidObject other = ( SolidObject ) obj;
         if ( !super.equals( obj ) ) {
             return false;
         }
@@ -221,7 +221,7 @@ public abstract class Solid extends GraphicalObject {
     }
 
     /*
-     * Get the transform from the ECS (element coordinate system) for the Solid,
+     * Get the transform from the ECS (element coordinate system) for the SolidObject,
      * to the general Venue coordinate system.
      *
      * NOTE: This method might need to be overridden for any subclass whose ECS
@@ -275,7 +275,7 @@ public abstract class Solid extends GraphicalObject {
     }
 
     // This method takes a generic 3D vector and projects it into the
-    // coordinate system of the Solid within a known 2D axial plane.
+    // coordinate system of the SolidObject within a known 2D axial plane.
     // NOTE: This method should generally only be invoked with offset
     // vectors, and the result should be added to vectors that are in Venue
     // Coordinates. This method does not return Venue Coordinate vectors, but

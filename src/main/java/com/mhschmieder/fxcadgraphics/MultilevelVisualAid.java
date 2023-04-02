@@ -42,7 +42,7 @@ import javafx.scene.shape.Line;
  * The <code>MultilevelVisualAid</code> class is the concrete class for
  * multilevel visual aids as used in some CAD apps.
  */
-public class MultilevelVisualAid extends VisualAid {
+public class MultilevelVisualAid extends LinearObject {
 
     // Declare the default Multilevel Visual Aid Label.
     public static final String MULTILEVEL_VISUAL_AID_LABEL_DEFAULT = "Multilevel Visual Aid"; //$NON-NLS-1$
@@ -71,6 +71,7 @@ public class MultilevelVisualAid extends VisualAid {
     // NOTE: Since this class declares additional fields to the parent class,
     // we cannot just invoke the super-constructor from each constructor, but
     // need to invoke incrementally more complex local constructors instead.
+    // TODO: Make better use of parent class constructors and setters.
     public MultilevelVisualAid() {
         this( X_DEFAULT,
               Y_DEFAULT,
@@ -94,7 +95,7 @@ public class MultilevelVisualAid extends VisualAid {
                                 final LayerProperties layer,
                                 final boolean useAsProjector,
                                 final int numberOfProjectionZones ) {
-        super();
+        super( multilevelVisualAidLabel, useAsProjector, numberOfProjectionZones );
 
         setMultilevelVisualAid( x,
                                 y,
@@ -109,7 +110,7 @@ public class MultilevelVisualAid extends VisualAid {
     }
 
     public MultilevelVisualAid( final MultilevelVisualAid multilevelVisualAid ) {
-        super();
+        super( multilevelVisualAid );
 
         setMultilevelVisualAid( multilevelVisualAid );
     }
@@ -342,7 +343,7 @@ public class MultilevelVisualAid extends VisualAid {
                  endAngleDegrees,
                  endDistance );
 
-        setVisualAid( multilevelVisualAidLabel, layer, useAsProjector, numberOfProjectionZones );
+        setLineObject( multilevelVisualAidLabel, layer, useAsProjector, numberOfProjectionZones );
     }
 
     public final void setMultilevelVisualAid( final MultilevelVisualAid multiLevelVisualAid ) {

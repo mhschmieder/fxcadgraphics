@@ -37,7 +37,7 @@ import java.util.HashSet;
  * This is a utility class for Projectors -- especially actions on collections
  * that otherwise would require class derivation of GraphicalObjectCollection.
  * <p>
- * Projectors are specialized versions of Visual Aids and are marked as such.
+ * Projectors are specialized versions of Linear Objects and are marked as such.
  */
 public final class ProjectorUtilities {
 
@@ -73,17 +73,17 @@ public final class ProjectorUtilities {
         return selectedMultilevelProjectors;
     }
 
-    // TODO: Continue to try to genericize to just one combined method for both 
-    //  types of Visual Aids. So far every effort fails to compile.
+    // TODO: Continue to try to genericize to just one combined method for all 
+    //  types of Linear Objects. So far every effort fails to compile.
     public static void selectAllArchitecturalProjectors( final GraphicalObjectCollection< ArchitecturalVisualAid > architecturalVisualAidCollection ) {
-        // Fill the Visual Aids selection set with all of the Visual Aids that
+        // Fill the Linear Objects selection set with all of the Linear Objects that
         // are marked as Projectors.
         final Collection< ArchitecturalVisualAid > collection = architecturalVisualAidCollection
                 .getCollection();
         final Collection< ArchitecturalVisualAid > deselection = architecturalVisualAidCollection
                 .getDeselection();
 
-        // Fill the Visual Aids selection set with all of the Projectors.
+        // Fill the Linear Objects selection set with all of the Projectors.
         // NOTE: It is safer to avoid parallel streams right after clearing one
         // of the collections as a bulk action.
         collection.stream().filter( GraphicalObject::isEditable )
@@ -96,17 +96,17 @@ public final class ProjectorUtilities {
                 } );
     }
 
-    // TODO: Continue to try to genericize to just one combined method for both 
-    //  types of Visual Aids. So far every effort fails to compile.
+    // TODO: Continue to try to genericize to just one combined method for all 
+    //  types of Linear Objects. So far every effort fails to compile.
     public static void selectAllMultilevelProjectors( final GraphicalObjectCollection< MultilevelVisualAid > multilevelVisualAidCollection ) {
-        // Fill the Visual Aids selection set with all of the Visual Aids that
+        // Fill the Linear Objects selection set with all of the Linear Objects that
         // are marked as Projectors.
         final Collection< MultilevelVisualAid > collection = multilevelVisualAidCollection
                 .getCollection();
         final Collection< MultilevelVisualAid > deselection = multilevelVisualAidCollection
                 .getDeselection();
 
-        // Fill the Visual Aids selection set with all of the Projectors.
+        // Fill the Linear Objects selection set with all of the Projectors.
         // NOTE: It is safer to avoid parallel streams right after clearing one
         // of the collections as a bulk action.
         collection.stream().filter( GraphicalObject::isEditable )

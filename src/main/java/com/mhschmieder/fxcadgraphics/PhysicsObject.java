@@ -56,7 +56,7 @@ import javafx.scene.shape.Shape;
  * Also, this means member variables should not be accessed directly, in case of
  * overrides on getter methods in subclasses.
  */
-public abstract class PhysicsObject extends Solid implements MassComputable, CogMarkable {
+public abstract class PhysicsObject extends SolidObject implements MassComputable, CogMarkable {
 
     // Cache the current Mass Properties associated with this Physics Object.
     private MassProperties _massProperties;

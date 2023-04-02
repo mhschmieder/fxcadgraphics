@@ -43,7 +43,7 @@ import javafx.scene.shape.Line;
  * architectural visual aids as used in some CAD apps. It is really nothing
  * more than a line that is selectable.
  */
-public class ArchitecturalVisualAid extends VisualAid {
+public class ArchitecturalVisualAid extends LinearObject {
 
     // Declare the default Architectural Visual Aid label.
     public static final String    ARCHITECTURAL_VISUAL_AID_LABEL_DEFAULT =
@@ -69,6 +69,7 @@ public class ArchitecturalVisualAid extends VisualAid {
     // NOTE: Since this class declares additional fields to the parent class,
     // we cannot just invoke the super-constructor from each constructor, but
     // need to invoke incrementally more complex local constructors instead.
+    // TODO: Make better use of parent class constructors and setters.
     public ArchitecturalVisualAid() {
         this( X1_DEFAULT,
               Y1_DEFAULT,
@@ -81,7 +82,7 @@ public class ArchitecturalVisualAid extends VisualAid {
     }
 
     public ArchitecturalVisualAid( final ArchitecturalVisualAid architecturalVisualAid ) {
-        super();
+        super( architecturalVisualAid );
 
         setArchitecturalVisualAid( architecturalVisualAid );
     }
@@ -94,7 +95,7 @@ public class ArchitecturalVisualAid extends VisualAid {
                                    final LayerProperties layer,
                                    final boolean useAsProjector,
                                    final int numberOfProjectionZones ) {
-        super();
+        super( architecturalVisualAidLabel, useAsProjector, numberOfProjectionZones );
 
         setArchitecturalVisualAid( x1,
                                    y1,
@@ -251,7 +252,7 @@ public class ArchitecturalVisualAid extends VisualAid {
                                                  final boolean useAsProjector,
                                                  final int numberOfProjectionZones ) {
         setLine( x1, y1, x2, y2 );
-        setVisualAid( architecturalVisualAidLabel, layer, useAsProjector, numberOfProjectionZones );
+        setLineObject( architecturalVisualAidLabel, layer, useAsProjector, numberOfProjectionZones );
     }
 
     public final void setArchitecturalVisualAid( final Line line,
@@ -260,7 +261,7 @@ public class ArchitecturalVisualAid extends VisualAid {
                                                  final boolean useAsProjector,
                                                  final int numberOfProjectionZones ) {
         setLine( line );
-        setVisualAid( architecturalVisualAidLabel, layer, useAsProjector, numberOfProjectionZones );
+        setLineObject( architecturalVisualAidLabel, layer, useAsProjector, numberOfProjectionZones );
     }
 
     public final void setArchitecturalVisualAid( final Point2D p1,
@@ -271,7 +272,7 @@ public class ArchitecturalVisualAid extends VisualAid {
                                                  final boolean useAsProjector,
                                                  final int numberOfProjectionZones ) {
         setLine( p1, angleDegrees, distance );
-        setVisualAid( architecturalVisualAidLabel, layer, useAsProjector, numberOfProjectionZones );
+        setLineObject( architecturalVisualAidLabel, layer, useAsProjector, numberOfProjectionZones );
     }
 
     public final void setArchitecturalVisualAid( final Point2D p1,
@@ -281,7 +282,7 @@ public class ArchitecturalVisualAid extends VisualAid {
                                                  final boolean useAsProjector,
                                                  final int numberOfProjectionZones ) {
         setLine( p1, p2 );
-        setVisualAid( architecturalVisualAidLabel, layer, useAsProjector, numberOfProjectionZones );
+        setLineObject( architecturalVisualAidLabel, layer, useAsProjector, numberOfProjectionZones );
     }
 
     @Override

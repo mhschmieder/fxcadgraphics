@@ -54,15 +54,14 @@ import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeType;
 
 /**
- * The <code>VisualAid</code> class is the abstract base class for all Visual
- * Aids. Visual Aids are essentially enhanced 2D Lines that can also act as
- * Projectors, with concrete derived classes for Cartesian or Polar Coordinates.
+ * The <code>LinearObject</code> class is the abstract base class for all linear
+ * objects, which are essentially enhanced 2D Lines that can act as Projectors,
+ * with concrete derived classes for Cartesian or Polar Coordinates. Note that
+ * curvilinear edges may end up falling within the current abstraction as well.
  */
-public abstract class VisualAid extends GraphicalObject implements LabeledObject {
+public abstract class LinearObject extends GraphicalObject implements LabeledObject {
 
-    // Declare the default Visual Aid Label.
-    public static final String  VISUAL_AID_LABEL_DEFAULT = "Visual Aid"; //$NON-NLS-1$
-
+    public static final String  LINEAR_OBJECT_LABEL_DEFAULT = "Linear Object"; //$NON-NLS-1$
     public static final boolean USE_AS_PROJECTOR_DEFAULT = false;
     public static final int     NUMBER_OF_PROJECTION_ZONES_DEFAULT = 1;
 
@@ -70,16 +69,28 @@ public abstract class VisualAid extends GraphicalObject implements LabeledObject
     private boolean             _useAsProjector;
     private int                 _numberOfProjectionZones;
 
-    public VisualAid() {
-        this( VISUAL_AID_LABEL_DEFAULT );
+    public LinearObject() {
+        this( LINEAR_OBJECT_LABEL_DEFAULT );
     }
 
-    public VisualAid( final String labelDefault ) {
+    public LinearObject( final String label ) {
+        this( label, USE_AS_PROJECTOR_DEFAULT, NUMBER_OF_PROJECTION_ZONES_DEFAULT );
+    }
+
+    public LinearObject( final String label,
+                         final boolean pUseAsProjector,
+                         final int pNumberOfProjectionZones ) {
         super();
 
-        _label = labelDefault;
-        _useAsProjector = USE_AS_PROJECTOR_DEFAULT;
-        _numberOfProjectionZones = NUMBER_OF_PROJECTION_ZONES_DEFAULT;
+        _label = label;
+        _useAsProjector = pUseAsProjector;
+        _numberOfProjectionZones = pNumberOfProjectionZones;
+    }
+    
+    public LinearObject( final LinearObject linearObject ) {
+        this( linearObject.getLabel(),
+              linearObject.isUseAsProjector(),
+              linearObject.getNumberOfProjectionZones() );
     }
 
     /**
@@ -89,7 +100,7 @@ public abstract class VisualAid extends GraphicalObject implements LabeledObject
      *            A pre-constructed collection to hold the lines
      */
     public final void constructLines( final List< Line > lines ) {
-        // Draw the main graphic for the Visual Aid, which is a simple Line.
+        // Draw the main graphic for the Linear Object, which is a simple Line.
         final Line line = getLine();
         ShapeUtilities.drawLine( lines,
                                  line.getStartX(),
@@ -99,7 +110,7 @@ public abstract class VisualAid extends GraphicalObject implements LabeledObject
 
         // Conditionally add the Projector cues for the Projection Zones.
         if ( isUseAsProjector() ) {
-            // First, draw the baseline below the Visual Aid's minimum y point.
+            // First, draw the baseline below the Linear Object's minimum y point.
             final double baselineY = FastMath.min( line.getStartY(), line.getEndY() );
             ShapeUtilities
                     .drawLine( lines, line.getStartX(), baselineY, line.getEndX(), baselineY );
@@ -124,19 +135,19 @@ public abstract class VisualAid extends GraphicalObject implements LabeledObject
      * <p>
      * TODO: Make more efficient by avoiding redundant MoveTo's.
      *
-     * @param visualAidElements
+     * @param pathElements
      *            A pre-constructed collection to hold the path elements
      */
-    public final void constructPathElements( final ObservableList< PathElement > visualAidElements ) {
-        // Construct the lines for the Visual Aid.
+    public final void constructPathElements( final ObservableList< PathElement > pathElements ) {
+        // Construct the lines for the Linear Object.
         final List< Line > lines = new ArrayList<>();
         constructLines( lines );
 
         // Convert the Line Shapes to MoveTo/LineTo PathElement pairs.
         for ( final Line line : lines ) {
             // Convert the Line as a simple MoveTo/LineTo pair.
-            visualAidElements.add( new MoveTo( line.getStartX(), line.getStartY() ) );
-            visualAidElements.add( new LineTo( line.getEndX(), line.getEndY() ) );
+            pathElements.add( new MoveTo( line.getStartX(), line.getStartY() ) );
+            pathElements.add( new LineTo( line.getEndX(), line.getEndY() ) );
         }
     }
 
@@ -165,7 +176,7 @@ public abstract class VisualAid extends GraphicalObject implements LabeledObject
         final double clickDiameter = 0.015d * contextLengthMinimum;
         final double clickRadius = ( 0.5d * clickDiameter ); // + fudgeFactor;
 
-        // Construct the lines for the Visual Aid.
+        // Construct the lines for the Linear Object.
         final List< Line > lines = new ArrayList<>();
         constructLines( lines );
 
@@ -183,14 +194,14 @@ public abstract class VisualAid extends GraphicalObject implements LabeledObject
 
     @Override
     public boolean equals( final Object obj ) {
-        if ( !( obj instanceof VisualAid ) ) {
+        if ( !( obj instanceof LinearObject ) ) {
             return false;
         }
 
         // NOTE: We invoke getter methods vs. directly accessing data
         // members, so that derived classes produce the correct results when
         // comparing two objects.
-        final VisualAid other = ( VisualAid ) obj;
+        final LinearObject other = ( LinearObject ) obj;
         if ( !super.equals( obj ) ) {
             return false;
         }
@@ -242,36 +253,36 @@ public abstract class VisualAid extends GraphicalObject implements LabeledObject
      *
      * @param previewContext
      *            Flag for whether this is used in a preview context
-     * @return a graphical node representing this visual aid
+     * @return a graphical node representing this Linear Object
      */
     @Override
     public ShapeGroup getVectorGraphics( final boolean previewContext ) {
         // We need to use a Path with multiple visual elements so that we have a
         // common object for all cases, including Projectors.
-        final Path visualAid = new Path();
-        final ObservableList< PathElement > visualAidElements = visualAid.getElements();
+        final Path path = new Path();
+        final ObservableList< PathElement > pathElements = path.getElements();
 
-        // Construct the path elements for the Visual Aid.
-        constructPathElements( visualAidElements );
+        // Construct the path elements for the Linear Object.
+        constructPathElements( pathElements );
 
         // NOTE: Unless we set Inside Stroke Type, the computed bounds seem
         // overly large, which results in graphic previews being too small.
         // NOTE: Unlike with Microphones etc., this makes it invisible, so we
         // have to apply Outside or Centered instead -- due to no closure?
-        visualAid.setStrokeType( previewContext ? StrokeType.OUTSIDE : StrokeType.CENTERED );
+        path.setStrokeType( previewContext ? StrokeType.OUTSIDE : StrokeType.CENTERED );
 
         // Butt end caps improve perceived regularity of the highlight dash
         // pattern and also make it less likely that an empty gap will be the
         // final mark for a graphic and thus cause confusion over its extrusion.
-        visualAid.setStrokeLineCap( StrokeLineCap.BUTT );
+        path.setStrokeLineCap( StrokeLineCap.BUTT );
 
         // Treat the bounds-picking criteria separately for the main graphics,
         // so that it is easier to pick than using shape outline.
-        visualAid.setMouseTransparent( false );
-        visualAid.setPickOnBounds( true );
+        path.setMouseTransparent( false );
+        path.setPickOnBounds( true );
 
         final ShapeGroup vectorGraphics = new ShapeGroup();
-        vectorGraphics.addShape( visualAid );
+        vectorGraphics.addShape( path );
 
         return vectorGraphics;
     }
@@ -331,11 +342,11 @@ public abstract class VisualAid extends GraphicalObject implements LabeledObject
             return true;
         }
 
-        // Get the current Visual Aid's and the other Visual Aid's Lines, so
-        // that we can properly detect which Visual Aid is closest to the point
+        // Get the current Line Object's and the other Line Object's Lines, so
+        // that we can properly detect which Line Object is closest to the point
         // of mouse click.
         final Line thisLine = getLine();
-        final Line otherLine = ( ( VisualAid ) other ).getLine();
+        final Line otherLine = ( ( LinearObject ) other ).getLine();
 
         final boolean thisObjectIsCloserThanOtherObjectToClickPoint = ( GeometryUtilities
                 .ptSegDist( thisLine,
@@ -346,7 +357,7 @@ public abstract class VisualAid extends GraphicalObject implements LabeledObject
 
     /**
      * Given a proposed delta offset for each dimension, calculate the resulting
-     * end points of this Visual Aid and make sure that they would not end up
+     * end points of this Line Object and make sure that they would not end up
      * being outside the supplied bounds.
      * <p>
      * This is done as a simple combined test of "too far left", "too far up",
@@ -406,14 +417,14 @@ public abstract class VisualAid extends GraphicalObject implements LabeledObject
                         final double cosTheta,
                         final double sinTheta ) {
         // Apply the rotation angle to the Line end points of all the selected
-        // Visual Aids that are editable, using the formulae:
+        // Line Objects that are editable, using the formulae:
         //
         // qx = ( px * cos( theta ) ) - ( py * sin( theta ) ) + dx
         // qy = ( px * sin( theta ) ) + ( py * cos( theta ) ) + dy
         //
         // where ( dx, dy ) is the translation vector, ( px, py ) is the GC of
-        // the current Visual Aid, and ( qx, qy ) is the transformed GC of the
-        // current Visual Aid.
+        // the current Line Object, and ( qx, qy ) is the transformed GC of the
+        // current Line Object.
         final Line line = getLine();
 
         final double x1 = line.getStartX();
@@ -481,11 +492,11 @@ public abstract class VisualAid extends GraphicalObject implements LabeledObject
         _useAsProjector = pUseAsProjector;
     }
 
-    protected final void setVisualAid( final String pVisualAidLabel,
-                                       final LayerProperties pLayer,
-                                       final boolean pUseAsProjector,
-                                       final int pNumberOfProjectionZones ) {
-        setLabel( pVisualAidLabel );
+    protected final void setLineObject( final String pLineObjectLabel,
+                                        final LayerProperties pLayer,
+                                        final boolean pUseAsProjector,
+                                        final int pNumberOfProjectionZones ) {
+        setLabel( pLineObjectLabel );
         setLayer( pLayer );
         setUseAsProjector( pUseAsProjector );
         setNumberOfProjectionZones( pNumberOfProjectionZones );
