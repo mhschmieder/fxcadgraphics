@@ -35,7 +35,6 @@ import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 import org.apache.commons.math3.util.FastMath;
 
 import com.mhschmieder.fxgraphicstoolkit.geometry.FacingDirection;
-import com.mhschmieder.fxgraphicstoolkit.geometry.GeometryUtilities;
 import com.mhschmieder.fxgraphicstoolkit.geometry.Orientation;
 import com.mhschmieder.fxlayergraphics.model.LayerProperties;
 import com.mhschmieder.fxlayergraphics.LayerUtilities;
@@ -261,7 +260,7 @@ public abstract class SolidObject extends GraphicalObject {
     }
 
     public final Vector2D getGcInPlanarCoordinates() {
-        final Vector2D gcInPlanarCoordinates = GeometryUtilities
+        final Vector2D gcInPlanarCoordinates = VectorUtilities
                 .projectToPlane( _gcInVenueCoordinates, OrthogonalAxes.XY );
         return gcInPlanarCoordinates;
     }
@@ -285,7 +284,7 @@ public abstract class SolidObject extends GraphicalObject {
         // axial space, as we are in the coordinate system of the GC as soon as
         // we conditionally rotate into its known 2D axial Projection Plane.
         Vector3D vectorInProjectedObjectCoordinates = isInverted()
-            ? GeometryUtilities.negatePoint3D( offsetVector, Axis.Z )
+            ? VectorUtilities.negatePoint3D( offsetVector, Axis.Z )
             : VectorUtilities.copyPoint3D( offsetVector );
 
         final Orientation orientation = getOrientation();
@@ -304,7 +303,7 @@ public abstract class SolidObject extends GraphicalObject {
         }
 
         // Rotate into the known 2D axial Projection Plane of the GC.
-        vectorInProjectedObjectCoordinates = GeometryUtilities
+        vectorInProjectedObjectCoordinates = VectorUtilities
                 .rotateInPlane( vectorInProjectedObjectCoordinates,
                                 OrthogonalAxes.XY,
                                 FastMath.toRadians( getAngleDegrees() ) );
@@ -339,7 +338,7 @@ public abstract class SolidObject extends GraphicalObject {
     public final void setGcInVenueCoordinates( final Vector3D gcInVenueCoordinates ) {
         _gcInVenueCoordinates = VectorUtilities.copyPoint3D( gcInVenueCoordinates );
 
-        final Vector2D gcInVenueCoordinatesProjected = GeometryUtilities
+        final Vector2D gcInVenueCoordinatesProjected = VectorUtilities
                 .projectToPlane( gcInVenueCoordinates, OrthogonalAxes.XY );
 
         final double referencePointX = gcInVenueCoordinatesProjected.getX();

@@ -36,12 +36,12 @@ import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 import com.mhschmieder.fxgraphicstoolkit.geometry.FacingDirection;
-import com.mhschmieder.fxgraphicstoolkit.geometry.GeometryUtilities;
 import com.mhschmieder.fxgraphicstoolkit.geometry.Orientation;
 import com.mhschmieder.fxgraphicstoolkit.shape.ShapeUtilities;
 import com.mhschmieder.fxlayergraphics.model.LayerProperties;
 import com.mhschmieder.fxlayergraphics.LayerUtilities;
 import com.mhschmieder.mathtoolkit.geometry.euclidian.OrthogonalAxes;
+import com.mhschmieder.mathtoolkit.geometry.euclidian.VectorUtilities;
 import com.mhschmieder.physicstoolkit.MassComputable;
 import com.mhschmieder.physicstoolkit.MassProperties;
 
@@ -118,7 +118,7 @@ public abstract class PhysicsObject extends SolidObject implements MassComputabl
 
     public final Vector2D getCogInPlanarCoordinates() {
         final Vector3D cogInVenueCoordinates = getCogInVenueCoordinates();
-        final Vector2D cogInPlanarCoordinates = GeometryUtilities
+        final Vector2D cogInPlanarCoordinates = VectorUtilities
                 .projectToPlane( cogInVenueCoordinates, OrthogonalAxes.XY );
         return cogInPlanarCoordinates;
     }
