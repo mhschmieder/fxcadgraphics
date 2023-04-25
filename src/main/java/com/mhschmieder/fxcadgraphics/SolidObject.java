@@ -31,6 +31,7 @@
 package com.mhschmieder.fxcadgraphics;
 
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 import org.apache.commons.math3.util.FastMath;
 
 import com.mhschmieder.fxgraphicstoolkit.geometry.FacingDirection;
@@ -42,7 +43,6 @@ import com.mhschmieder.mathtoolkit.geometry.euclidian.Axis;
 import com.mhschmieder.mathtoolkit.geometry.euclidian.OrthogonalAxes;
 import com.mhschmieder.mathtoolkit.geometry.euclidian.VectorUtilities;
 
-import javafx.geometry.Point2D;
 import javafx.scene.transform.Affine;
 
 /**
@@ -260,8 +260,8 @@ public abstract class SolidObject extends GraphicalObject {
         return _facingDirection;
     }
 
-    public final Point2D getGcInPlanarCoordinates() {
-        final Point2D gcInPlanarCoordinates = GeometryUtilities
+    public final Vector2D getGcInPlanarCoordinates() {
+        final Vector2D gcInPlanarCoordinates = GeometryUtilities
                 .projectToPlane( _gcInVenueCoordinates, OrthogonalAxes.XY );
         return gcInPlanarCoordinates;
     }
@@ -339,7 +339,7 @@ public abstract class SolidObject extends GraphicalObject {
     public final void setGcInVenueCoordinates( final Vector3D gcInVenueCoordinates ) {
         _gcInVenueCoordinates = VectorUtilities.copyPoint3D( gcInVenueCoordinates );
 
-        final Point2D gcInVenueCoordinatesProjected = GeometryUtilities
+        final Vector2D gcInVenueCoordinatesProjected = GeometryUtilities
                 .projectToPlane( gcInVenueCoordinates, OrthogonalAxes.XY );
 
         final double referencePointX = gcInVenueCoordinatesProjected.getX();

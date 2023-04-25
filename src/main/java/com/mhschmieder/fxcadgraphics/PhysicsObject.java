@@ -33,6 +33,7 @@ package com.mhschmieder.fxcadgraphics;
 import java.util.List;
 
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 import com.mhschmieder.fxgraphicstoolkit.geometry.FacingDirection;
 import com.mhschmieder.fxgraphicstoolkit.geometry.GeometryUtilities;
@@ -44,7 +45,6 @@ import com.mhschmieder.mathtoolkit.geometry.euclidian.OrthogonalAxes;
 import com.mhschmieder.physicstoolkit.MassComputable;
 import com.mhschmieder.physicstoolkit.MassProperties;
 
-import javafx.geometry.Point2D;
 import javafx.scene.shape.Shape;
 
 /**
@@ -116,9 +116,9 @@ public abstract class PhysicsObject extends SolidObject implements MassComputabl
         return cogInObjectCoordinates;
     }
 
-    public final Point2D getCogInPlanarCoordinates() {
+    public final Vector2D getCogInPlanarCoordinates() {
         final Vector3D cogInVenueCoordinates = getCogInVenueCoordinates();
-        final Point2D cogInPlanarCoordinates = GeometryUtilities
+        final Vector2D cogInPlanarCoordinates = GeometryUtilities
                 .projectToPlane( cogInVenueCoordinates, OrthogonalAxes.XY );
         return cogInPlanarCoordinates;
     }
@@ -136,7 +136,7 @@ public abstract class PhysicsObject extends SolidObject implements MassComputabl
 
         // We need to use a list of shapes with multiple visual elements, as we
         // have several categories of markers.
-        final Point2D cogLocation = getCogInPlanarCoordinates();
+        final Vector2D cogLocation = getCogInPlanarCoordinates();
         final List< Shape > cogMarkerGraphics = ShapeUtilities
                 .getCrosshairGraphics( cogLocation, crosshairDimension );
 
