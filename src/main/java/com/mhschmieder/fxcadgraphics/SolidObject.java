@@ -36,8 +36,8 @@ import org.apache.commons.math3.util.FastMath;
 
 import com.mhschmieder.fxgraphicstoolkit.geometry.FacingDirection;
 import com.mhschmieder.fxgraphicstoolkit.geometry.Orientation;
-import com.mhschmieder.fxlayergraphics.model.LayerProperties;
 import com.mhschmieder.fxlayergraphics.LayerUtilities;
+import com.mhschmieder.fxlayergraphics.model.LayerProperties;
 import com.mhschmieder.mathtoolkit.geometry.euclidian.Axis;
 import com.mhschmieder.mathtoolkit.geometry.euclidian.OrthogonalAxes;
 import com.mhschmieder.mathtoolkit.geometry.euclidian.VectorUtilities;

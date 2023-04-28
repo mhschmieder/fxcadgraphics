@@ -40,8 +40,8 @@ import com.mhschmieder.commonstoolkit.lang.LabeledObject;
 import com.mhschmieder.commonstoolkit.text.TextUtilities;
 import com.mhschmieder.fxgraphicstoolkit.geometry.GeometryUtilities;
 import com.mhschmieder.fxgraphicstoolkit.shape.ShapeGroup;
-import com.mhschmieder.fxlayergraphics.model.LayerProperties;
 import com.mhschmieder.fxlayergraphics.LayerUtilities;
+import com.mhschmieder.fxlayergraphics.model.LayerProperties;
 
 import javafx.collections.ObservableList;
 import javafx.geometry.BoundingBox;

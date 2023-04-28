@@ -30,9 +30,7 @@
  */
 package com.mhschmieder.fxcadgraphics;
 
-import com.mhschmieder.commonstoolkit.lang.NumberUtilities;
 import com.mhschmieder.fxgraphicstoolkit.geometry.Extents2D;
-import com.mhschmieder.physicstoolkit.DistanceUnit;
 
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
