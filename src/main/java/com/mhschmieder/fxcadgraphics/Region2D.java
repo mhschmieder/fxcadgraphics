@@ -55,7 +55,7 @@ import javafx.scene.shape.Rectangle;
  * The <code>Region2D</code> class is the implementation class for a Region as
  * used in some CAD apps. It currently contains a rectangle describing the
  * dimensions of a subspace of interest, along with surfaces and their
- * status/materials.
+ * status/materials. As such, it isn't quite the same as a Reference Plane.
  *
  * This class is loosely based on the Region object from AutoCAD, which is a
  * two-dimensional enclosed area that optionally has mass properties. In our
