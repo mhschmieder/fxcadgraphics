@@ -99,11 +99,7 @@ public abstract class PhysicsObject extends SolidObject implements MassComputabl
         // members, so that derived classes produce the correct results when
         // comparing two objects.
         final PhysicsObject other = ( PhysicsObject ) obj;
-        if ( !super.equals( obj ) ) {
-            return false;
-        }
-
-        if ( !getMassProperties().equals( other.getMassProperties() ) ) {
+        if ( !super.equals( obj ) || !getMassProperties().equals( other.getMassProperties() ) ) {
             return false;
         }
 

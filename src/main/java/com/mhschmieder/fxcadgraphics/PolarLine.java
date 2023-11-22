@@ -46,12 +46,12 @@ import javafx.scene.shape.Line;
 public class PolarLine extends LinearObject {
 
     // Declare the default Polar Line label.
-    public static final String POLAR_LINE_LABEL_DEFAULT = "Polar Line"; //$NON-NLS-1$
+    public static final String POLAR_LINE_LABEL_DEFAULT    = "Polar Line"; //$NON-NLS-1$
 
-    public static final double START_ANGLE_DEGREES_DEFAULT         = 0.0d;
-    public static final double START_DISTANCE_DEFAULT              = 1.0d;
-    public static final double END_ANGLE_DEGREES_DEFAULT           = 45d;
-    public static final double END_DISTANCE_DEFAULT                = 1.0d;
+    public static final double START_ANGLE_DEGREES_DEFAULT = 0.0d;
+    public static final double START_DISTANCE_DEFAULT      = 1.0d;
+    public static final double END_ANGLE_DEGREES_DEFAULT   = 45d;
+    public static final double END_DISTANCE_DEFAULT        = 1.0d;
 
     public static final PolarLine getDefaultPolarLine() {
         return new PolarLine();
@@ -157,17 +157,7 @@ public class PolarLine extends LinearObject {
         // members, so that derived classes produce the correct results when
         // comparing two objects.
         final PolarLine other = ( PolarLine ) obj;
-        if ( !super.equals( obj ) ) {
-            return false;
-        }
-
-        if ( !getInclinometerPosition().equals( other.getInclinometerPosition() ) ) {
-            return false;
-        }
-        if ( getStartAngleDegrees() != other.getStartAngleDegrees() ) {
-            return false;
-        }
-        if ( getStartDistance() != other.getStartDistance() ) {
+        if ( !super.equals( obj ) || !getInclinometerPosition().equals( other.getInclinometerPosition() ) || ( getStartAngleDegrees() != other.getStartAngleDegrees() ) || ( getStartDistance() != other.getStartDistance() ) ) {
             return false;
         }
         if ( getEndAngleDegrees() != other.getEndAngleDegrees() ) {

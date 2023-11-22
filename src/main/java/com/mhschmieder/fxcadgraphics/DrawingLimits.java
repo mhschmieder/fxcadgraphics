@@ -21,12 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the FxCadToolkit Library
+ * This file is part of the FxCadGraphics Library
  *
  * You should have received a copy of the MIT License along with the
- * FxCadToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * FxCadGraphics Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/fxcadtoolkit
+ * Project: https://github.com/mhschmieder/fxcadgraphics
  */
 package com.mhschmieder.fxcadgraphics;
 
@@ -63,103 +63,148 @@ public final class DrawingLimits extends Extents2D {
      */
     public static final BoundingBox INVALID_BOUNDING_BOX = new BoundingBox( 0.0d, 0.0d, -1d, -1d );
 
-    /** Cached observable copy of most recent auto-sync setting. */
-    private final BooleanProperty   autoSync;
+    /**
+     * Cached observable copy of most recent auto-sync setting.
+     */
+    private BooleanProperty         autoSync;
 
     // NOTE: This field has to follow JavaFX Property Beans conventions.
     public BooleanBinding           drawingLimitsChanged;
 
-    /** Default constructor when nothing is known. */
+    /**
+     * Default constructor when nothing is known. Sets default extents.
+     */
     public DrawingLimits() {
         this( AUTO_SYNC_DEFAULT );
     }
 
-    /*
-     * Default constructor when only auto-sync is known. 
+    /**
+     * Default constructor when only auto-sync is known. Sets default bounds.
+     *
+     * @param pAutoSync
+     *            {@code true} if auto-sync to other extents
      */
     public DrawingLimits( final boolean pAutoSync ) {
-        this( pAutoSync,
-              X_METERS_DEFAULT,
-              Y_METERS_DEFAULT,
-              WIDTH_METERS_DEFAULT,
-              HEIGHT_METERS_DEFAULT );
+        super();
+
+        // Initialize the fields that are unique to DrawingLimits vs.Extents2D.
+        initDrawingLimits( pAutoSync );
     }
 
-    /*
-     * Fully qualified constructor when all dimensions and auto-sync are known.
+    /**
+     * Cross-constructor from {@link Rectangle} to {@link DrawingLimits}.
+     *
+     * @param pBoundary
+     *            The {@link Rectangle} to use for setting the fields
      */
-    public DrawingLimits( final boolean pAutoSync,
-                          final double pBoundaryX,
-                          final double pBoundaryY,
-                          final double pBoundaryWidth,
-                          final double pBoundaryHeight ) {
-        super( pBoundaryX, pBoundaryY, pBoundaryWidth, pBoundaryHeight );
-
-        autoSync = new SimpleBooleanProperty( pAutoSync );
-
-        // Bind all of the properties to the associated dirty flag.
-        // NOTE: This is done during initialization, as it is best to make
-        // singleton objects and just update their values vs. reconstructing.
-        bindProperties();
+    public DrawingLimits( final Rectangle pBoundary ) {
+        this( AUTO_SYNC_DEFAULT, pBoundary );
     }
 
-    /*
-     * Fully qualified constructor when all dimensions and auto-sync are known.
-     */
-    public DrawingLimits( final boolean pAutoSync, final Extents2D pExtents ) {
-        // Always call the super-constructor first!
-        super( pExtents );
-
-        autoSync = new SimpleBooleanProperty( pAutoSync );
-
-        // Bind all of the properties to the associated dirty flag.
-        // NOTE: This is done during initialization, as it is best to make
-        // singleton objects and just update their values vs. reconstructing.
-        bindProperties();
-    }
-
-    /*
-     * Fully qualified constructor when all dimensions and auto-sync are known.
+    /**
+     * Cross-constructor from {@link Rectangle} to {@link DrawingLimits}.
+     *
+     * @param pAutoSync
+     *            {@code true} if auto-sync to other extents
+     * @param pBoundary
+     *            The {@link Rectangle} to use for setting the fields
      */
     public DrawingLimits( final boolean pAutoSync, final Rectangle pBoundary ) {
         // Always call the super-constructor first!
         super( pBoundary );
 
-        autoSync = new SimpleBooleanProperty( pAutoSync );
-
-        // Bind all of the properties to the associated dirty flag.
-        // NOTE: This is done during initialization, as it is best to make
-        // singleton objects and just update their values vs. reconstructing.
-        bindProperties();
+        // Initialize the fields that are unique to DrawingLimits vs.Extents2D.
+        initDrawingLimits( pAutoSync );
     }
 
-    /*
-     * Fully qualified constructor when all dimensions and auto-sync are known.
+    /**
+     * Cross-constructor from {@link Rectangle2D} to {@link DrawingLimits}.
+     *
+     * @param pBounds
+     *            The {@link Rectangle2D} to use for setting the fields
+     */
+    public DrawingLimits( final Rectangle2D pBounds ) {
+        this( AUTO_SYNC_DEFAULT, pBounds );
+    }
+
+    /**
+     * Cross-constructor from {@link Rectangle2D} to {@link DrawingLimits}.
+     *
+     * @param pAutoSync
+     *            {@code true} if auto-sync to other extents
+     * @param pBounds
+     *            The {@link Rectangle2D} to use for setting the fields
      */
     public DrawingLimits( final boolean pAutoSync, final Rectangle2D pBounds ) {
         // Always call the super-constructor first!
         super( pBounds );
 
-        autoSync = new SimpleBooleanProperty( pAutoSync );
-
-        // Bind all of the properties to the associated dirty flag.
-        // NOTE: This is done during initialization, as it is best to make
-        // singleton objects and just update their values vs. reconstructing.
-        bindProperties();
+        // Initialize the fields that are unique to DrawingLimits vs.Extents2D.
+        initDrawingLimits( pAutoSync );
     }
 
-    /*
-     * Fully qualified constructor when all dimensions are known. 
+    /**
+     * Cross-constructor from {@link Bounds} to {@link DrawingLimits}.
+     *
+     * @param computedBounds
+     *            The {@link Bounds} to use for setting the fields
      */
     public DrawingLimits( final Bounds computedBounds ) {
-        this( computedBounds.getMinX(),
-              computedBounds.getMinY(),
-              computedBounds.getWidth(),
-              computedBounds.getHeight() );
+        this( AUTO_SYNC_DEFAULT, computedBounds );
     }
 
-    /*
-     * Fully qualified constructor when all dimensions are known. 
+    /**
+     * Cross-constructor from {@link Bounds} to {@link DrawingLimits}.
+     *
+     * @param pAutoSync
+     *            {@code true} if auto-sync to other extents
+     * @param computedBounds
+     *            The {@link Bounds} to use for setting the fields
+     */
+    public DrawingLimits( final boolean pAutoSync, final Bounds computedBounds ) {
+        super( computedBounds );
+
+        // Initialize the fields that are unique to DrawingLimits vs.Extents2D.
+        initDrawingLimits( pAutoSync );
+    }
+
+    /**
+     * Cross-constructor from {@link Extents2D} to {@link DrawingLimits}.
+     *
+     * @param pExtents
+     *            The {@link Extents2D} to use for setting the fields
+     */
+    public DrawingLimits( final Extents2D pExtents ) {
+        this( AUTO_SYNC_DEFAULT, pExtents );
+    }
+
+    /**
+     * Cross-constructor from {@link Extents2D} to {@link DrawingLimits}.
+     *
+     * @param pAutoSync
+     *            {@code true} if auto-sync to other extents
+     * @param pExtents
+     *            The {@link Extents2D} to use for setting the fields
+     */
+    public DrawingLimits( final boolean pAutoSync, final Extents2D pExtents ) {
+        // Always call the super-constructor first!
+        super( pExtents );
+
+        // Initialize the fields that are unique to DrawingLimits vs.Extents2D.
+        initDrawingLimits( pAutoSync );
+    }
+
+    /**
+     * Partially qualified constructor. Turns auto-sync off by default.
+     *
+     * @param pBoundaryX
+     *            The x-origin to use for the new {@link DrawingLimits}
+     * @param pBoundaryY
+     *            The y-origin to use for the new {@link DrawingLimits}
+     * @param pBoundaryWidth
+     *            The width to use for the new {@link DrawingLimits}
+     * @param pBoundaryHeight
+     *            The height to use for the new {@link DrawingLimits}
      */
     public DrawingLimits( final double pBoundaryX,
                           final double pBoundaryY,
@@ -168,8 +213,36 @@ public final class DrawingLimits extends Extents2D {
         this( AUTO_SYNC_DEFAULT, pBoundaryX, pBoundaryY, pBoundaryWidth, pBoundaryHeight );
     }
 
-    /*
-     * Copy constructor. 
+    /**
+     * Fully qualified constructor.
+     *
+     * @param pAutoSync
+     *            {@code true} if auto-sync to other extents
+     * @param pBoundaryX
+     *            The x-origin to use for the new {@link DrawingLimits}
+     * @param pBoundaryY
+     *            The y-origin to use for the new {@link DrawingLimits}
+     * @param pBoundaryWidth
+     *            The width to use for the new {@link DrawingLimits}
+     * @param pBoundaryHeight
+     *            The height to use for the new {@link DrawingLimits}
+     */
+    public DrawingLimits( final boolean pAutoSync,
+                          final double pBoundaryX,
+                          final double pBoundaryY,
+                          final double pBoundaryWidth,
+                          final double pBoundaryHeight ) {
+        super( pBoundaryX, pBoundaryY, pBoundaryWidth, pBoundaryHeight );
+
+        // Initialize the fields that are unique to DrawingLimits vs.Extents2D.
+        initDrawingLimits( pAutoSync );
+    }
+
+    /**
+     * Copy Constructor.
+     *
+     * @param pDrawingLimits
+     *            The {@link DrawingLimits} to use for setting the fields
      */
     public DrawingLimits( final DrawingLimits pDrawingLimits ) {
         this( pDrawingLimits.isAutoSync(),
@@ -179,22 +252,87 @@ public final class DrawingLimits extends Extents2D {
               pDrawingLimits.getHeight() );
     }
 
-    /*
-     * Fully qualified constructor when all dimensions are known. 
-     */
-    public DrawingLimits( final Extents2D pExtents ) {
-        this( AUTO_SYNC_DEFAULT, pExtents );
-    }
-
-    /*
-     * Fully qualified constructor when all dimensions are known. 
-     */
-    public DrawingLimits( final Rectangle2D pBounds ) {
-        this( AUTO_SYNC_DEFAULT, pBounds );
+    // NOTE: Cloning is disabled as it is dangerous; use the copy constructor
+    // instead.
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        throw new CloneNotSupportedException();
     }
 
     public BooleanProperty autoSyncProperty() {
         return autoSync;
+    }
+
+    public boolean isAutoSync() {
+        return autoSync.get();
+    }
+
+    public void setAutoSync( final boolean pAutoSync ) {
+        autoSync.set( pAutoSync );
+    }
+
+    /*
+     * Initialize the fields that are unique to {@link DrawingLimits}.
+     * Generally called by constructors after setting Extents2D fields.
+     */
+    private void initDrawingLimits( final boolean pAutoSync ) {
+        autoSync = new SimpleBooleanProperty( pAutoSync );
+
+        // Bind all of the properties to the associated dirty flag.
+        // NOTE: This is done during initialization, as it is best to make
+        // singleton objects and just update their values vs. reconstructing.
+        bindProperties();
+    }
+
+    /** Default pseudo-constructor. */
+    public void reset() {
+        setDrawingLimits( AUTO_SYNC_DEFAULT,
+                          X_METERS_DEFAULT,
+                          Y_METERS_DEFAULT,
+                          WIDTH_METERS_DEFAULT,
+                          HEIGHT_METERS_DEFAULT );
+    }
+
+    /*
+     * Fully qualified pseudo-constructor.
+     */
+    public void setDrawingLimits( final boolean pAutoSync,
+                                  final double pBoundaryX,
+                                  final double pBoundaryY,
+                                  final double pBoundaryWidth,
+                                  final double pBoundaryHeight ) {
+        setAutoSync( pAutoSync );
+
+        setExtents( pBoundaryX, pBoundaryY, pBoundaryWidth, pBoundaryHeight );
+    }
+
+    /*
+     * Fully qualified pseudo-constructor.
+     */
+    public void setDrawingLimits( final boolean pAutoSync, final Extents2D pExtents ) {
+        setAutoSync( pAutoSync );
+
+        setExtents( pExtents );
+    }
+
+    /*
+     * Fully qualified pseudo-constructor.
+     */
+    public void setDrawingLimits( final boolean pAutoSync, final Rectangle2D pRectangle ) {
+        setAutoSync( pAutoSync );
+
+        setExtents( pRectangle );
+    }
+
+    /*
+     * Copy pseudo-constructor.
+     */
+    public void setDrawingLimits( final DrawingLimits pDrawingLimits ) {
+        setDrawingLimits( pDrawingLimits.isAutoSync(),
+                          pDrawingLimits.getX(),
+                          pDrawingLimits.getY(),
+                          pDrawingLimits.getWidth(),
+                          pDrawingLimits.getHeight() );
     }
 
     public void bindProperties() {
@@ -218,71 +356,5 @@ public final class DrawingLimits extends Extents2D {
                 return true;
             }
         };
-    }
-
-    // NOTE: Cloning is disabled as it is dangerous; use the copy constructor
-    // instead.
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        throw new CloneNotSupportedException();
-    }
-
-    public boolean isAutoSync() {
-        return autoSync.get();
-    }
-
-    /** Default pseudo-constructor. */
-    public void reset() {
-        setDrawingLimits( AUTO_SYNC_DEFAULT,
-                          X_METERS_DEFAULT,
-                          Y_METERS_DEFAULT,
-                          WIDTH_METERS_DEFAULT,
-                          HEIGHT_METERS_DEFAULT );
-    }
-
-    public void setAutoSync( final boolean pAutoSync ) {
-        autoSync.set( pAutoSync );
-    }
-
-    /*
-     * Fully qualified pseudo-constructor. 
-     */
-    public void setDrawingLimits( final boolean pAutoSync,
-                                  final double pBoundaryX,
-                                  final double pBoundaryY,
-                                  final double pBoundaryWidth,
-                                  final double pBoundaryHeight ) {
-        setAutoSync( pAutoSync );
-
-        setExtents( pBoundaryX, pBoundaryY, pBoundaryWidth, pBoundaryHeight );
-    }
-
-    /*
-     * Fully qualified pseudo-constructor. 
-     */
-    public void setDrawingLimits( final boolean pAutoSync, final Extents2D pExtents ) {
-        setAutoSync( pAutoSync );
-
-        setExtents( pExtents );
-    }
-
-    /*
-     * Fully qualified pseudo-constructor. 
-     */
-    public void setDrawingLimits( final boolean pAutoSync, final Rectangle2D pRectangle ) {
-        setAutoSync( pAutoSync );
-
-        setExtents( pRectangle );
-    }
-
-    /*
-     * Copy pseudo-constructor. 
-     */
-    public void setDrawingLimits( final DrawingLimits pDrawingLimits ) {
-        setDrawingLimits( pDrawingLimits.isAutoSync(),
-                          pDrawingLimits.getX(),
-                          pDrawingLimits.getY(),
-                          pDrawingLimits.getWidth(),
-                          pDrawingLimits.getHeight() );
     }
 }

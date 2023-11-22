@@ -48,10 +48,10 @@ public class CartesianLine extends LinearObject {
     public static final String    CARTESIAN_LINE_LABEL_DEFAULT = "Cartesian Line"; //$NON-NLS-1$
 
     // Declare default constants, where appropriate, for all fields.
-    protected static final double X1_DEFAULT                             = 0.0d;
-    protected static final double Y1_DEFAULT                             = 0.0d;
-    protected static final double X2_DEFAULT                             = 1.0d;
-    protected static final double Y2_DEFAULT                             = 1.0d;
+    protected static final double X1_DEFAULT                   = 0.0d;
+    protected static final double Y1_DEFAULT                   = 0.0d;
+    protected static final double X2_DEFAULT                   = 1.0d;
+    protected static final double Y2_DEFAULT                   = 1.0d;
 
     public static CartesianLine getDefaultCartesianLine() {
         return new CartesianLine();

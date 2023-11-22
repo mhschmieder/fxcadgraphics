@@ -141,17 +141,7 @@ public final class Surface extends CartesianLine {
         // members, so that derived classes produce the correct results when
         // comparing two objects.
         final Surface other = ( Surface ) obj;
-        if ( !super.equals( obj ) ) {
-            return false;
-        }
-
-        if ( getSurfaceNumber() != other.getSurfaceNumber() ) {
-            return false;
-        }
-        if ( isBypassed() != other.isBypassed() ) {
-            return false;
-        }
-        if ( !getMaterialName().equals( other.getMaterialName() ) ) {
+        if ( !super.equals( obj ) || ( getSurfaceNumber() != other.getSurfaceNumber() ) || ( isBypassed() != other.isBypassed() ) || !getMaterialName().equals( other.getMaterialName() ) ) {
             return false;
         }
 

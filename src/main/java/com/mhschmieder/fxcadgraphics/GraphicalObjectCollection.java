@@ -275,11 +275,10 @@ public final class GraphicalObjectCollection< T extends GraphicalObject > {
 
         // NOTE: It is safer to avoid parallel streams right after clearing one
         // of the collections as a bulk action.
-        _collection.stream().filter( T::isEditable )
-                .forEach( graphicalObject -> {
-                    addToSelection( graphicalObject );
-                    _deselection.add( graphicalObject );
-                } );
+        _collection.stream().filter( T::isEditable ).forEach( graphicalObject -> {
+            addToSelection( graphicalObject );
+            _deselection.add( graphicalObject );
+        } );
     }
 
     /**

@@ -272,11 +272,7 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >, 
         // members, so that derived classes produce the correct results when
         // comparing two objects.
         final GraphicalObject other = ( GraphicalObject ) obj;
-        if ( !super.equals( obj ) ) {
-            return false;
-        }
-
-        if ( !getLayer().equals( other.getLayer() ) ) {
+        if ( !super.equals( obj ) || !getLayer().equals( other.getLayer() ) ) {
             return false;
         }
 

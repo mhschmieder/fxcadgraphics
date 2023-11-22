@@ -61,8 +61,8 @@ import javafx.scene.shape.StrokeType;
  */
 public abstract class LinearObject extends GraphicalObject implements LabeledObject {
 
-    public static final String  LINEAR_OBJECT_LABEL_DEFAULT = "Linear Object"; //$NON-NLS-1$
-    public static final boolean USE_AS_PROJECTOR_DEFAULT = false;
+    public static final String  LINEAR_OBJECT_LABEL_DEFAULT        = "Linear Object"; //$NON-NLS-1$
+    public static final boolean USE_AS_PROJECTOR_DEFAULT           = false;
     public static final int     NUMBER_OF_PROJECTION_ZONES_DEFAULT = 1;
 
     private String              _label;
@@ -86,7 +86,7 @@ public abstract class LinearObject extends GraphicalObject implements LabeledObj
         _useAsProjector = pUseAsProjector;
         _numberOfProjectionZones = pNumberOfProjectionZones;
     }
-    
+
     public LinearObject( final LinearObject linearObject ) {
         this( linearObject.getLabel(),
               linearObject.isUseAsProjector(),
@@ -110,12 +110,14 @@ public abstract class LinearObject extends GraphicalObject implements LabeledObj
 
         // Conditionally add the Projector cues for the Projection Zones.
         if ( isUseAsProjector() ) {
-            // First, draw the baseline below the Linear Object's minimum y point.
+            // First, draw the baseline below the Linear Object's minimum y
+            // point.
             final double baselineY = FastMath.min( line.getStartY(), line.getEndY() );
             ShapeUtilities
                     .drawLine( lines, line.getStartX(), baselineY, line.getEndX(), baselineY );
 
-            // Now, draw as many additional drop-lines as there are Projection Zones.
+            // Now, draw as many additional drop-lines as there are Projection
+            // Zones.
             final double xDiff = line.getEndX() - line.getStartX();
             final double yDiff = line.getEndY() - line.getStartY();
             final double xDelta = xDiff / _numberOfProjectionZones;
@@ -202,14 +204,7 @@ public abstract class LinearObject extends GraphicalObject implements LabeledObj
         // members, so that derived classes produce the correct results when
         // comparing two objects.
         final LinearObject other = ( LinearObject ) obj;
-        if ( !super.equals( obj ) ) {
-            return false;
-        }
-
-        if ( !getLabel().equals( other.getLabel() ) ) {
-            return false;
-        }
-        if ( isUseAsProjector() != other.isUseAsProjector() ) {
+        if ( !super.equals( obj ) || !getLabel().equals( other.getLabel() ) || ( isUseAsProjector() != other.isUseAsProjector() ) ) {
             return false;
         }
         return ( getNumberOfProjectionZones() == other.getNumberOfProjectionZones() );

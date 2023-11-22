@@ -83,14 +83,14 @@ public final class Region2D extends Extents2D {
     public BooleanBinding                               surfaceValueChanged;
 
     /*
-     * Default constructor when nothing is known. 
+     * Default constructor when nothing is known.
      */
     public Region2D() {
         this( X_METERS_DEFAULT, Y_METERS_DEFAULT, WIDTH_METERS_DEFAULT, HEIGHT_METERS_DEFAULT );
     }
 
     /*
-     * Default constructor when surfaces are disabled. 
+     * Default constructor when surfaces are disabled.
      */
     private Region2D( final double pBoundaryX,
                       final double pBoundaryY,
@@ -115,7 +115,7 @@ public final class Region2D extends Extents2D {
     }
 
     /*
-     * Default constructor when surfaces are selectively enabled. 
+     * Default constructor when surfaces are selectively enabled.
      */
     public Region2D( final double pBoundaryX,
                      final double pBoundaryY,
@@ -142,7 +142,7 @@ public final class Region2D extends Extents2D {
 
     /*
      * Default constructor when surfaces are selectively enabled.
-     */ 
+     */
     public Region2D( final double pBoundaryX,
                      final double pBoundaryY,
                      final double pBoundaryWidth,
@@ -195,7 +195,7 @@ public final class Region2D extends Extents2D {
     }
 
     /*
-     * Default constructor when surfaces are selectively enabled. 
+     * Default constructor when surfaces are selectively enabled.
      */
     public Region2D( final Rectangle pBoundary,
                      final ObservableList< SurfaceProperties > pSurfaceProperties ) {
@@ -453,7 +453,7 @@ public final class Region2D extends Extents2D {
     }
 
     /*
-     * Default pseudo-constructor. 
+     * Default pseudo-constructor.
      */
     public void reset() {
         // NOTE: Do not reset the Surface Names.
@@ -476,7 +476,7 @@ public final class Region2D extends Extents2D {
     }
 
     /*
-     * Pseudo-constructor. Private, so does not notify listeners. 
+     * Pseudo-constructor. Private, so does not notify listeners.
      */
     public void setRegion2D( final double pBoundaryX,
                              final double pBoundaryY,
@@ -489,7 +489,7 @@ public final class Region2D extends Extents2D {
     }
 
     /*
-     * Fully qualified pseudo-constructor. 
+     * Fully qualified pseudo-constructor.
      */
     public void setRegion2D( final double pBoundaryX,
                              final double pBoundaryY,
@@ -524,7 +524,7 @@ public final class Region2D extends Extents2D {
     }
 
     /*
-     * Pseudo-constructor. Private, so does not notify listeners. 
+     * Pseudo-constructor. Private, so does not notify listeners.
      */
     public void setRegion2D( final Rectangle pBoundary,
                              final ObservableList< SurfaceProperties > pSurfaceProperties ) {
@@ -536,7 +536,7 @@ public final class Region2D extends Extents2D {
     }
 
     /*
-     * Copy pseudo-constructor. 
+     * Copy pseudo-constructor.
      */
     public void setRegion2D( final Region2D pRegion2D ) {
         setRegion2D( pRegion2D.getX(),

@@ -90,7 +90,9 @@ public abstract class SolidObject extends GraphicalObject {
         this( X_DEFAULT, Y_DEFAULT, ANGLE_DEGREES_DEFAULT );
     }
 
-    private SolidObject( final double locationX, final double locationY, final double angleDegrees ) {
+    private SolidObject( final double locationX,
+                         final double locationY,
+                         final double angleDegrees ) {
         this( locationX,
               locationY,
               angleDegrees,
@@ -100,11 +102,11 @@ public abstract class SolidObject extends GraphicalObject {
     }
 
     protected SolidObject( final double locationX,
-                     final double locationY,
-                     final double angleDegrees,
-                     final Orientation orientation,
-                     final FacingDirection facingDirection,
-                     final boolean inverted ) {
+                           final double locationY,
+                           final double angleDegrees,
+                           final Orientation orientation,
+                           final FacingDirection facingDirection,
+                           final boolean inverted ) {
         this( LayerUtilities.makeDefaultLayer(),
               locationX,
               locationY,
@@ -116,12 +118,12 @@ public abstract class SolidObject extends GraphicalObject {
 
     // Fully qualified constructor, using standard Location.
     protected SolidObject( final LayerProperties layer,
-                     final double locationX,
-                     final double locationY,
-                     final double angleDegrees,
-                     final Orientation orientation,
-                     final FacingDirection facingDirection,
-                     final boolean inverted ) {
+                           final double locationX,
+                           final double locationY,
+                           final double angleDegrees,
+                           final Orientation orientation,
+                           final FacingDirection facingDirection,
+                           final boolean inverted ) {
         // NOTE: Do not call any non-final "set" methods in the constructor
         // as this would invoke overridden methods in subclasses that can
         // cause recursion and null pointer problems at construction time.
@@ -139,11 +141,11 @@ public abstract class SolidObject extends GraphicalObject {
 
     // Fully qualified constructor, using Geometric Center.
     protected SolidObject( final LayerProperties layer,
-                     final Vector3D gcInVenueCoordinates,
-                     final double angleDegrees,
-                     final Orientation orientation,
-                     final FacingDirection facingDirection,
-                     final boolean inverted ) {
+                           final Vector3D gcInVenueCoordinates,
+                           final double angleDegrees,
+                           final Orientation orientation,
+                           final FacingDirection facingDirection,
+                           final boolean inverted ) {
         this( layer, X_DEFAULT, Y_DEFAULT, angleDegrees, orientation, facingDirection, inverted );
 
         setGcInVenueCoordinates( gcInVenueCoordinates );
@@ -165,23 +167,13 @@ public abstract class SolidObject extends GraphicalObject {
         // which could become brittle if code changes elsewhere in the
         // application. Pass in the allowed delta as a double, for simplicity.
         final SolidObject other = ( SolidObject ) obj;
-        if ( !super.equals( obj ) ) {
-            return false;
-        }
+        
 
         // NOTE: We are forced to use a copy constructor on the GC field, and
         // thus the address is different for equivalent objects created during
         // candidate/current object syncing on the insert/edit dialog, causing
         // the generic "equals()" method to return a false negative.
-        if ( !getGcInVenueCoordinates().equals( other.getGcInVenueCoordinates() ) ) {
-            return false;
-        }
-
-        if ( !getOrientation().equals( other.getOrientation() ) ) {
-            return false;
-        }
-
-        if ( !getFacingDirection().equals( other.getFacingDirection() ) ) {
+        if ( !super.equals( obj ) || !getGcInVenueCoordinates().equals( other.getGcInVenueCoordinates() ) || !getOrientation().equals( other.getOrientation() ) || !getFacingDirection().equals( other.getFacingDirection() ) ) {
             return false;
         }
 
@@ -220,12 +212,11 @@ public abstract class SolidObject extends GraphicalObject {
     }
 
     /*
-     * Get the transform from the ECS (element coordinate system) for the SolidObject,
+     * Get the transform from the ECS (element coordinate system) for the
+     * SolidObject,
      * to the general Venue coordinate system.
-     *
      * NOTE: This method might need to be overridden for any subclass whose ECS
      * is NOT centered about the GC (geometric center).
-     *
      * TODO: Need to account for Orientation when getting the GC?
      */
     public Affine getElementToVenueTransform() {

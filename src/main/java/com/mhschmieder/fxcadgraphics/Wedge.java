@@ -61,7 +61,7 @@ public class Wedge {
     // [0] means the negative direction of each dimension (rear, right, bottom)
     // [1] means the positive direction of each dimension (front, left, top)
     // TODO: Replace this declaration and all associated method signatures with
-    //  Vector3D from Apache Math and use VectorUtilities to work with it.
+    // Vector3D from Apache Math and use VectorUtilities to work with it.
     private Point3D[][][] _cornerPointArray = new Point3D[ 2 ][ 2 ][ 2 ];
 
     public Wedge() {
@@ -279,8 +279,8 @@ public class Wedge {
         final float approximateHeight = ( float ) ( _cornerPointArray[ 1 ][ 1 ][ 1 ].getZ()
                 - _cornerPointArray[ 1 ][ 1 ][ 0 ].getZ() );
 
-        final float crosshairsDimension = 0.5f
-                * FastMath.min( approximateHeight, FastMath.min( approximateDepth, approximateWidth ) );
+        final float crosshairsDimension = 0.5f * FastMath
+                .min( approximateHeight, FastMath.min( approximateDepth, approximateWidth ) );
 
         // Draw the cross-hair as two separate lines, to represent the geometric
         // center of the object.
