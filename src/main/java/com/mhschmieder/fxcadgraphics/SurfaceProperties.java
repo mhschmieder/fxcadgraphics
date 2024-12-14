@@ -30,7 +30,7 @@
  */
 package com.mhschmieder.fxcadgraphics;
 
-import com.mhschmieder.physicstoolkit.SurfaceMaterialNames;
+import com.mhschmieder.physicstoolkit.SurfaceMaterial;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -39,13 +39,17 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+// TODO: Find a way to move this class to a ".model" subpackage of fxcadgui
+//  and also switch to wrapping the SurfaceMaterial enum vs. its string label.
+//  That requires changes in multiple libraries but is likely doable.
 public final class SurfaceProperties {
 
     // Surfaces are bypassed by default as they are only approximate.
     public static final boolean   BYPASSED_DEFAULT      = true;
 
     // Declare the Surface Material default name.
-    public static final String    MATERIAL_NAME_DEFAULT = SurfaceMaterialNames.RIGID;
+    public static final String  MATERIAL_NAME_DEFAULT  = SurfaceMaterial.RIGID
+            .toPresentationString();
 
     private final IntegerProperty surfaceNumber;
     private final StringProperty  surfaceName;

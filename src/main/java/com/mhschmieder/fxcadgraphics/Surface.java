@@ -31,7 +31,7 @@
 package com.mhschmieder.fxcadgraphics;
 
 import com.mhschmieder.fxlayergraphics.LayerUtilities;
-import com.mhschmieder.physicstoolkit.SurfaceMaterialNames;
+import com.mhschmieder.physicstoolkit.SurfaceMaterial;
 
 import javafx.scene.shape.Line;
 
@@ -52,7 +52,8 @@ public final class Surface extends CartesianLine {
     private static final int    SURFACE_NUMBER_DEFAULT = 1;
 
     // Declare the surface material name.
-    public static final String  MATERIAL_NAME_DEFAULT  = SurfaceMaterialNames.RIGID;
+    public static final String  MATERIAL_NAME_DEFAULT  = SurfaceMaterial.RIGID
+            .toPresentationString();
 
     private boolean             _bypassed              = BYPASSED_DEFAULT;
     private int                 _surfaceNumber         = SURFACE_NUMBER_DEFAULT;
