@@ -47,19 +47,13 @@
             <artifactId>commons-math3</artifactId>
             <version>3.6.1</version>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>com.mhschmieder</groupId>
             <artifactId>mathtoolkit</artifactId>
             <version>0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
-         <dependency>
-            <groupId>com.mhschmieder</groupId>
-            <artifactId>physicstoolkit</artifactId>
-            <version>0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-       <dependency>
+        <dependency>
             <groupId>com.mhschmieder</groupId>
             <artifactId>fxgraphicstoolkit</artifactId>
             <version>0.1-SNAPSHOT</version>
@@ -71,7 +65,7 @@
             <version>0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
-       <dependency>
+        <dependency>
             <groupId>com.mhschmieder</groupId>
             <artifactId>pdftoolkit</artifactId>
             <version>0.1-SNAPSHOT</version>

@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2023 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,16 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the FxCadToolkit Library
+ * This file is part of the FxCadGraphics Library
  *
  * You should have received a copy of the MIT License along with the
- * FxCadToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * FxCadGraphics Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/fxcadtoolkit
+ * Project: https://github.com/mhschmieder/fxcadgraphics
  */
 package com.mhschmieder.fxcadgraphics;
-
-import com.mhschmieder.physicstoolkit.SurfaceMaterial;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
