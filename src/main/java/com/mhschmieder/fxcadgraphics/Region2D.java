@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2023 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,12 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the FxCadToolkit Library
+ * This file is part of the FxCadGraphics Library
  *
  * You should have received a copy of the MIT License along with the
- * FxCadToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * FxCadGraphics Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/fxcadtoolkit
+ * Project: https://github.com/mhschmieder/fxcadgraphics
  */
 package com.mhschmieder.fxcadgraphics;
 
@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mhschmieder.commonstoolkit.text.TextUtilities;
+import com.mhschmieder.fxgraphicstoolkit.beans.BeanFactory;
 import com.mhschmieder.fxgraphicstoolkit.geometry.Extents2D;
 import com.mhschmieder.pdftoolkit.PdfFonts;
 import com.mhschmieder.pdftoolkit.PdfTools;
@@ -78,9 +79,9 @@ public final class Region2D extends Extents2D {
 
     // NOTE: These fields have to follow JavaFX Property Beans conventions.
     // TODO: Split value changed, to material name changed, and status changed?
-    public BooleanBinding                               regionBoundaryChanged;
-    public BooleanBinding                               surfaceNameChanged;
-    public BooleanBinding                               surfaceValueChanged;
+    private BooleanBinding                              regionBoundaryChanged;
+    private BooleanBinding                              surfaceNameChanged;
+    private BooleanBinding                              surfaceValueChanged;
 
     /*
      * Default constructor when nothing is known.
@@ -190,8 +191,8 @@ public final class Region2D extends Extents2D {
 
         // Bind all of the properties to the associated dirty flag.
         // NOTE: This is done during initialization, as it is best to make
-        // singleton objects and just update their values vs. reconstructing.
-        bindProperties();
+        //  singleton objects and just update their values vs. reconstructing.
+        makeBooleanBindings();
     }
 
     /*
@@ -217,88 +218,48 @@ public final class Region2D extends Extents2D {
               pRegion2D.getSurfaceProperties() );
     }
 
-    public void bindProperties() {
+    public void makeBooleanBindings() {
         // Establish the Region Boundary Changed dirty flag criteria as any
         // boundary parameter change.
-        regionBoundaryChanged = new BooleanBinding() {
-            {
-                // When any of these assignable values change, the
-                // regionBoundaryChanged Boolean Binding is invalidated and
-                // notifies its listeners.
-                super.bind( xProperty(), yProperty(), widthProperty(), heightProperty() );
-            }
-
-            // Just auto-clear the invalidation by overriding with a status that
-            // is affirmative of a change having triggered the call.
-            @Override
-            protected boolean computeValue() {
-                return true;
-            }
-        };
+        regionBoundaryChanged = BeanFactory.makeBooleanBinding(
+            xProperty(), 
+            yProperty(), 
+            widthProperty(), 
+            heightProperty() );
 
         // Establish the Surface Name Changed dirty flag criteria as any surface
         // name change.
-        surfaceNameChanged = new BooleanBinding() {
-            {
-                // When any of these assignable values change, the
-                // surfaceNameChanged Boolean Binding is invalidated and
-                // notifies its listeners.
-                // NOTE: Collections only flag a change if elements are added
-                // or removed, as opposed to when the settings on an element
-                // change, so we have to bind instead against all the mutable
-                // properties of the individual elements in the collection.
-                // Thus it is a good thing we have a static and known size.
-                final SurfaceProperties surface1Properties = surfacePropertiesList.get( 0 );
-                final SurfaceProperties surface2Properties = surfacePropertiesList.get( 1 );
-                final SurfaceProperties surface3Properties = surfacePropertiesList.get( 2 );
-                final SurfaceProperties surface4Properties = surfacePropertiesList.get( 3 );
-                super.bind( surface1Properties.surfaceNameProperty(),
-                            surface2Properties.surfaceNameProperty(),
-                            surface3Properties.surfaceNameProperty(),
-                            surface4Properties.surfaceNameProperty() );
-            }
+        // NOTE: Collections only flag a change if elements are added or removed,
+        //  as opposed to when the settings on an element change, so we must bind 
+        //  instead against all the mutable properties of the individual elements
+        //  in the collection. This works because we have a known fixed list size.
+        final SurfaceProperties surface1Properties = surfacePropertiesList.get( 0 );
+        final SurfaceProperties surface2Properties = surfacePropertiesList.get( 1 );
+        final SurfaceProperties surface3Properties = surfacePropertiesList.get( 2 );
+        final SurfaceProperties surface4Properties = surfacePropertiesList.get( 3 );
+        surfaceNameChanged = BeanFactory.makeBooleanBinding(
+            surface1Properties.surfaceNameProperty(),
+            surface2Properties.surfaceNameProperty(),
+            surface3Properties.surfaceNameProperty(),
+            surface4Properties.surfaceNameProperty() );
 
-            // Just auto-clear the invalidation by overriding with a status that
-            // is affirmative of a change having triggered the call.
-            @Override
-            protected boolean computeValue() {
-                return true;
-            }
-        };
-
-        // Establish the Surface Value Changed dirty flag criteria as any
-        // surface value change.
-        surfaceValueChanged = new BooleanBinding() {
-            {
-                // When any of these assignable values change, the
-                // surfaceValueChanged Boolean Binding is invalidated and
-                // notifies its listeners.
-                // NOTE: Collections only flag a change if elements are added
-                // or removed, as opposed to when the settings on an element
-                // change, so we have to bind instead against all the mutable
-                // properties of the individual elements in the collection.
-                // Thus it is a good thing we have a static and known size.
-                final SurfaceProperties surface1Properties = surfacePropertiesList.get( 0 );
-                final SurfaceProperties surface2Properties = surfacePropertiesList.get( 1 );
-                final SurfaceProperties surface3Properties = surfacePropertiesList.get( 2 );
-                final SurfaceProperties surface4Properties = surfacePropertiesList.get( 3 );
-                super.bind( surface1Properties.surfaceBypassedProperty(),
-                            surface1Properties.materialNameProperty(),
-                            surface2Properties.surfaceBypassedProperty(),
-                            surface2Properties.materialNameProperty(),
-                            surface3Properties.surfaceBypassedProperty(),
-                            surface3Properties.materialNameProperty(),
-                            surface4Properties.surfaceBypassedProperty(),
-                            surface4Properties.materialNameProperty() );
-            }
-
-            // Just auto-clear the invalidation by overriding with a status that
-            // is affirmative of a change having triggered the call.
-            @Override
-            protected boolean computeValue() {
-                return true;
-            }
-        };
+        // Establish the Surface Value Changed dirty flag criteria as any surface
+        // value change.
+        // NOTE: Collections only flag a change if elements are added or removed,
+        //  as opposed to when the settings on an element change, so we must bind 
+        //  instead against all the mutable properties of the individual elements
+        //  in the collection. This works because we have a known fixed list size.
+        // TODO: Consider avoiding duplication by referencing surfaceNameChanged,
+        //  as long as that doesn't cause issues with invalidate status on get().
+        surfaceValueChanged = BeanFactory.makeBooleanBinding(
+            surface1Properties.surfaceBypassedProperty(),
+            surface1Properties.materialNameProperty(),
+            surface2Properties.surfaceBypassedProperty(),
+            surface2Properties.materialNameProperty(),
+            surface3Properties.surfaceBypassedProperty(),
+            surface3Properties.materialNameProperty(),
+            surface4Properties.surfaceBypassedProperty(),
+            surface4Properties.materialNameProperty() );
     }
 
     // NOTE: Cloning is disabled as it is dangerous; use the copy constructor

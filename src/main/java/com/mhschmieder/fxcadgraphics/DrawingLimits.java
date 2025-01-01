@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2023 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,6 +30,7 @@
  */
 package com.mhschmieder.fxcadgraphics;
 
+import com.mhschmieder.fxgraphicstoolkit.beans.BeanFactory;
 import com.mhschmieder.fxgraphicstoolkit.geometry.Extents2D;
 
 import javafx.beans.binding.BooleanBinding;
@@ -69,7 +70,7 @@ public final class DrawingLimits extends Extents2D {
     private BooleanProperty         autoSync;
 
     // NOTE: This field has to follow JavaFX Property Beans conventions.
-    public BooleanBinding           drawingLimitsChanged;
+    private BooleanBinding           drawingLimitsChanged;
 
     /**
      * Default constructor when nothing is known. Sets default extents.
@@ -280,8 +281,14 @@ public final class DrawingLimits extends Extents2D {
 
         // Bind all of the properties to the associated dirty flag.
         // NOTE: This is done during initialization, as it is best to make
-        // singleton objects and just update their values vs. reconstructing.
-        bindProperties();
+        //  singleton objects and just update their values vs. reconstructing.
+        drawingLimitsChanged = BeanFactory.makeBooleanBinding(
+             autoSyncProperty(),
+             xProperty(),
+             yProperty(),
+             widthProperty(),
+             heightProperty() );
+
     }
 
     /** Default pseudo-constructor. */
@@ -333,28 +340,5 @@ public final class DrawingLimits extends Extents2D {
                           pDrawingLimits.getY(),
                           pDrawingLimits.getWidth(),
                           pDrawingLimits.getHeight() );
-    }
-
-    public void bindProperties() {
-        // Establish the dirty flag criteria as any assignable value change.
-        drawingLimitsChanged = new BooleanBinding() {
-            {
-                // When any of these assignable values change, the
-                // drawingLimitsChanged Boolean Binding is invalidated and
-                // notifies its listeners.
-                super.bind( autoSyncProperty(),
-                            xProperty(),
-                            yProperty(),
-                            widthProperty(),
-                            heightProperty() );
-            }
-
-            // Just auto-clear the invalidation by overriding with a status that
-            // is affirmative of a change having triggered the call.
-            @Override
-            protected boolean computeValue() {
-                return true;
-            }
-        };
     }
 }
