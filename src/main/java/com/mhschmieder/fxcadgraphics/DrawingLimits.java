@@ -271,6 +271,14 @@ public final class DrawingLimits extends Extents2D {
     public void setAutoSync( final boolean pAutoSync ) {
         autoSync.set( pAutoSync );
     }
+    
+    public BooleanBinding drawingLimitsChangedProperty() {
+        return drawingLimitsChanged;
+    }
+    
+    public boolean isDrawingLimitsChanged() {
+        return drawingLimitsChanged.get();
+    }
 
     /*
      * Initialize the fields that are unique to {@link DrawingLimits}.

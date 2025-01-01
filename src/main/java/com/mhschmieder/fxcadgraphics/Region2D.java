@@ -268,6 +268,30 @@ public final class Region2D extends Extents2D {
     protected Object clone() throws CloneNotSupportedException {
         throw new CloneNotSupportedException();
     }
+    
+    public BooleanBinding regionBoundaryChangedProperty() {
+        return regionBoundaryChanged;
+    }
+    
+    public boolean isRegionBoundaryChanged() {
+        return regionBoundaryChanged.get();
+    }
+    
+    public BooleanBinding surfaceNameChangedProperty() {
+        return surfaceNameChanged;
+    }
+    
+    public boolean isSurfaceNameChanged() {
+        return surfaceNameChanged.get();
+    }
+    
+    public BooleanBinding surfaceValueChangedProperty() {
+        return surfaceValueChanged;
+    }
+    
+    public boolean isSurfaceValueChanged() {
+        return surfaceValueChanged.get();
+    }
 
     public void exportToPdf( final PDF document,
                              final Page page,
@@ -296,8 +320,8 @@ public final class Region2D extends Extents2D {
         // Declare the Region Boundary column headers, then get the table.
         final String[] boundarySpanNames = new String[] { "EXTENTS" }; //$NON-NLS-1$
         final String[] boundaryColumnNames = new String[] {
-                                                            "LOWER LEFT CORNER (X, Y)", //$NON-NLS-1$
-                                                            "SIZE (WIDTH, HEIGHT)" }; //$NON-NLS-1$
+            "LOWER LEFT CORNER (X, Y)", //$NON-NLS-1$
+            "SIZE (WIDTH, HEIGHT)" }; //$NON-NLS-1$
         final int numberOfBoundaryColumns = boundaryColumnNames.length;
         final int[] boundarySpanLengths = new int[] { numberOfBoundaryColumns };
 
