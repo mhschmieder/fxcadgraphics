@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2023 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,13 +30,13 @@
  */
 package com.mhschmieder.fxcadgraphics;
 
+import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.apache.commons.math3.util.FastMath;
 
-import com.mhschmieder.fxgraphicstoolkit.geometry.GeometryUtilities;
 import com.mhschmieder.fxgraphicstoolkit.geometry.Orientation;
+import com.mhschmieder.mathtoolkit.geometry.euclidian.VectorUtilities;
 
 import javafx.collections.ObservableList;
-import javafx.geometry.Point3D;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -60,9 +60,7 @@ public class Wedge {
     // where x=rear/front, y=right/left, z=bottom/top
     // [0] means the negative direction of each dimension (rear, right, bottom)
     // [1] means the positive direction of each dimension (front, left, top)
-    // TODO: Replace this declaration and all associated method signatures with
-    // Vector3D from Apache Math and use VectorUtilities to work with it.
-    private Point3D[][][] _cornerPointArray = new Point3D[ 2 ][ 2 ][ 2 ];
+    private Vector3D[][][] _cornerPointArray = new Vector3D[ 2 ][ 2 ][ 2 ];
 
     public Wedge() {
         this( 0.0d, 0.0d, 0.0d, 0.0d, 0.0d );
@@ -74,34 +72,34 @@ public class Wedge {
                   final double heightRear,
                   final double heightFront ) {
         // Rear Right
-        _cornerPointArray[ 0 ][ 0 ][ 0 ] = new Point3D( -0.5d * depth,
+        _cornerPointArray[ 0 ][ 0 ][ 0 ] = new Vector3D( -0.5d * depth,
                                                         -0.5d * widthRear,
                                                         -0.5d * heightRear ); // Bottom
-        _cornerPointArray[ 0 ][ 0 ][ 1 ] = new Point3D( -0.5d * depth,
+        _cornerPointArray[ 0 ][ 0 ][ 1 ] = new Vector3D( -0.5d * depth,
                                                         -0.5d * widthRear,
                                                         0.5d * heightRear ); // Top
 
         // Rear Left
-        _cornerPointArray[ 0 ][ 1 ][ 0 ] = new Point3D( -0.5d * depth,
+        _cornerPointArray[ 0 ][ 1 ][ 0 ] = new Vector3D( -0.5d * depth,
                                                         0.5d * widthRear,
                                                         -0.5d * heightRear ); // Bottom
-        _cornerPointArray[ 0 ][ 1 ][ 1 ] = new Point3D( -0.5d * depth,
+        _cornerPointArray[ 0 ][ 1 ][ 1 ] = new Vector3D( -0.5d * depth,
                                                         0.5d * widthRear,
                                                         0.5d * heightRear ); // Top
 
         // Front Right
-        _cornerPointArray[ 1 ][ 0 ][ 0 ] = new Point3D( 0.5d * depth,
+        _cornerPointArray[ 1 ][ 0 ][ 0 ] = new Vector3D( 0.5d * depth,
                                                         -0.5d * widthFront,
                                                         -0.5d * heightFront ); // Bottom
-        _cornerPointArray[ 1 ][ 0 ][ 1 ] = new Point3D( 0.5d * depth,
+        _cornerPointArray[ 1 ][ 0 ][ 1 ] = new Vector3D( 0.5d * depth,
                                                         -0.5d * widthFront,
                                                         0.5d * heightFront ); // Top
 
         // Front Left
-        _cornerPointArray[ 1 ][ 1 ][ 0 ] = new Point3D( 0.5d * depth,
+        _cornerPointArray[ 1 ][ 1 ][ 0 ] = new Vector3D( 0.5d * depth,
                                                         0.5d * widthFront,
                                                         -0.5d * heightFront ); // Bottom
-        _cornerPointArray[ 1 ][ 1 ][ 1 ] = new Point3D( 0.5d * depth,
+        _cornerPointArray[ 1 ][ 1 ][ 1 ] = new Vector3D( 0.5d * depth,
                                                         0.5d * widthFront,
                                                         0.5d * heightFront ); // Top
     }
@@ -116,20 +114,20 @@ public class Wedge {
         final double halfWidth = 0.5d * width;
 
         // Rear Right
-        _cornerPointArray[ 0 ][ 0 ][ 0 ] = new Point3D( bottomRearX, -halfWidth, -halfHeight ); // Bottom
-        _cornerPointArray[ 0 ][ 0 ][ 1 ] = new Point3D( topRearX, -halfWidth, halfHeight ); // Top
+        _cornerPointArray[ 0 ][ 0 ][ 0 ] = new Vector3D( bottomRearX, -halfWidth, -halfHeight ); // Bottom
+        _cornerPointArray[ 0 ][ 0 ][ 1 ] = new Vector3D( topRearX, -halfWidth, halfHeight ); // Top
 
         // Rear Left
-        _cornerPointArray[ 0 ][ 1 ][ 0 ] = new Point3D( bottomRearX, halfWidth, -halfHeight ); // Bottom
-        _cornerPointArray[ 0 ][ 1 ][ 1 ] = new Point3D( topRearX, halfWidth, halfHeight ); // Top
+        _cornerPointArray[ 0 ][ 1 ][ 0 ] = new Vector3D( bottomRearX, halfWidth, -halfHeight ); // Bottom
+        _cornerPointArray[ 0 ][ 1 ][ 1 ] = new Vector3D( topRearX, halfWidth, halfHeight ); // Top
 
         // Front Right
-        _cornerPointArray[ 1 ][ 0 ][ 0 ] = new Point3D( bottomFrontX, -halfWidth, -halfHeight ); // Bottom
-        _cornerPointArray[ 1 ][ 0 ][ 1 ] = new Point3D( topFrontX, -halfWidth, halfHeight ); // Top
+        _cornerPointArray[ 1 ][ 0 ][ 0 ] = new Vector3D( bottomFrontX, -halfWidth, -halfHeight ); // Bottom
+        _cornerPointArray[ 1 ][ 0 ][ 1 ] = new Vector3D( topFrontX, -halfWidth, halfHeight ); // Top
 
         // Front Left
-        _cornerPointArray[ 1 ][ 1 ][ 0 ] = new Point3D( bottomFrontX, halfWidth, -halfHeight ); // Bottom
-        _cornerPointArray[ 1 ][ 1 ][ 1 ] = new Point3D( topFrontX, halfWidth, halfHeight ); // Top
+        _cornerPointArray[ 1 ][ 1 ][ 0 ] = new Vector3D( bottomFrontX, halfWidth, -halfHeight ); // Bottom
+        _cornerPointArray[ 1 ][ 1 ][ 1 ] = new Vector3D( topFrontX, halfWidth, halfHeight ); // Top
     }
 
     public Wedge( final double topFrontX,
@@ -143,25 +141,25 @@ public class Wedge {
 
         // Rear Right
         _cornerPointArray[ 0 ][ 0 ][ 0 ] =
-                                         new Point3D( bottomRearX, -0.5d * widthRear, -halfHeight ); // Bottom
-        _cornerPointArray[ 0 ][ 0 ][ 1 ] = new Point3D( topRearX, -0.5d * widthRear, halfHeight ); // Top
+                                         new Vector3D( bottomRearX, -0.5d * widthRear, -halfHeight ); // Bottom
+        _cornerPointArray[ 0 ][ 0 ][ 1 ] = new Vector3D( topRearX, -0.5d * widthRear, halfHeight ); // Top
 
         // Rear Left
         _cornerPointArray[ 0 ][ 1 ][ 0 ] =
-                                         new Point3D( bottomRearX, 0.5d * widthRear, -halfHeight ); // Bottom
-        _cornerPointArray[ 0 ][ 1 ][ 1 ] = new Point3D( topRearX, 0.5d * widthRear, halfHeight ); // Top
+                                         new Vector3D( bottomRearX, 0.5d * widthRear, -halfHeight ); // Bottom
+        _cornerPointArray[ 0 ][ 1 ][ 1 ] = new Vector3D( topRearX, 0.5d * widthRear, halfHeight ); // Top
 
         // Front Right
-        _cornerPointArray[ 1 ][ 0 ][ 0 ] = new Point3D( bottomFrontX,
+        _cornerPointArray[ 1 ][ 0 ][ 0 ] = new Vector3D( bottomFrontX,
                                                         -0.5d * widthFront,
                                                         -halfHeight ); // Bottom
-        _cornerPointArray[ 1 ][ 0 ][ 1 ] = new Point3D( topFrontX, -0.5d * widthFront, halfHeight ); // Top
+        _cornerPointArray[ 1 ][ 0 ][ 1 ] = new Vector3D( topFrontX, -0.5d * widthFront, halfHeight ); // Top
 
         // Front Left
-        _cornerPointArray[ 1 ][ 1 ][ 0 ] = new Point3D( bottomFrontX,
+        _cornerPointArray[ 1 ][ 1 ][ 0 ] = new Vector3D( bottomFrontX,
                                                         0.5d * widthFront,
                                                         -halfHeight ); // Bottom
-        _cornerPointArray[ 1 ][ 1 ][ 1 ] = new Point3D( topFrontX, 0.5d * widthFront, halfHeight ); // Top
+        _cornerPointArray[ 1 ][ 1 ][ 1 ] = new Vector3D( topFrontX, 0.5d * widthFront, halfHeight ); // Top
     }
 
     public Wedge( final double topFrontX,
@@ -176,47 +174,47 @@ public class Wedge {
         final double halfWidth = 0.5d * width;
 
         // Rear Right
-        _cornerPointArray[ 0 ][ 0 ][ 0 ] = new Point3D( bottomRearX, -halfWidth, bottomRearZ ); // Bottom
-        _cornerPointArray[ 0 ][ 0 ][ 1 ] = new Point3D( topRearX, -halfWidth, topRearZ ); // Top
+        _cornerPointArray[ 0 ][ 0 ][ 0 ] = new Vector3D( bottomRearX, -halfWidth, bottomRearZ ); // Bottom
+        _cornerPointArray[ 0 ][ 0 ][ 1 ] = new Vector3D( topRearX, -halfWidth, topRearZ ); // Top
 
         // Rear Left
-        _cornerPointArray[ 0 ][ 1 ][ 0 ] = new Point3D( bottomRearX, halfWidth, bottomRearZ ); // Bottom
-        _cornerPointArray[ 0 ][ 1 ][ 1 ] = new Point3D( topRearX, halfWidth, topRearZ ); // Top
+        _cornerPointArray[ 0 ][ 1 ][ 0 ] = new Vector3D( bottomRearX, halfWidth, bottomRearZ ); // Bottom
+        _cornerPointArray[ 0 ][ 1 ][ 1 ] = new Vector3D( topRearX, halfWidth, topRearZ ); // Top
 
         // Front Right
-        _cornerPointArray[ 1 ][ 0 ][ 0 ] = new Point3D( bottomFrontX, -halfWidth, bottomFrontZ ); // Bottom
-        _cornerPointArray[ 1 ][ 0 ][ 1 ] = new Point3D( topFrontX, -halfWidth, topFrontZ ); // Top
+        _cornerPointArray[ 1 ][ 0 ][ 0 ] = new Vector3D( bottomFrontX, -halfWidth, bottomFrontZ ); // Bottom
+        _cornerPointArray[ 1 ][ 0 ][ 1 ] = new Vector3D( topFrontX, -halfWidth, topFrontZ ); // Top
 
         // Front Left
-        _cornerPointArray[ 1 ][ 1 ][ 0 ] = new Point3D( bottomFrontX, halfWidth, bottomFrontZ ); // Bottom
-        _cornerPointArray[ 1 ][ 1 ][ 1 ] = new Point3D( topFrontX, halfWidth, topFrontZ ); // Top
+        _cornerPointArray[ 1 ][ 1 ][ 0 ] = new Vector3D( bottomFrontX, halfWidth, bottomFrontZ ); // Bottom
+        _cornerPointArray[ 1 ][ 1 ][ 1 ] = new Vector3D( topFrontX, halfWidth, topFrontZ ); // Top
     }
 
     public Wedge( final Wedge wedge ) {
         _cornerPointArray = wedge.copyCornerPointArray();
     }
 
-    public Point3D[][][] copyCornerPointArray() {
-        final Point3D[][][] cornerPointArray = new Point3D[ 3 ][ 3 ][ 3 ];
+    public Vector3D[][][] copyCornerPointArray() {
+        final Vector3D[][][] cornerPointArray = new Vector3D[ 3 ][ 3 ][ 3 ];
 
-        cornerPointArray[ 0 ][ 0 ][ 0 ] = GeometryUtilities
+        cornerPointArray[ 0 ][ 0 ][ 0 ] = VectorUtilities
                 .copyPoint3D( cornerPointArray[ 0 ][ 0 ][ 0 ] );
-        cornerPointArray[ 0 ][ 0 ][ 1 ] = GeometryUtilities
+        cornerPointArray[ 0 ][ 0 ][ 1 ] = VectorUtilities
                 .copyPoint3D( cornerPointArray[ 0 ][ 0 ][ 1 ] );
 
-        cornerPointArray[ 0 ][ 1 ][ 0 ] = GeometryUtilities
+        cornerPointArray[ 0 ][ 1 ][ 0 ] = VectorUtilities
                 .copyPoint3D( cornerPointArray[ 0 ][ 1 ][ 0 ] );
-        cornerPointArray[ 0 ][ 1 ][ 1 ] = GeometryUtilities
+        cornerPointArray[ 0 ][ 1 ][ 1 ] = VectorUtilities
                 .copyPoint3D( cornerPointArray[ 0 ][ 1 ][ 1 ] );
 
-        cornerPointArray[ 1 ][ 0 ][ 0 ] = GeometryUtilities
+        cornerPointArray[ 1 ][ 0 ][ 0 ] = VectorUtilities
                 .copyPoint3D( cornerPointArray[ 1 ][ 0 ][ 0 ] );
-        cornerPointArray[ 1 ][ 0 ][ 1 ] = GeometryUtilities
+        cornerPointArray[ 1 ][ 0 ][ 1 ] = VectorUtilities
                 .copyPoint3D( cornerPointArray[ 1 ][ 0 ][ 1 ] );
 
-        cornerPointArray[ 1 ][ 1 ][ 0 ] = GeometryUtilities
+        cornerPointArray[ 1 ][ 1 ][ 0 ] = VectorUtilities
                 .copyPoint3D( cornerPointArray[ 1 ][ 1 ][ 0 ] );
-        cornerPointArray[ 1 ][ 1 ][ 1 ] = GeometryUtilities
+        cornerPointArray[ 1 ][ 1 ][ 1 ] = VectorUtilities
                 .copyPoint3D( cornerPointArray[ 1 ][ 1 ][ 1 ] );
 
         return cornerPointArray;
@@ -407,7 +405,7 @@ public class Wedge {
         wedge.lineTo( ( float ) xPts[ 0 ], ( float ) yPts[ 0 ] );
     }
 
-    public Point3D get( final int ii, final int jj, final int kk ) {
+    public Vector3D get( final int ii, final int jj, final int kk ) {
         return _cornerPointArray[ ii ][ jj ][ kk ];
     }
 
@@ -425,7 +423,7 @@ public class Wedge {
         return wedge;
     }
 
-    public Point3D[][][] getCornerPointArray() {
+    public Vector3D[][][] getCornerPointArray() {
         return _cornerPointArray;
     }
 
@@ -514,7 +512,7 @@ public class Wedge {
         return wedge;
     }
 
-    public void set( final Point3D[][][] cornerPointArray ) {
+    public void set( final Vector3D[][][] cornerPointArray ) {
         _cornerPointArray = cornerPointArray;
     }
 
