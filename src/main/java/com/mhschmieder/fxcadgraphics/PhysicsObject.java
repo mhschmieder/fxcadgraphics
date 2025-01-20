@@ -33,9 +33,9 @@ package com.mhschmieder.fxcadgraphics;
 import java.util.List;
 
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 import com.mhschmieder.fxgraphicstoolkit.geometry.FacingDirection;
-import com.mhschmieder.fxgraphicstoolkit.geometry.GeometryUtilities;
 import com.mhschmieder.fxgraphicstoolkit.geometry.Orientation;
 import com.mhschmieder.fxgraphicstoolkit.shape.ShapeUtilities;
 import com.mhschmieder.fxlayergraphics.LayerUtilities;
@@ -114,19 +114,25 @@ public abstract class PhysicsObject extends SolidObject implements MassComputabl
         return _massProperties.getCogInObjectCoordinates();
     }
 
-    public final Point2D getCogInPlanarCoordinates() {
-        final Point3D cogInVenueCoordinates = getCogInVenueCoordinates();
-        final Point2D cogInPlanarCoordinates = GeometryUtilities
+    // NOTE: This is in non-JavaFX units as it references a Physics Library method.
+    public final Vector2D getCogInPlanarCoordinates() {
+        final Vector3D cogInVenueCoordinates = getCogInVenueCoordinates();
+        final Vector2D cogInPlanarCoordinates = VectorUtilities
                 .projectToPlane( cogInVenueCoordinates, OrthogonalAxes.XY );
         return cogInPlanarCoordinates;
     }
 
-    public final Point3D getCogInVenueCoordinates() {
+    // NOTE: This is in non-JavaFX units as it references a Physics Library method.
+    public final Vector3D getCogInVenueCoordinates() {
         final Vector3D cogInObjectCoordinates = getCogInObjectCoordinates();
         final Point3D fxCogInObjectCoordinates = new Point3D( cogInObjectCoordinates.getX(), 
                                                               cogInObjectCoordinates.getY(), 
                                                               cogInObjectCoordinates.getZ() );
-        return getVectorInVenueCoordinatesFromObjectCoordinates( fxCogInObjectCoordinates );
+        final Point3D cogInVenueCoordinates = getVectorInVenueCoordinatesFromObjectCoordinates( 
+                fxCogInObjectCoordinates );
+        return new Vector3D( cogInVenueCoordinates.getX(), 
+                             cogInVenueCoordinates.getY(), 
+                             cogInVenueCoordinates.getZ() );
     }
 
     @Override
@@ -137,9 +143,11 @@ public abstract class PhysicsObject extends SolidObject implements MassComputabl
 
         // We need to use a list of shapes with multiple visual elements, as we
         // have several categories of markers.
-        final Point2D cogLocation = getCogInPlanarCoordinates();
+        final Vector2D cogLocation = getCogInPlanarCoordinates();
+        final Point2D fxCogLocation = new Point2D( cogLocation.getX(), 
+                                                   cogLocation.getY() );
         final List< Shape > cogMarkerGraphics = ShapeUtilities
-                .getCrosshairGraphics( cogLocation, crosshairDimension );
+                .getCrosshairGraphics( fxCogLocation, crosshairDimension );
 
         return cogMarkerGraphics;
     }
