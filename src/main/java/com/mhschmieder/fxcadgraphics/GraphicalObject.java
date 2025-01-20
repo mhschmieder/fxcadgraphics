@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2023 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,12 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the FxCommonsToolkit Library
+ * This file is part of the FxCadGraphics Library
  *
  * You should have received a copy of the MIT License along with the
- * FxCommonsToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * FxCadGraphics Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/fxcommonstoolkit
+ * Project: https://github.com/mhschmieder/fxcadgraphics
  */
 package com.mhschmieder.fxcadgraphics;
 
@@ -59,11 +59,11 @@ import javafx.scene.transform.Transform;
  * (x,y), and rotation angle (in the XY plane).
  * <p>
  * NOTE: All data should be private, in case of overrides on getter methods.
- * Also, this means member variables should not be accessed directly, in case of
- * overrides on getter methods in subclasses.
+ *  Also, this means member variables should not be accessed directly, in case of
+ *  overrides on getter methods in subclasses.
  * TODO: Move the label-based methods to a new LabeledObjectCollection class
- * that is derived from GraphicalObjectCollection, and be sure to declare other
- * downstream collections as of that type.
+ *  that is derived from GraphicalObjectCollection, and be sure to declare other
+ *  downstream collections as of that type.
  */
 public abstract class GraphicalObject implements Comparable< GraphicalObject >, LayerAssignable {
 
@@ -73,9 +73,9 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >, 
     // Declare constants for Cartesian Space coordinates (meters) and rotation
     // angle (degrees).
     // NOTE: These have tentatively been made protected instead of private, as
-    // there are some unfortunate recursions in certain derived classes during
-    // update() methods if they invoke get() methods vs. working directly
-    // with the instance variable instead.
+    //  there are some unfortunate recursions in certain derived classes during
+    //  update() methods if they invoke get() methods vs. working directly
+    //  with the instance variable instead.
     protected static final double  X_DEFAULT             = 0.0d;
 
     protected static final double  Y_DEFAULT             = 0.0d;
@@ -154,9 +154,7 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >, 
         return false;
     }
 
-    // TODO: Remove loose tolerance here, and paste it into a
-    // Microphone-specific version of this method, once we know whether Power
-    // Users are happy with the new behavior.
+    // TODO: Remove loose tolerance here, and make a special version instead.
     // TODO: Verify that the click point is in the correct origin/system.
     public boolean contains( final Point2D clickPoint,
                              final Bounds contextBounds,
@@ -165,18 +163,18 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >, 
         // containment in those cases, as bounding box based containment is very
         // coarse due to object rotation, odd shapes, and other factors.
         // NOTE: We have set this criteria to 10 meters, but might need to make
-        // this more flexible or even user-defined and thus passed into this
-        // method as a tolerance, as it would be zoom-sensitive in scale.
+        //  this more flexible or even user-defined and thus passed into this
+        //  method as a tolerance, as it would be zoom-sensitive in scale.
         // TODO: Replace this with a Shape based outline containment test.
         // NOTE: That is disabled for now, because currently we use a Group
-        // derived ShapeGroup and thus would need to iterate all of its
-        // Shapes using a new method, to avoid getting false negatives.
+        //  derived ShapeGroup and thus would need to iterate all of its
+        //  Shapes using a new method, to avoid getting false negatives.
         final double contextWidth = contextBounds.getWidth();
         final double contextHeight = contextBounds.getHeight();
         final double contextLengthMinimum = FastMath.min( contextWidth, contextHeight );
 
         // NOTE: For tight fit, we use AWT as it is boundary path based vs.
-        // enclosing bounding box based, so doesn't get false hits.
+        //  enclosing bounding box based, so doesn't get false hits.
         if ( allowTightFitContainment && ( contextLengthMinimum <= 10.0d ) ) {
             final java.awt.Shape shape = getVectorGraphicsAwt();
             final java.awt.geom.Point2D awtPoint = GeometryUtilities.getPoint( clickPoint );
@@ -184,8 +182,8 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >, 
         }
 
         // NOTE: We ensure a bounding rectangle of at least 1.5% of the minimum
-        // dimension, for "easy picking" of extraordinarily small objects, such
-        // as MM4's and point theoretical Loudspeakers (OMNI's).
+        //  dimension, for "easy picking" of extraordinarily small objects, such
+        //  as MM4's and point theoretical Loudspeakers (OMNI's).
         final double clickDiameter = 0.015d * contextLengthMinimum;
         final double clickRadius = 0.5d * clickDiameter;
 
@@ -224,8 +222,8 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >, 
             graphicalObjectClone.cacheMarkerNode( cachedMarkerNode );
 
             // NOTE: The "selected" status bit must be set separately, as that
-            // would not normally carry over from a copy constructor since it is
-            // instance-specific and not a shared property.
+            //  would not normally carry over from a copy constructor since it is
+            //  instance-specific and not a shared property.
             graphicalObjectClone.setSelected( true );
 
             graphicalObjects.add( graphicalObjectClone );
@@ -249,9 +247,9 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >, 
         // If present, translate the associated Graphical Node, along with any
         // Markers, by the accumulated drag amount, in meters.
         // NOTE: We chain a Translate instance to the transforms instead of
-        // setting the translation coordinates, as the graphics may be in a
-        // custom user Distance Unit instead of Meters, and thus the updated
-        // graphics won't be visible if not scaled correctly.
+        //  setting the translation coordinates, as the graphics may be in a
+        //  custom user Distance Unit instead of Meters, and thus the updated
+        //  graphics won't be visible if not scaled correctly.
         if ( _cachedGraphicalNode != null ) {
             final ObservableList< Transform > transforms = _cachedGraphicalNode.getTransforms();
             transforms.add( Transform.translate( deltaX, deltaY ) );
@@ -304,7 +302,7 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >, 
      * {@link #getVectorGraphics}, this method returns an empty bounding box.
      * <p>
      * NOTE: The Bounds are 3D but support 2D degenerate cases, and are what
-     * Nodes return from their Bounds queries so are preferred over Rectangle2D.
+     *  Nodes return from their Bounds queries so are preferred over Rectangle2D.
      */
     public Bounds getBoundingBox() {
         // Try to use the cached vector graphics for its cached bounds, if
@@ -389,8 +387,7 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >, 
     public Point2D getReferencePoint2D() {
         final double referencePointX = getReferencePointX();
         final double referencePointY = getReferencePointY();
-        final Point2D referencePoint = new Point2D( referencePointX, referencePointY );
-        return referencePoint;
+        return new Point2D( referencePointX, referencePointY );
     }
 
     /**
@@ -493,11 +490,11 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >, 
 
     public boolean intersects( final Bounds area ) {
         // NOTE: Intersection doesn't detect for edge cases at the vertices, so
-        // we must also check for containment and reverse-containment.
+        //  we must also check for containment and reverse-containment.
         // NOTE: For performance reasons, work backwards from the simplest and
-        // most common case so that we don't always compute all three.
+        //  most common case so that we don't always compute all three.
         // NOTE: The JavaFX bounds are too large currently, so we have reverted
-        // to using the AWT graphics for the bounding box for now.
+        //  to using the AWT graphics for the bounding box for now.
         // final Bounds bbox = getBoundingBox();
         // return area.contains( bbox ) || bbox.intersects( area ) ||
         // bbox.contains( area );
@@ -518,7 +515,8 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >, 
         return intersects( area );
     }
 
-    public boolean isCloserThan( final GraphicalObject other, final Point2D clickPoint ) {
+    public boolean isCloserThan( final GraphicalObject other, 
+                                 final Point2D clickPoint ) {
         // If the other Graphical Object is null, then this one is closer.
         if ( other == null ) {
             return true;
@@ -657,8 +655,8 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >, 
         // the current Graphical Object, and ( qx, qy ) is the transformed GC of
         // the current Graphical Object.
         // NOTE: We have to get a point vs. individual coordinates, due to the
-        // potential override of the location query to return something other
-        // than the cached location. For instance, the CRDM of a Loudspeaker.
+        //  potential override of the location query to return something other
+        //  than the cached location. For instance, the CRDM of a Loudspeaker.
         final double referencePointX = getReferencePointX();
         final double referencePointY = getReferencePointY();
 
@@ -666,8 +664,8 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >, 
         final double qy = ( referencePointX * sinTheta ) + ( referencePointY * cosTheta ) + dy;
 
         // NOTE: We have to set a point vs. individual coordinates, due to the
-        // potential override of the location setter to set something other
-        // than the cached location. For instance, the CRDM of a Loudspeaker.
+        //  potential override of the location setter to set something other
+        //  than the cached location. For instance, the CRDM of a Loudspeaker.
         setReferencePoint2D( qx, qy );
 
         final double theta = getAngleDegrees() + rotateThetaRelativeDegrees;
@@ -684,9 +682,9 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >, 
         // If present, rotate the associated Graphical Node and Markers by the
         // accumulated drag amount, in degrees, and account for the pivot point.
         // NOTE: We chain a Rotate instance to the transforms instead of
-        // setting the translation coordinates and rotation angle, as the
-        // graphics may be in a custom user Distance Unit instead of Meters, and
-        // thus the updated graphics won't be visible if not scaled correctly.
+        //  setting the translation coordinates and rotation angle, as the
+        //  graphics may be in a custom user Distance Unit instead of Meters, and
+        //  thus the updated graphics won't be visible if not scaled correctly.
         if ( _cachedGraphicalNode != null ) {
             final ObservableList< Transform > transforms = _cachedGraphicalNode.getTransforms();
             transforms.add( Transform.rotate( rotateThetaRelativeDegrees, rotateX, rotateY ) );
@@ -732,7 +730,8 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >, 
      *            The y-coordinate representing the appropriate Reference Point
      *            for this Graphical Object
      */
-    public void setReferencePoint2D( final double referencePointX, final double referencePointY ) {
+    public void setReferencePoint2D( final double referencePointX, 
+                                     final double referencePointY ) {
         setLocationX( referencePointX );
         setLocationY( referencePointY );
     }
@@ -750,8 +749,7 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >, 
      *
      * @param referencePoint
      *            A Point2D object representing the appropriate Reference Point
-     *            for
-     *            this Graphical Object
+     *            for this Graphical Object
      */
     public void setReferencePoint2D( final Point2D referencePoint ) {
         final double referencePointX = referencePoint.getX();
@@ -790,14 +788,16 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >, 
         highlight( highlightOn );
     }
 
-    public final void updateLockedStatus( final Color backColor, final Color defaultColor ) {
+    public final void updateLockedStatus( final Color backColor, 
+                                          final Color defaultColor ) {
         // Switch the Graphical Node color based on Layer Lock status, etc.
         if ( _cachedGraphicalNode != null ) {
             updateLockedStatus( _cachedGraphicalNode, backColor, defaultColor );
         }
     }
 
-    public final void updateLockedStatus( final ShapeGroup graphicalNode, final Color backColor ) {
+    public final void updateLockedStatus( final ShapeGroup graphicalNode, 
+                                          final Color backColor ) {
         // Switch the Graphical Node color based on Layer Lock status, etc.
         final Color defaultColor = ColorUtilities.getForegroundFromBackground( backColor );
         updateLockedStatus( graphicalNode, backColor, defaultColor );
@@ -822,5 +822,4 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >, 
         final boolean visible = isVisible();
         setVisible( visible );
     }
-
 }

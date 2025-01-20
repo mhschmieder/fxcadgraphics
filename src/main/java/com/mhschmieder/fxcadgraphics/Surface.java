@@ -138,16 +138,19 @@ public final class Surface extends CartesianLine {
         }
 
         // NOTE: We invoke getter methods vs. directly accessing data
-        // members, so that derived classes produce the correct results when
-        // comparing two objects.
+        //  members, so that derived classes produce the correct results when
+        //  comparing two objects.
         final Surface other = ( Surface ) obj;
-        if ( !super.equals( obj ) || ( getSurfaceNumber() != other.getSurfaceNumber() ) || ( isBypassed() != other.isBypassed() ) || !getMaterialName().equals( other.getMaterialName() ) ) {
+        if ( !super.equals( obj ) 
+                || ( getSurfaceNumber() != other.getSurfaceNumber() ) 
+                || ( isBypassed() != other.isBypassed() ) 
+                || !getMaterialName().equals( other.getMaterialName() ) ) {
             return false;
         }
 
         // NOTE: The "label" and "layer" properties are exempt, as they are not
-        // implemented at this level. The Layer is handled nonetheless by the
-        // super-parent but will match when defaulted so is not an issue.
+        //  implemented at this level. The Layer is handled nonetheless by the
+        //  super-parent but will match when defaulted so is not an issue.
         return true;
     }
 

@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2023 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,9 +33,9 @@ package com.mhschmieder.fxcadgraphics;
 import java.util.List;
 
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
-import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 import com.mhschmieder.fxgraphicstoolkit.geometry.FacingDirection;
+import com.mhschmieder.fxgraphicstoolkit.geometry.GeometryUtilities;
 import com.mhschmieder.fxgraphicstoolkit.geometry.Orientation;
 import com.mhschmieder.fxgraphicstoolkit.shape.ShapeUtilities;
 import com.mhschmieder.fxlayergraphics.LayerUtilities;
@@ -45,6 +45,8 @@ import com.mhschmieder.mathtoolkit.geometry.euclidian.VectorUtilities;
 import com.mhschmieder.physicstoolkit.MassComputable;
 import com.mhschmieder.physicstoolkit.MassProperties;
 
+import javafx.geometry.Point2D;
+import javafx.geometry.Point3D;
 import javafx.scene.shape.Shape;
 
 /**
@@ -76,7 +78,7 @@ public abstract class PhysicsObject extends SolidObject implements MassComputabl
 
     // Fully qualified constructor.
     protected PhysicsObject( final LayerProperties layer,
-                             final Vector3D gcInVenueCoordinates,
+                             final Point3D gcInVenueCoordinates,
                              final double angleDegrees,
                              final Orientation orientation,
                              final FacingDirection facingDirection,
@@ -96,8 +98,8 @@ public abstract class PhysicsObject extends SolidObject implements MassComputabl
         }
 
         // NOTE: We invoke getter methods vs. directly accessing data
-        // members, so that derived classes produce the correct results when
-        // comparing two objects.
+        //  members, so that derived classes produce the correct results when
+        //  comparing two objects.
         final PhysicsObject other = ( PhysicsObject ) obj;
         if ( !super.equals( obj ) || !getMassProperties().equals( other.getMassProperties() ) ) {
             return false;
@@ -106,22 +108,25 @@ public abstract class PhysicsObject extends SolidObject implements MassComputabl
         return true;
     }
 
+    // NOTE: This is in non-JavaFX units as it inherits a Physics Library method.
     @Override
     public final Vector3D getCogInObjectCoordinates() {
-        final Vector3D cogInObjectCoordinates = _massProperties.getCogInObjectCoordinates();
-        return cogInObjectCoordinates;
+        return _massProperties.getCogInObjectCoordinates();
     }
 
-    public final Vector2D getCogInPlanarCoordinates() {
-        final Vector3D cogInVenueCoordinates = getCogInVenueCoordinates();
-        final Vector2D cogInPlanarCoordinates = VectorUtilities
+    public final Point2D getCogInPlanarCoordinates() {
+        final Point3D cogInVenueCoordinates = getCogInVenueCoordinates();
+        final Point2D cogInPlanarCoordinates = GeometryUtilities
                 .projectToPlane( cogInVenueCoordinates, OrthogonalAxes.XY );
         return cogInPlanarCoordinates;
     }
 
-    public final Vector3D getCogInVenueCoordinates() {
+    public final Point3D getCogInVenueCoordinates() {
         final Vector3D cogInObjectCoordinates = getCogInObjectCoordinates();
-        return getVectorInVenueCoordinatesFromObjectCoordinates( cogInObjectCoordinates );
+        final Point3D fxCogInObjectCoordinates = new Point3D( cogInObjectCoordinates.getX(), 
+                                                              cogInObjectCoordinates.getY(), 
+                                                              cogInObjectCoordinates.getZ() );
+        return getVectorInVenueCoordinatesFromObjectCoordinates( fxCogInObjectCoordinates );
     }
 
     @Override
@@ -132,7 +137,7 @@ public abstract class PhysicsObject extends SolidObject implements MassComputabl
 
         // We need to use a list of shapes with multiple visual elements, as we
         // have several categories of markers.
-        final Vector2D cogLocation = getCogInPlanarCoordinates();
+        final Point2D cogLocation = getCogInPlanarCoordinates();
         final List< Shape > cogMarkerGraphics = ShapeUtilities
                 .getCrosshairGraphics( cogLocation, crosshairDimension );
 

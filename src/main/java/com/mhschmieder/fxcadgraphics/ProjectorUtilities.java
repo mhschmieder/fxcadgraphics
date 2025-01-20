@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2023 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -68,7 +68,7 @@ public final class ProjectorUtilities {
     }
 
     // TODO: Continue to try to genericize to just one combined method for all
-    // types of Linear Objects. So far every effort fails to compile.
+    //  types of Linear Objects. So far every effort fails to compile.
     public static void selectAllCartesianProjectors( final GraphicalObjectCollection< CartesianLine > cartesianLineCollection ) {
         // Fill the Linear Objects selection set with all of the Linear Objects
         // that
@@ -88,7 +88,7 @@ public final class ProjectorUtilities {
     }
 
     // TODO: Continue to try to genericize to just one combined method for all
-    // types of Linear Objects. So far every effort fails to compile.
+    //  types of Linear Objects. So far every effort fails to compile.
     public static void selectAllPolarProjectors( final GraphicalObjectCollection< PolarLine > polarLineCollection ) {
         // Fill the Linear Objects selection set with all of the Linear Objects
         // that
@@ -98,7 +98,7 @@ public final class ProjectorUtilities {
 
         // Fill the Linear Objects selection set with all of the Projectors.
         // NOTE: It is safer to avoid parallel streams right after clearing one
-        // of the collections as a bulk action.
+        //  of the collections as a bulk action.
         collection.stream().filter( GraphicalObject::isEditable ).forEach( polarLine -> {
             if ( polarLine.isEditable() && polarLine.isUseAsProjector() ) {
                 polarLineCollection.addToSelection( polarLine );

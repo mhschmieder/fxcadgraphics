@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2023 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,12 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the FxCadToolkit Library
+ * This file is part of the FxCadGraphics Library
  *
  * You should have received a copy of the MIT License along with the
- * FxCadToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * FxCadGraphics Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/fxcadtoolkit
+ * Project: https://github.com/mhschmieder/fxcadgraphics
  */
 package com.mhschmieder.fxcadgraphics;
 
@@ -66,8 +66,8 @@ public class PolarLine extends LinearObject {
     private double  _endDistance          = END_DISTANCE_DEFAULT;
 
     // NOTE: Since this class declares additional fields to the parent class,
-    // we cannot just invoke the super-constructor from each constructor, but
-    // need to invoke incrementally more complex local constructors instead.
+    //  we cannot just invoke the super-constructor from each constructor, but
+    //  need to invoke incrementally more complex local constructors instead.
     // TODO: Make better use of parent class constructors and setters.
     public PolarLine() {
         this( X_DEFAULT,
@@ -154,10 +154,13 @@ public class PolarLine extends LinearObject {
         }
 
         // NOTE: We invoke getter methods vs. directly accessing data
-        // members, so that derived classes produce the correct results when
-        // comparing two objects.
+        //  members, so that derived classes produce the correct results when
+        //  comparing two objects.
         final PolarLine other = ( PolarLine ) obj;
-        if ( !super.equals( obj ) || !getInclinometerPosition().equals( other.getInclinometerPosition() ) || ( getStartAngleDegrees() != other.getStartAngleDegrees() ) || ( getStartDistance() != other.getStartDistance() ) ) {
+        if ( !super.equals( obj ) 
+                || !getInclinometerPosition().equals( other.getInclinometerPosition() ) 
+                || ( getStartAngleDegrees() != other.getStartAngleDegrees() ) 
+                || ( getStartDistance() != other.getStartDistance() ) ) {
             return false;
         }
         if ( getEndAngleDegrees() != other.getEndAngleDegrees() ) {

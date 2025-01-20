@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2023 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,12 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the FxCommonsToolkit Library
+ * This file is part of the FxCadGraphics Library
  *
  * You should have received a copy of the MIT License along with the
- * FxCommonsToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * FxCadGraphics Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/fxcommonstoolkit
+ * Project: https://github.com/mhschmieder/fxcadgraphics
  */
 package com.mhschmieder.fxcadgraphics;
 
@@ -243,13 +243,13 @@ public final class GraphicalObjectCollection< T extends GraphicalObject > {
     public void deselectLockedAndHiddenObjects() {
         // Filter the selection for objects that are locked or hidden.
         // NOTE: The context of invocation isn't thread-safe and is highly
-        // re-entrant, so avoid parallel streams here to avoid freeze-ups.
+        //  re-entrant, so avoid parallel streams here to avoid freeze-ups.
         final Set< T > lockedAndHiddenObjects = _selection.stream()
                 .filter( graphicalObject -> !graphicalObject.isEditable() )
                 .collect( Collectors.toSet() );
 
         // NOTE: Do not combine with the above, as this action modifies the
-        // source of the stream filter, which introduces concurrency issues.
+        //  source of the stream filter, which introduces concurrency issues.
         lockedAndHiddenObjects.forEach( graphicalObject -> removeFromSelection( graphicalObject ) );
     }
 
@@ -285,11 +285,12 @@ public final class GraphicalObjectCollection< T extends GraphicalObject > {
      * Filter the selection set of Graphical Objects to just those that are
      * within the specified area (and are editable).
      */
-    public Collection< T > filterByArea( final Bounds filterArea, final boolean allowUneditable ) {
+    public Collection< T > filterByArea( final Bounds filterArea, 
+                                         final boolean allowUneditable ) {
         // Build up a collection of candidates from all that are within the
         // specified area.
         // NOTE: Parallel streams are dangerous here, as we may be running from
-        // a Prediction Service based thread.
+        //  a Prediction Service based thread.
         final Set< T > candidates = _selection.stream()
                 .filter( graphicalObject -> graphicalObject.isFilterableByArea( filterArea,
                                                                                 allowUneditable ) )
@@ -304,7 +305,7 @@ public final class GraphicalObjectCollection< T extends GraphicalObject > {
         // recall if necessary; filtering for the given Graphical Object to
         // avoid redundancy/inconsistency.
         // NOTE: Parallel streams could be non-deterministic here in terms of
-        // invertibility of selection, deselection, and reselection.
+        //  invertibility of selection, deselection, and reselection.
         // TODO: Determine if this is the correct behavior for deselection.
         _deselection.clear();
         _selection.stream().filter( graphicalObject -> !graphicalObject.equals( filterObject ) )
@@ -462,8 +463,8 @@ public final class GraphicalObjectCollection< T extends GraphicalObject > {
     }
 
     // NOTE: This method treats multi-select as no selection, as otherwise an
-    // ambiguous or arbitrary choice is made, or one that depends on the type of
-    // Collection used to implement the Selection Set (which might change).
+    //  ambiguous or arbitrary choice is made, or one that depends on the type of
+    //  Collection used to implement the Selection Set (which might change).
     public T getSelectedGraphicalObject() {
         final Collection< T > selection = getSelection();
         final T selectedGraphicalObject = ( selection != null ) && ( selection.size() == 1 )
@@ -591,7 +592,7 @@ public final class GraphicalObjectCollection< T extends GraphicalObject > {
         // Check whether the supplied Graphical Object Label candidate is unique
         // within the context of its type-specific collection.
         // NOTE: The context of invocation isn't thread-safe and is highly
-        // re-entrant, so avoid parallel streams here to avoid freeze-ups.
+        //  re-entrant, so avoid parallel streams here to avoid freeze-ups.
         final boolean labelNotUnique = _collection.stream().anyMatch( graphicalObject -> {
             final LabeledObject labeledObject = ( LabeledObject ) graphicalObject;
             final String graphicalObjectLabel = labeledObject.getLabel();
@@ -613,7 +614,7 @@ public final class GraphicalObjectCollection< T extends GraphicalObject > {
     public void reassignObjectsOnDeletedLayers( final LayerProperties activeLayer,
                                                 final ObservableList< LayerProperties > layerCollection ) {
         // NOTE: The context of invocation isn't thread-safe and is highly
-        // re-entrant, so avoid parallel streams here to avoid freeze-ups.
+        //  re-entrant, so avoid parallel streams here to avoid freeze-ups.
         _collection.stream().forEach( graphicalObject -> LayerUtilities
                 .reassignObjectOnDeletedLayer( graphicalObject, layerCollection, activeLayer ) );
     }
@@ -631,7 +632,7 @@ public final class GraphicalObjectCollection< T extends GraphicalObject > {
         _selection.clear();
 
         // NOTE: It is safer to avoid parallel streams right after clearing one
-        // of the collections as a bulk action.
+        //  of the collections as a bulk action.
         _deselection.stream().forEach( graphicalObject -> addToSelection( graphicalObject ) );
     }
 
@@ -918,7 +919,7 @@ public final class GraphicalObjectCollection< T extends GraphicalObject > {
      */
     public void updateLayerObjectLockedStatus( final Color backColor, final Color defaultColor ) {
         // NOTE: The context of invocation isn't thread-safe and is highly
-        // re-entrant, so avoid parallel streams here to avoid freeze-ups.
+        //  re-entrant, so avoid parallel streams here to avoid freeze-ups.
         _collection.stream().forEach( graphicalObject -> graphicalObject
                 .updateLockedStatus( backColor, defaultColor ) );
     }
@@ -930,7 +931,7 @@ public final class GraphicalObjectCollection< T extends GraphicalObject > {
      */
     public void updateLayerObjectVisibility() {
         // NOTE: The context of invocation isn't thread-safe and is highly
-        // re-entrant, so avoid parallel streams here to avoid freeze-ups.
+        //  re-entrant, so avoid parallel streams here to avoid freeze-ups.
         _collection.stream().forEach( GraphicalObject::updateVisibility );
     }
 
