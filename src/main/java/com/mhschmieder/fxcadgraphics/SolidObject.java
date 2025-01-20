@@ -39,7 +39,6 @@ import com.mhschmieder.fxlayergraphics.LayerUtilities;
 import com.mhschmieder.fxlayergraphics.model.LayerProperties;
 import com.mhschmieder.mathtoolkit.geometry.euclidian.Axis;
 import com.mhschmieder.mathtoolkit.geometry.euclidian.OrthogonalAxes;
-import com.mhschmieder.mathtoolkit.geometry.euclidian.VectorUtilities;
 
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
