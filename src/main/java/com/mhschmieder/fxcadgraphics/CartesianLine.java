@@ -41,6 +41,11 @@ import javafx.scene.shape.Line;
 /**
  * The <code>CartesianLine</code> class is the concrete class for Cartesian
  * Lines. It is really not much more than a line that is selectable.
+ * <p>
+ * At this top level of the Cartesian Line sub-hierarchy, vector math is not yet
+ * involved but simple point containment tests (especially from mouse clicks) are
+ * critical, so the coordinates are expressed using immutable JavaFX Point2D and
+ * Point3D instances.
  */
 public class CartesianLine extends LinearObject {
 
@@ -177,8 +182,8 @@ public class CartesianLine extends LinearObject {
         }
 
         // NOTE: We invoke getter methods vs. directly accessing data
-        // members, so that derived classes produce the correct results when
-        // comparing two objects.
+        //  members, so that derived classes produce the correct results when
+        //  comparing two objects.
         final CartesianLine other = ( CartesianLine ) obj;
         if ( !super.equals( obj ) ) {
             return false;

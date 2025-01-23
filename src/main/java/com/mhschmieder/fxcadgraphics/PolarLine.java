@@ -42,11 +42,18 @@ import javafx.scene.shape.Line;
  * The <code>PolarLine</code> class is the concrete class for Polar Lines.
  * It mostly follows the Wiki definition for Polar Lines as there is an
  * inclinometer involved alongside an initial offset before the line starts.
+ * <p>
+ * At this top level of the Polar Line sub-hierarchy, vector math is not yet
+ * involved but simple point containment tests (especially from mouse clicks) are
+ * critical, so the coordinates are expressed using immutable JavaFX Point2D and
+ * Point3D instances.
+ * <p>
+ * TODO: Review whether the inclinometer should be modeled using vector offsets.
  */
 public class PolarLine extends LinearObject {
 
     // Declare the default Polar Line label.
-    public static final String POLAR_LINE_LABEL_DEFAULT    = "Polar Line"; //$NON-NLS-1$
+    public static final String POLAR_LINE_LABEL_DEFAULT    = "Polar Line";
 
     public static final double START_ANGLE_DEGREES_DEFAULT = 0.0d;
     public static final double START_DISTANCE_DEFAULT      = 1.0d;

@@ -45,13 +45,17 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
 
-/*
+/**
  * <code>Wedge</code> stores the three dimensional locations of the corner
  * points (when relevant) of a <code>PhysicsObject</code>. It mostly has
  * methods for drawing a wedge from the corner points. This is used to
  * generate an outline of a generic wedge, in a way that the returned shape (as
  * a Path) can be used as part of a static initializer for a more complex
  * shape, such as those defined in EnclosureHash.
+ * <p>
+ * This is strictly a geometry-based shape, so it does not use vectors and
+ * also does not derive from any other object. It could just as easily go in
+ * the shape sub-package of fxgraphicstoolkit, but there's no use for it there.
  */
 public class Wedge {
 

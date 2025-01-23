@@ -58,6 +58,10 @@ import javafx.scene.transform.Transform;
  * graphical objects in a 2D view, such as whether they are selected, location
  * (x,y), and rotation angle (in the XY plane).
  * <p>
+ * At this top level of the hierarchy, vector math is not yet involved but simple
+ * point containment tests (especially from mouse clicks) are critical, so the
+ * coordinates are expressed using immutable JavaFX Point2D and Point3D instances.
+ * <p>
  * NOTE: All data should be private, in case of overrides on getter methods.
  *  Also, this means member variables should not be accessed directly, in case of
  *  overrides on getter methods in subclasses.
@@ -267,8 +271,8 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >, 
         }
 
         // NOTE: We invoke getter methods vs. directly accessing data
-        // members, so that derived classes produce the correct results when
-        // comparing two objects.
+        //  members, so that derived classes produce the correct results when
+        //  comparing two objects.
         final GraphicalObject other = ( GraphicalObject ) obj;
         if ( !super.equals( obj ) || !getLayer().equals( other.getLayer() ) ) {
             return false;

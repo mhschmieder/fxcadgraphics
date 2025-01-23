@@ -58,10 +58,15 @@ import javafx.scene.shape.StrokeType;
  * objects, which are essentially enhanced 2D Lines that can act as Projectors,
  * with concrete derived classes for Cartesian or Polar Coordinates. Note that
  * curvilinear edges may end up falling within the current abstraction as well.
+ * <p>
+ * At this top level of the Linear Object sub-hierarchy, vector math is not yet
+ * involved but simple point containment tests (especially from mouse clicks) are
+ * critical, so the coordinates are expressed using immutable JavaFX Point2D and
+ * Point3D instances.
  */
 public abstract class LinearObject extends GraphicalObject implements LabeledObject {
 
-    public static final String  LINEAR_OBJECT_LABEL_DEFAULT        = "Linear Object"; //$NON-NLS-1$
+    public static final String  LINEAR_OBJECT_LABEL_DEFAULT        = "Linear Object";
     public static final boolean USE_AS_PROJECTOR_DEFAULT           = false;
     public static final int     NUMBER_OF_PROJECTION_ZONES_DEFAULT = 1;
 
@@ -161,15 +166,15 @@ public abstract class LinearObject extends GraphicalObject implements LabeledObj
         // calculations, as bounding box based containment is very coarse due to
         // object rotation, odd shapes, and other factors.
         // NOTE: We have set this criteria to 10 meters, but might need to make
-        // this more flexible or even user-defined and thus passed into this
-        // method as a tolerance.
+        //  this more flexible or even user-defined and thus passed into this
+        //  method as a tolerance.
         final double contextWidth = contextBounds.getWidth();
         final double contextHeight = contextBounds.getHeight();
         final double contextLengthMinimum = FastMath.min( contextWidth, contextHeight );
 
         // NOTE: We conditionally use a fudge factor (for small context bounds)
-        // of 0.2 meters (roughly 2% minimum context bounds; whereas we used to
-        // use 0.5% maximum context bounds across the board).
+        //  of 0.2 meters (roughly 2% minimum context bounds; whereas we used to
+        //  use 0.5% maximum context bounds across the board).
         // final double fudgeFactor = ( contextLengthMinimum <= 10.0d ) ? 0.0d :
         // 0.2d;
 
@@ -201,10 +206,12 @@ public abstract class LinearObject extends GraphicalObject implements LabeledObj
         }
 
         // NOTE: We invoke getter methods vs. directly accessing data
-        // members, so that derived classes produce the correct results when
-        // comparing two objects.
+        //  members, so that derived classes produce the correct results when
+        //  comparing two objects.
         final LinearObject other = ( LinearObject ) obj;
-        if ( !super.equals( obj ) || !getLabel().equals( other.getLabel() ) || ( isUseAsProjector() != other.isUseAsProjector() ) ) {
+        if ( !super.equals( obj ) 
+                || !getLabel().equals( other.getLabel() ) 
+                || ( isUseAsProjector() != other.isUseAsProjector() ) ) {
             return false;
         }
         return ( getNumberOfProjectionZones() == other.getNumberOfProjectionZones() );
@@ -261,9 +268,9 @@ public abstract class LinearObject extends GraphicalObject implements LabeledObj
         constructPathElements( pathElements );
 
         // NOTE: Unless we set Inside Stroke Type, the computed bounds seem
-        // overly large, which results in graphic previews being too small.
+        //  overly large, which results in graphic previews being too small.
         // NOTE: Unlike with Microphones etc., this makes it invisible, so we
-        // have to apply Outside or Centered instead -- due to no closure?
+        //  have to apply Outside or Centered instead -- due to no closure?
         path.setStrokeType( previewContext ? StrokeType.OUTSIDE : StrokeType.CENTERED );
 
         // Butt end caps improve perceived regularity of the highlight dash
@@ -438,7 +445,7 @@ public abstract class LinearObject extends GraphicalObject implements LabeledObj
         rotateNode( rotateX, rotateY, rotateThetaRelativeDegrees );
     }
 
-    // @SuppressWarnings("nls")
+    // NOTE: This was an early attempt to export to DXF. It may get revived.
     // public final void saveToDxf( final DXFExport dxfExport ) {
     // final int x1 = ( int ) FastMath.round( getX1() );
     // final int y1 = ( int ) FastMath.round( getY1() );
@@ -457,7 +464,7 @@ public abstract class LinearObject extends GraphicalObject implements LabeledObj
     // dxfExport.addLine( dxfData );
     //
     // // NOTE: This is just a text annotation label above the actual line,
-    // // useful for demo purposes but not in real DXF graphics output.
+    // //  useful for demo purposes but not in real DXF graphics output.
     // // dxfData.Point.setTo( x1, -( y2 - 20 ), 0 );
     // // dxfData.FHeight = 10;
     // // dxfData.Text = new String( "Line" );

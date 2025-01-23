@@ -61,8 +61,8 @@ public final class Surface extends CartesianLine {
     // This is the default constructor; it sets all instance variables to
     // default values.
     // NOTE: As this class declares additional fields to the parent class, we
-    // cannot just invoke the super-constructor from each constructor, so we
-    // need to invoke incrementally more complex local constructors instead.
+    //  cannot just invoke the super-constructor from each constructor, so we
+    //  need to invoke incrementally more complex local constructors instead.
     public Surface() {
         this( SURFACE_NUMBER_DEFAULT );
     }
@@ -125,7 +125,7 @@ public final class Surface extends CartesianLine {
     }
 
     // NOTE: Cloning is disabled as it is dangerous; use the copy constructor
-    // instead.
+    //  instead.
     @Override
     protected Object clone() throws CloneNotSupportedException {
         throw new CloneNotSupportedException();

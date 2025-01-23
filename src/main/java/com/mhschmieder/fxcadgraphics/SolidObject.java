@@ -21,27 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the FxCadToolkit Library
+ * This file is part of the FxCadGraphics Library
  *
  * You should have received a copy of the MIT License along with the
- * FxCadToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * FxCadGraphics Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/fxcadtoolkit
+ * Project: https://github.com/mhschmieder/fxcadgraphics
  */
 package com.mhschmieder.fxcadgraphics;
 
+import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 import org.apache.commons.math3.util.FastMath;
 
 import com.mhschmieder.fxgraphicstoolkit.geometry.FacingDirection;
-import com.mhschmieder.fxgraphicstoolkit.geometry.GeometryUtilities;
 import com.mhschmieder.fxgraphicstoolkit.geometry.Orientation;
 import com.mhschmieder.fxlayergraphics.LayerUtilities;
 import com.mhschmieder.fxlayergraphics.model.LayerProperties;
 import com.mhschmieder.mathtoolkit.geometry.euclidian.Axis;
 import com.mhschmieder.mathtoolkit.geometry.euclidian.OrthogonalAxes;
+import com.mhschmieder.mathtoolkit.geometry.euclidian.VectorUtilities;
 
-import javafx.geometry.Point2D;
-import javafx.geometry.Point3D;
 import javafx.scene.transform.Affine;
 
 /**
@@ -55,13 +55,17 @@ import javafx.scene.transform.Affine;
  * denominator there, but currently only has two dimensional coordinates vs.
  * three. At some point, the parent class may add a z-axis coordinate.
  * <p>
+ * At this point in the class hierarchy, most coordinates will be in vector form
+ * unless used for containment and intersection tests via the JavaFX Graphics
+ * library, in which case we use simple Poin2D and Point3D immutable instances.
+ * <p>
  * NOTE: All data should be private, in case of overrides on getter methods.
- * Also, this means member variables should not be accessed directly, in case of
- * overrides on getter methods in subclasses.
+ *  Also, this means member variables should not be accessed directly, in case
+ *  of overrides on getter methods in subclasses.
  */
 public abstract class SolidObject extends GraphicalObject {
 
-    public static final Point3D            GC_IN_VENUE_COORDINATES_DEFAULT = Point3D.ZERO;
+    public static final Vector3D           GC_IN_VENUE_COORDINATES_DEFAULT = Vector3D.ZERO;
 
     protected static final Orientation     ORIENTATION_DEFAULT             = Orientation.VERTICAL;
     protected static final FacingDirection FACING_DIRECTION_DEFAULT        = FacingDirection.RIGHT;
@@ -69,7 +73,7 @@ public abstract class SolidObject extends GraphicalObject {
 
     // Declare a variable for Geometric Center in Venue coordinates.
     // NOTE: This naming is a bit redundant, as we enforce Venue coordinates.
-    private Point3D                        _gcInVenueCoordinates;
+    private Vector3D                       _gcInVenueCoordinates;
 
     // Orientation is arbitrary in its reference, but distinguishes cases.
     private Orientation                    _orientation;
@@ -82,8 +86,8 @@ public abstract class SolidObject extends GraphicalObject {
     private boolean                        _inverted;
 
     // NOTE: Since this class declares additional fields to the parent class,
-    // we cannot just invoke the super-constructor from each constructor, but
-    // need to invoke incrementally more complex local constructors instead.
+    //  we cannot just invoke the super-constructor from each constructor, but
+    //  need to invoke incrementally more complex local constructors instead.
     //
     // Default constructor (disabled since this is an abstract class)
     protected SolidObject() {
@@ -141,7 +145,7 @@ public abstract class SolidObject extends GraphicalObject {
 
     // Fully qualified constructor, using Geometric Center.
     protected SolidObject( final LayerProperties layer,
-                           final Point3D gcInVenueCoordinates,
+                           final Vector3D gcInVenueCoordinates,
                            final double angleDegrees,
                            final Orientation orientation,
                            final FacingDirection facingDirection,
@@ -195,7 +199,7 @@ public abstract class SolidObject extends GraphicalObject {
     public java.awt.geom.AffineTransform getElementToModelTransformAwt() {
         // Move to the GC as the origin, so that reflections and rotations do
         // not move the object to a new location.
-        final Point3D gc = getGcInVenueCoordinates();
+        final Vector3D gc = getGcInVenueCoordinates();
         final java.awt.geom.AffineTransform affineTransform = java.awt.geom.AffineTransform
                 .getTranslateInstance( gc.getX(), gc.getY() );
 
@@ -227,7 +231,7 @@ public abstract class SolidObject extends GraphicalObject {
 
         // Move to the GC as the origin, so that reflections and rotations do
         // not move the object to a new location.
-        final Point3D gc = getGcInVenueCoordinates();
+        final Vector3D gc = getGcInVenueCoordinates();
         final double gcX = gc.getX();
         final double gcY = gc.getY();
         affineTransform.appendTranslation( gcX, gcY );
@@ -253,13 +257,13 @@ public abstract class SolidObject extends GraphicalObject {
         return _facingDirection;
     }
 
-    public final Point2D getGcInPlanarCoordinates() {
-        final Point2D gcInPlanarCoordinates = GeometryUtilities
+    public final Vector2D getGcInPlanarCoordinates() {
+        final Vector2D gcInPlanarCoordinates = VectorUtilities
                 .projectToPlane( _gcInVenueCoordinates, OrthogonalAxes.XY );
         return gcInPlanarCoordinates;
     }
 
-    public final Point3D getGcInVenueCoordinates() {
+    public final Vector3D getGcInVenueCoordinates() {
         return _gcInVenueCoordinates;
     }
 
@@ -273,13 +277,13 @@ public abstract class SolidObject extends GraphicalObject {
     //  vectors, and the result should be added to vectors that are in Venue
     //  Coordinates. This method does not return Venue Coordinate vectors, but
     //  its coordinates are compatible as they have been properly projected.
-    public final Point3D getVectorInProjectedObjectCoordinates( final Point3D offsetVector ) {
+    public final Vector3D getVectorInProjectedObjectCoordinates( final Vector3D offsetVector ) {
         // NOTE: It is critical that we invert immediately in our original 3D
         //  axial space, as we are in the coordinate system of the GC as soon as
         //  we conditionally rotate into its known 2D axial Projection Plane.
-        Point3D vectorInProjectedObjectCoordinates = isInverted()
-            ? GeometryUtilities.negatePoint3D( offsetVector, Axis.Z )
-            : GeometryUtilities.copyPoint3D( offsetVector );
+        Vector3D vectorInProjectedObjectCoordinates = isInverted()
+            ? VectorUtilities.negatePoint3D( offsetVector, Axis.Z )
+            : VectorUtilities.copyPoint3D( offsetVector );
 
         final Orientation orientation = getOrientation();
         switch ( orientation ) {
@@ -289,15 +293,16 @@ public abstract class SolidObject extends GraphicalObject {
             // The 3D vertical axis "Z" becomes the 2D vertical axis "Y".
             // NOTE: This is done to make it easier to trivially extract the
             //  only two relevant axial offsets into a simple Point2D object.
-            vectorInProjectedObjectCoordinates = GeometryUtilities
-                    .exchangeCoordinates( vectorInProjectedObjectCoordinates, OrthogonalAxes.YZ );
+            vectorInProjectedObjectCoordinates = VectorUtilities
+                    .exchangeCoordinates( vectorInProjectedObjectCoordinates, 
+                                          OrthogonalAxes.YZ );
             break;
         default:
             break;
         }
 
         // Rotate into the known 2D axial Projection Plane of the GC.
-        vectorInProjectedObjectCoordinates = GeometryUtilities
+        vectorInProjectedObjectCoordinates = VectorUtilities
                 .rotateInPlane( vectorInProjectedObjectCoordinates,
                                 OrthogonalAxes.XY,
                                 FastMath.toRadians( getAngleDegrees() ) );
@@ -305,11 +310,12 @@ public abstract class SolidObject extends GraphicalObject {
         return vectorInProjectedObjectCoordinates;
     }
 
-    public final Point3D getVectorInVenueCoordinatesFromObjectCoordinates( final Point3D cogInObjectCoordinates ) {
-        final Point3D vectorInProjectedObjectCoordinates =
-                                                          getVectorInProjectedObjectCoordinates( cogInObjectCoordinates );
+    public final Vector3D getVectorInVenueCoordinatesFromObjectCoordinates( 
+            final Vector3D cogInObjectCoordinates ) {
+        final Vector3D vectorInProjectedObjectCoordinates 
+                = getVectorInProjectedObjectCoordinates( cogInObjectCoordinates );
 
-        final Point3D vectorInVenueCoordinates = vectorInProjectedObjectCoordinates
+        final Vector3D vectorInVenueCoordinates = vectorInProjectedObjectCoordinates
                 .add( _gcInVenueCoordinates );
 
         return vectorInVenueCoordinates;
@@ -329,10 +335,10 @@ public abstract class SolidObject extends GraphicalObject {
         _facingDirection = facingDirection;
     }
 
-    public final void setGcInVenueCoordinates( final Point3D gcInVenueCoordinates ) {
-        _gcInVenueCoordinates = GeometryUtilities.copyPoint3D( gcInVenueCoordinates );
+    public final void setGcInVenueCoordinates( final Vector3D gcInVenueCoordinates ) {
+        _gcInVenueCoordinates = VectorUtilities.copyPoint3D( gcInVenueCoordinates );
 
-        final Point2D gcInVenueCoordinatesProjected = GeometryUtilities
+        final Vector2D gcInVenueCoordinatesProjected = VectorUtilities
                 .projectToPlane( gcInVenueCoordinates, OrthogonalAxes.XY );
 
         final double referencePointX = gcInVenueCoordinatesProjected.getX();
@@ -353,6 +359,6 @@ public abstract class SolidObject extends GraphicalObject {
     public void setReferencePoint2D( final double referencePointX, final double referencePointY ) {
         super.setReferencePoint2D( referencePointX, referencePointY );
 
-        _gcInVenueCoordinates = new Point3D( referencePointX, referencePointY, 0.0d );
+        _gcInVenueCoordinates = new Vector3D( referencePointX, referencePointY, 0.0d );
     }
 }

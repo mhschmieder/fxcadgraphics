@@ -21,12 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the FxCadToolkit Library
+ * This file is part of the FxCadGraphics Library
  *
  * You should have received a copy of the MIT License along with the
- * FxCadToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * FxCadGraphics Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/fxcadtoolkit
+ * Project: https://github.com/mhschmieder/fxcadgraphics
  */
 package com.mhschmieder.fxcadgraphics;
 
@@ -71,14 +71,13 @@ public final class ProjectorUtilities {
     //  types of Linear Objects. So far every effort fails to compile.
     public static void selectAllCartesianProjectors( final GraphicalObjectCollection< CartesianLine > cartesianLineCollection ) {
         // Fill the Linear Objects selection set with all of the Linear Objects
-        // that
-        // are marked as Projectors.
+        // that are marked as Projectors.
         final Collection< CartesianLine > collection = cartesianLineCollection.getCollection();
         final Collection< CartesianLine > deselection = cartesianLineCollection.getDeselection();
 
         // Fill the Linear Objects selection set with all of the Projectors.
         // NOTE: It is safer to avoid parallel streams right after clearing one
-        // of the collections as a bulk action.
+        //  of the collections as a bulk action.
         collection.stream().filter( GraphicalObject::isEditable ).forEach( cartesianLine -> {
             if ( cartesianLine.isEditable() && cartesianLine.isUseAsProjector() ) {
                 cartesianLineCollection.addToSelection( cartesianLine );
@@ -91,8 +90,7 @@ public final class ProjectorUtilities {
     //  types of Linear Objects. So far every effort fails to compile.
     public static void selectAllPolarProjectors( final GraphicalObjectCollection< PolarLine > polarLineCollection ) {
         // Fill the Linear Objects selection set with all of the Linear Objects
-        // that
-        // are marked as Projectors.
+        // that are marked as Projectors.
         final Collection< PolarLine > collection = polarLineCollection.getCollection();
         final Collection< PolarLine > deselection = polarLineCollection.getDeselection();
 

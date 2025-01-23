@@ -21,12 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the FxCadToolkit Library
+ * This file is part of the FxCadGraphics Library
  *
  * You should have received a copy of the MIT License along with the
- * FxCadToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * FxCadGraphics Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/fxcadtoolkit
+ * Project: https://github.com/mhschmieder/fxcadgraphics
  */
 package com.mhschmieder.fxcadgraphics;
 
@@ -46,7 +46,6 @@ import com.mhschmieder.physicstoolkit.MassComputable;
 import com.mhschmieder.physicstoolkit.MassProperties;
 
 import javafx.geometry.Point2D;
-import javafx.geometry.Point3D;
 import javafx.scene.shape.Shape;
 
 /**
@@ -58,7 +57,8 @@ import javafx.scene.shape.Shape;
  * Also, this means member variables should not be accessed directly, in case of
  * overrides on getter methods in subclasses.
  */
-public abstract class PhysicsObject extends SolidObject implements MassComputable, CogMarkable {
+public abstract class PhysicsObject extends SolidObject 
+        implements MassComputable, CogMarkable {
 
     // Cache the current Mass Properties associated with this Physics Object.
     private MassProperties _massProperties;
@@ -78,7 +78,7 @@ public abstract class PhysicsObject extends SolidObject implements MassComputabl
 
     // Fully qualified constructor.
     protected PhysicsObject( final LayerProperties layer,
-                             final Point3D gcInVenueCoordinates,
+                             final Vector3D gcInVenueCoordinates,
                              final double angleDegrees,
                              final Orientation orientation,
                              final FacingDirection facingDirection,
@@ -125,11 +125,11 @@ public abstract class PhysicsObject extends SolidObject implements MassComputabl
     // NOTE: This is in non-JavaFX units as it references a Physics Library method.
     public final Vector3D getCogInVenueCoordinates() {
         final Vector3D cogInObjectCoordinates = getCogInObjectCoordinates();
-        final Point3D fxCogInObjectCoordinates = new Point3D( cogInObjectCoordinates.getX(), 
-                                                              cogInObjectCoordinates.getY(), 
-                                                              cogInObjectCoordinates.getZ() );
-        final Point3D cogInVenueCoordinates = getVectorInVenueCoordinatesFromObjectCoordinates( 
-                fxCogInObjectCoordinates );
+        final Vector3D fxCogInObjectCoordinates = new Vector3D( cogInObjectCoordinates.getX(), 
+                                                                cogInObjectCoordinates.getY(), 
+                                                                cogInObjectCoordinates.getZ() );
+        final Vector3D cogInVenueCoordinates 
+                = getVectorInVenueCoordinatesFromObjectCoordinates( fxCogInObjectCoordinates );
         return new Vector3D( cogInVenueCoordinates.getX(), 
                              cogInVenueCoordinates.getY(), 
                              cogInVenueCoordinates.getZ() );
@@ -142,7 +142,8 @@ public abstract class PhysicsObject extends SolidObject implements MassComputabl
         final double crosshairDimension = 0.15d;
 
         // We need to use a list of shapes with multiple visual elements, as we
-        // have several categories of markers.
+        // have several categories of markers. Use Point2D vs. Vector2D to make
+        // JavaFX Geometry API shapes; a trivial switch from Vector2D.
         final Vector2D cogLocation = getCogInPlanarCoordinates();
         final Point2D fxCogLocation = new Point2D( cogLocation.getX(), 
                                                    cogLocation.getY() );

@@ -823,7 +823,8 @@ public final class GraphicalObjectCollection< T extends GraphicalObject > {
      * Select the first Graphical Object in the collection that contain the
      * point of mouse click.
      */
-    public T selectFirstByPoint( final Point2D clickPointMeters, final Bounds contextBounds ) {
+    public T selectFirstByPoint( final Point2D clickPointMeters, 
+                                 final Bounds contextBounds ) {
         // Search for the first Graphical Object amongst all the candidates,
         // that contains the point of mouse click.
         final T selection = _collection.stream()
@@ -875,7 +876,8 @@ public final class GraphicalObjectCollection< T extends GraphicalObject > {
     }
 
     // Conditionally add or toggle a Graphical Object's selection status.
-    public void toggleSelection( final T graphicalObject, final boolean toggleIfSelected ) {
+    public void toggleSelection( final T graphicalObject, 
+                                 final boolean toggleIfSelected ) {
         // It is legitimate to indirectly pass in a null pointer reference.
         if ( graphicalObject == null ) {
             return;
