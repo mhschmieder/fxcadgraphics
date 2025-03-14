@@ -55,6 +55,10 @@ import javafx.scene.shape.Rectangle;
  * The <code>GraphicalObjectCollection</code> class is the concrete
  * implementation base class for collections of Graphical Objects. It is a
  * "smart" collection which provides algorithms for selection set algorithms.
+ * <p>
+ * TODO: If possible, refactor to use {@code < ? extends LabeledObject >} and
+ *  then delete the uniquefier methods as redundant vs. the more generalized
+ *  versions that are now in LabeledObjectManager in commonstoolkit.
  */
 public final class GraphicalObjectCollection< T extends GraphicalObject > {
 
@@ -409,14 +413,40 @@ public final class GraphicalObjectCollection< T extends GraphicalObject > {
         return _deselection;
     }
 
-    // Get the first available Graphical Object label from the base number.
+    // NOTE: This method treats multi-select as no selection, as otherwise an
+    //  ambiguous or arbitrary choice is made, or one that depends on the type of
+    //  Collection used to implement the Selection Set (which might change).
+    public T getSelectedGraphicalObject() {
+        final Collection< T > selection = getSelection();
+        final T selectedGraphicalObject = ( selection != null ) && ( selection.size() == 1 )
+            ? selection.iterator().next()
+            : null;
+        return selectedGraphicalObject;
+    }
+
+    public Collection< T > getSelection() {
+        return _selection;
+    }
+
     // NOTE: This method should only be invoked on labeled objects.
-    public String getFirstAvailableLabel( final String graphicalObjectLabelDefault ) {
-        return getNextAvailableLabel( graphicalObjectLabelDefault, 1 );
+    // TODO: Refactor to use the generic version in LabeledObjectManager.
+    public boolean isLabelUnique( final String graphicalObjectLabelCandidate ) {
+        // Check whether the supplied Graphical Object Label candidate is unique
+        // within the context of its type-specific collection.
+        // NOTE: The context of invocation isn't thread-safe and is highly
+        //  re-entrant, so avoid parallel streams here to avoid freeze-ups.
+        final boolean labelNotUnique = _collection.stream().anyMatch( graphicalObject -> {
+            final LabeledObject labeledObject = ( LabeledObject ) graphicalObject;
+            final String graphicalObjectLabel = labeledObject.getLabel();
+            return ( graphicalObjectLabel.equals( graphicalObjectLabelCandidate ) );
+        } );
+
+        return !labelNotUnique;
     }
 
     // Get the corrected label for a new Graphical Object in the collection.
     // NOTE: This method should only be invoked on labeled objects.
+    // TODO: Refactor to use the generic version in LabeledObjectManager.
     public String getNewLabel( final String graphicalObjectLabelCandidate,
                                final String graphicalObjectLabelDefault ) {
         final String newGraphicalObjectLabelDefault = ( ( graphicalObjectLabelCandidate == null )
@@ -429,6 +459,7 @@ public final class GraphicalObjectCollection< T extends GraphicalObject > {
 
     // Get the default label for a new Graphical Object in the collection.
     // NOTE: This method should only be invoked on labeled objects.
+    // TODO: Refactor to use the generic version in LabeledObjectManager.
     public String getNewLabelDefault( final String graphicalObjectLabelDefault ) {
         // Bump beyond the current count, as the new Graphical Object hasn't
         // been added to the collection yet.
@@ -439,8 +470,16 @@ public final class GraphicalObjectCollection< T extends GraphicalObject > {
         return newGraphicalObjectLabelDefault;
     }
 
+    // Get the first available Graphical Object label from the base number.
+    // NOTE: This method should only be invoked on labeled objects.
+    // TODO: Refactor to use the generic version in LabeledObjectManager.
+    public String getFirstAvailableLabel( final String graphicalObjectLabelDefault ) {
+        return getNextAvailableLabel( graphicalObjectLabelDefault, 1 );
+    }
+
     // Get the next available Graphical Object Label from the current number.
     // NOTE: This method should only be invoked on labeled objects.
+    // TODO: Refactor to use the generic version in LabeledObjectManager.
     public String getNextAvailableLabel( final String graphicalObjectLabelDefault,
                                          final int graphicalObjectNumber ) {
         // Recursively search for (and enforce) name-uniqueness of the next
@@ -462,22 +501,45 @@ public final class GraphicalObjectCollection< T extends GraphicalObject > {
         return nextAvailableLabel;
     }
 
-    // NOTE: This method treats multi-select as no selection, as otherwise an
-    //  ambiguous or arbitrary choice is made, or one that depends on the type of
-    //  Collection used to implement the Selection Set (which might change).
-    public T getSelectedGraphicalObject() {
-        final Collection< T > selection = getSelection();
-        final T selectedGraphicalObject = ( selection != null ) && ( selection.size() == 1 )
-            ? selection.iterator().next()
-            : null;
-        return selectedGraphicalObject;
-    }
+    // Get a unique Graphical Object Label from the candidate label.
+    // NOTE: This method should only be invoked on labeled objects.
+    // TODO: Refactor to use the generic version in LabeledObjectManager.
+    public String getUniqueLabel( final String graphicalObjectLabelCandidate,
+                                  final String graphicalObjectLabelDefault,
+                                  final String graphicalObjectLabelToExclude,
+                                  final NumberFormat uniquefierNumberFormat ) {
+        // Recursively search for (and enforce) name-uniqueness of the Graphical
+        // Object Label candidate, leaving unadorned if possible. If no label
+        // candidate exists, start with a default label.
+        final String uniqueGraphicalObjectLabel = ( ( graphicalObjectLabelCandidate == null )
+                || graphicalObjectLabelCandidate.trim().isEmpty() )
+                    ? getUniqueLabel( graphicalObjectLabelDefault,
+                                      graphicalObjectLabelToExclude,
+                                      uniquefierNumberFormat )
+                    : getUniqueLabel( graphicalObjectLabelCandidate,
+                                      graphicalObjectLabelToExclude,
+                                      uniquefierNumberFormat );
 
-    public Collection< T > getSelection() {
-        return _selection;
+        return uniqueGraphicalObjectLabel;
     }
 
     // NOTE: This method should only be invoked on labeled objects.
+    // TODO: Refactor to use the generic version in LabeledObjectManager.
+    public String getUniqueLabel( final String graphicalObjectLabelCandidate,
+                                  final String graphicalObjectLabelToExclude,
+                                  final NumberFormat uniquefierNumberFormat ) {
+        // Only adorn the Graphical Object Label candidate if it is non-unique.
+        final int uniquefierNumber = 0;
+        final String uniqueGraphicalObjectLabel = getUniqueLabel( graphicalObjectLabelCandidate,
+                                                                  graphicalObjectLabelToExclude,
+                                                                  uniquefierNumber,
+                                                                  uniquefierNumberFormat );
+
+        return uniqueGraphicalObjectLabel;
+    }
+
+    // NOTE: This method should only be invoked on labeled objects.
+    // TODO: Refactor to use the generic version in LabeledObjectManager.
     public String getUniqueLabel( final String graphicalObjectLabelCandidate,
                                   final String graphicalObjectLabelToExclude,
                                   final int uniquefierNumber,
@@ -501,42 +563,7 @@ public final class GraphicalObjectCollection< T extends GraphicalObject > {
                 break;
             }
         }
-
-        return uniqueGraphicalObjectLabel;
-    }
-
-    // NOTE: This method should only be invoked on labeled objects.
-    public String getUniqueLabel( final String graphicalObjectLabelCandidate,
-                                  final String graphicalObjectLabelToExclude,
-                                  final NumberFormat uniquefierNumberFormat ) {
-        // Only adorn the Graphical Object Label candidate if it is non-unique.
-        final int uniquefierNumber = 0;
-        final String uniqueGraphicalObjectLabel = getUniqueLabel( graphicalObjectLabelCandidate,
-                                                                  graphicalObjectLabelToExclude,
-                                                                  uniquefierNumber,
-                                                                  uniquefierNumberFormat );
-
-        return uniqueGraphicalObjectLabel;
-    }
-
-    // Get a unique Graphical Object Label from the candidate label.
-    // NOTE: This method should only be invoked on labeled objects.
-    public String getUniqueLabel( final String graphicalObjectLabelCandidate,
-                                  final String graphicalObjectLabelDefault,
-                                  final String graphicalObjectLabelToExclude,
-                                  final NumberFormat uniquefierNumberFormat ) {
-        // Recursively search for (and enforce) name-uniqueness of the Graphical
-        // Object Label candidate, leaving unadorned if possible. If no label
-        // candidate exists, start with a default label.
-        final String uniqueGraphicalObjectLabel = ( ( graphicalObjectLabelCandidate == null )
-                || graphicalObjectLabelCandidate.trim().isEmpty() )
-                    ? getUniqueLabel( graphicalObjectLabelDefault,
-                                      graphicalObjectLabelToExclude,
-                                      uniquefierNumberFormat )
-                    : getUniqueLabel( graphicalObjectLabelCandidate,
-                                      graphicalObjectLabelToExclude,
-                                      uniquefierNumberFormat );
-
+        
         return uniqueGraphicalObjectLabel;
     }
 
@@ -585,21 +612,6 @@ public final class GraphicalObjectCollection< T extends GraphicalObject > {
         final Collection< T > selection = getSelection();
         final boolean graphicalObjectSelected = selection.contains( graphicalObject );
         return graphicalObjectSelected;
-    }
-
-    // NOTE: This method should only be invoked on labeled objects.
-    public boolean isLabelUnique( final String graphicalObjectLabelCandidate ) {
-        // Check whether the supplied Graphical Object Label candidate is unique
-        // within the context of its type-specific collection.
-        // NOTE: The context of invocation isn't thread-safe and is highly
-        //  re-entrant, so avoid parallel streams here to avoid freeze-ups.
-        final boolean labelNotUnique = _collection.stream().anyMatch( graphicalObject -> {
-            final LabeledObject labeledObject = ( LabeledObject ) graphicalObject;
-            final String graphicalObjectLabel = labeledObject.getLabel();
-            return ( graphicalObjectLabel.equals( graphicalObjectLabelCandidate ) );
-        } );
-
-        return !labelNotUnique;
     }
 
     /**
