@@ -445,10 +445,12 @@ public final class GraphicalObjectCollection< T extends GraphicalObject > {
     }
 
     // Get the corrected label for a new Graphical Object in the collection.
+    // NOTE: This should only be called by a GUI control when user edits
+    //  are saved, to ensure that a bank string is replaced by a default.
     // NOTE: This method should only be invoked on labeled objects.
     // TODO: Refactor to use the generic version in LabeledObjectManager.
-    public String getNewLabel( final String graphicalObjectLabelCandidate,
-                               final String graphicalObjectLabelDefault ) {
+    public String getCorrectedLabel( final String graphicalObjectLabelCandidate,
+                                     final String graphicalObjectLabelDefault ) {
         final String newGraphicalObjectLabelDefault = ( ( graphicalObjectLabelCandidate == null )
                 || graphicalObjectLabelCandidate.trim().isEmpty() )
                     ? getNewLabelDefault( graphicalObjectLabelDefault )
