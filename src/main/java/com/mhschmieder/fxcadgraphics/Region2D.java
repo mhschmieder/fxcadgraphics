@@ -300,7 +300,7 @@ public final class Region2D extends Extents2D {
                              final NumberFormat pNumberFormat,
                              final DistanceUnit distanceUnit ) {
         // NOTE: Regions are currently stored in User Units vs. Meters etc.
-        final String distanceUnitLabel = distanceUnit.toPresentationString();
+        final String distanceUnitLabel = distanceUnit.abbreviation();
 
         // Potentially adjust the floating-point precision of distances.
         final int precision = DistanceUnit.MILLIMETERS.equals( distanceUnit ) ? 0 : 2;
