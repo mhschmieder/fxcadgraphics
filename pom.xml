@@ -10,7 +10,7 @@
 	<version>0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>FxCadGraphics</name>
+	<name>fxcadgraphics</name>
 	<url>https://github.com/mhschmieder/fxcadgraphics</url>
 	<description>JavaFX based toolkit for common CAD concepts</description>
 
