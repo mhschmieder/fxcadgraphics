@@ -1,4 +1,4 @@
-/**
+/*
  * MIT License
  *
  * Copyright (c) 2020, 2025 Mark Schmieder
@@ -74,7 +74,7 @@ public final class Region2D extends Extents2D {
     public static final double                          SIZE_METERS_MAXIMUM = 1000d;
 
     /** An observable list of Surface Properties to support Data Binding. */
-    protected final ObservableList< SurfaceProperties > surfacePropertiesList;
+    private final ObservableList< SurfaceProperties >   surfacePropertiesList;
 
     // NOTE: These fields have to follow JavaFX Property Beans conventions.
     // TODO: Split value changed, to material name changed, and status changed?
@@ -102,16 +102,16 @@ public final class Region2D extends Extents2D {
               pBoundaryHeight,
               CadUtilities.getSurfaceNameDefault( 1 ),
               SurfaceProperties.BYPASSED_DEFAULT,
-              SurfaceProperties.MATERIAL_NAME_DEFAULT,
+              SurfaceProperties.SURFACE_MATERIAL_DEFAULT,
               CadUtilities.getSurfaceNameDefault( 2 ),
               SurfaceProperties.BYPASSED_DEFAULT,
-              SurfaceProperties.MATERIAL_NAME_DEFAULT,
+              SurfaceProperties.SURFACE_MATERIAL_DEFAULT,
               CadUtilities.getSurfaceNameDefault( 3 ),
               SurfaceProperties.BYPASSED_DEFAULT,
-              SurfaceProperties.MATERIAL_NAME_DEFAULT,
+              SurfaceProperties.SURFACE_MATERIAL_DEFAULT,
               CadUtilities.getSurfaceNameDefault( 4 ),
               SurfaceProperties.BYPASSED_DEFAULT,
-              SurfaceProperties.MATERIAL_NAME_DEFAULT );
+              SurfaceProperties.SURFACE_MATERIAL_DEFAULT);
     }
 
     /*
@@ -128,16 +128,16 @@ public final class Region2D extends Extents2D {
               pBoundaryHeight,
               pSurfaceProperties.get( 0 ).getSurfaceName(),
               pSurfaceProperties.get( 0 ).isSurfaceBypassed(),
-              pSurfaceProperties.get( 0 ).getMaterialName(),
+              pSurfaceProperties.get( 0 ).getSurfaceMaterial(),
               pSurfaceProperties.get( 1 ).getSurfaceName(),
               pSurfaceProperties.get( 1 ).isSurfaceBypassed(),
-              pSurfaceProperties.get( 1 ).getMaterialName(),
+              pSurfaceProperties.get( 1 ).getSurfaceMaterial(),
               pSurfaceProperties.get( 2 ).getSurfaceName(),
               pSurfaceProperties.get( 2 ).isSurfaceBypassed(),
-              pSurfaceProperties.get( 2 ).getMaterialName(),
+              pSurfaceProperties.get( 2 ).getSurfaceMaterial(),
               pSurfaceProperties.get( 3 ).getSurfaceName(),
               pSurfaceProperties.get( 3 ).isSurfaceBypassed(),
-              pSurfaceProperties.get( 3 ).getMaterialName() );
+              pSurfaceProperties.get( 3 ).getSurfaceMaterial() );
     }
 
     /*
@@ -149,46 +149,50 @@ public final class Region2D extends Extents2D {
                      final double pBoundaryHeight,
                      final String pSurface1Name,
                      final boolean pSurface1Bypassed,
-                     final String pSurface1MaterialName,
+                     final SurfaceMaterial pSurface1Material,
                      final String pSurface2Name,
                      final boolean pSurface2Bypassed,
-                     final String pSurface2MaterialName,
+                     final SurfaceMaterial pSurface2Material,
                      final String pSurface3Name,
                      final boolean pSurface3Bypassed,
-                     final String pSurface3MaterialName,
+                     final SurfaceMaterial pSurface3Material,
                      final String pSurface4Name,
                      final boolean pSurface4Bypassed,
-                     final String pSurface4MaterialName ) {
+                     final SurfaceMaterial pSurface4Material ) {
         // Always call the super-constructor first!
         super( pBoundaryX, pBoundaryY, pBoundaryWidth, pBoundaryHeight );
 
         surfacePropertiesList = FXCollections.observableArrayList();
 
-        final SurfaceProperties surface1Properties = new SurfaceProperties( 1,
-                                                                            pSurface1Name,
-                                                                            pSurface1Bypassed,
-                                                                            pSurface1MaterialName );
+        final SurfaceProperties surface1Properties = new SurfaceProperties(
+                1,
+                pSurface1Name,
+                pSurface1Bypassed,
+                pSurface1Material );
         surfacePropertiesList.add( surface1Properties );
 
-        final SurfaceProperties surface2Properties = new SurfaceProperties( 2,
-                                                                            pSurface2Name,
-                                                                            pSurface2Bypassed,
-                                                                            pSurface2MaterialName );
+        final SurfaceProperties surface2Properties = new SurfaceProperties(
+                2,
+                pSurface2Name,
+                pSurface2Bypassed,
+                pSurface2Material );
         surfacePropertiesList.add( surface2Properties );
 
-        final SurfaceProperties surface3Properties = new SurfaceProperties( 3,
-                                                                            pSurface3Name,
-                                                                            pSurface3Bypassed,
-                                                                            pSurface3MaterialName );
+        final SurfaceProperties surface3Properties = new SurfaceProperties(
+                3,
+                pSurface3Name,
+                pSurface3Bypassed,
+                pSurface3Material );
         surfacePropertiesList.add( surface3Properties );
 
-        final SurfaceProperties surface4Properties = new SurfaceProperties( 4,
-                                                                            pSurface4Name,
-                                                                            pSurface4Bypassed,
-                                                                            pSurface4MaterialName );
+        final SurfaceProperties surface4Properties = new SurfaceProperties(
+                4,
+                pSurface4Name,
+                pSurface4Bypassed,
+                pSurface4Material );
         surfacePropertiesList.add( surface4Properties );
 
-        // Bind all of the properties to the associated dirty flag.
+        // Bind all the properties to the associated dirty flag.
         // NOTE: This is done during initialization, as it is best to make
         //  singleton objects and just update their values vs. reconstructing.
         makeBooleanBindings();
@@ -252,13 +256,13 @@ public final class Region2D extends Extents2D {
         //  as long as that doesn't cause issues with invalidate status on get().
         surfaceValueChanged = BeanFactory.makeBooleanBinding(
             surface1Properties.surfaceBypassedProperty(),
-            surface1Properties.materialNameProperty(),
+            surface1Properties.surfaceMaterialProperty(),
             surface2Properties.surfaceBypassedProperty(),
-            surface2Properties.materialNameProperty(),
+            surface2Properties.surfaceMaterialProperty(),
             surface3Properties.surfaceBypassedProperty(),
-            surface3Properties.materialNameProperty(),
+            surface3Properties.surfaceMaterialProperty(),
             surface4Properties.surfaceBypassedProperty(),
-            surface4Properties.materialNameProperty() );
+            surface4Properties.surfaceMaterialProperty() );
     }
 
     // NOTE: Cloning is disabled as it is dangerous; use the copy constructor
@@ -302,7 +306,9 @@ public final class Region2D extends Extents2D {
         final String distanceUnitLabel = distanceUnit.abbreviation();
 
         // Potentially adjust the floating-point precision of distances.
-        final int precision = DistanceUnit.MILLIMETERS.equals( distanceUnit ) ? 0 : 2;
+        final int precision = DistanceUnit.MILLIMETERS.equals( distanceUnit )
+                ? 0
+                : 2;
         final NumberFormat distanceNumberFormat = ( NumberFormat ) pNumberFormat.clone();
         distanceNumberFormat.setMaximumFractionDigits( precision );
 
@@ -317,10 +323,10 @@ public final class Region2D extends Extents2D {
                 .convertDistance( getHeight(), DistanceUnit.METERS, distanceUnit );
 
         // Declare the Region Boundary column headers, then get the table.
-        final String[] boundarySpanNames = new String[] { "EXTENTS" }; //$NON-NLS-1$
+        final String[] boundarySpanNames = new String[] { "EXTENTS" };
         final String[] boundaryColumnNames = new String[] {
-            "LOWER LEFT CORNER (X, Y)", //$NON-NLS-1$
-            "SIZE (WIDTH, HEIGHT)" }; //$NON-NLS-1$
+            "LOWER LEFT CORNER (X, Y)",
+            "SIZE (WIDTH, HEIGHT)" };
         final int numberOfBoundaryColumns = boundaryColumnNames.length;
         final int[] boundarySpanLengths = new int[] { numberOfBoundaryColumns };
 
@@ -336,14 +342,16 @@ public final class Region2D extends Extents2D {
                                                           false );
 
         // Write the Region Boundary Table.
-        final String lowerLeftCorner = TextUtilities.getFormattedQuantityPair( xConverted,
-                                                                               yConverted,
-                                                                               distanceNumberFormat,
-                                                                               distanceUnitLabel );
-        final String size = TextUtilities.getFormattedQuantityPair( widthConverted,
-                                                                    heightConverted,
-                                                                    distanceNumberFormat,
-                                                                    distanceUnitLabel );
+        final String lowerLeftCorner = TextUtilities.getFormattedQuantityPair(
+                xConverted,
+                yConverted,
+                distanceNumberFormat,
+                distanceUnitLabel );
+        final String size = TextUtilities.getFormattedQuantityPair(
+                widthConverted,
+                heightConverted,
+                distanceNumberFormat,
+                distanceUnitLabel );
 
         final List< Cell > boundaryRowData = new ArrayList<>();
 
@@ -353,7 +361,9 @@ public final class Region2D extends Extents2D {
         boundaryTableData.add( boundaryRowData );
 
         // Write the table to as many pages as are required to fit.
-        Point point = new Point( PdfTools.PORTRAIT_LEFT_MARGIN, initialPoint.getY() + 20 );
+        Point point = new Point(
+                PdfTools.PORTRAIT_LEFT_MARGIN,
+                initialPoint.getY() + 20 );
         point = PdfTools.writeTable( document,
                                      page,
                                      point,
@@ -365,12 +375,12 @@ public final class Region2D extends Extents2D {
                                      false );
 
         // Declare the Surfaces column headers, then get the table.
-        final String[] surfacesSpanNames = new String[] { "SURFACES" }; //$NON-NLS-1$
+        final String[] surfacesSpanNames = new String[] { "SURFACES" };
         final String[] surfacesColumnNames = new String[] {
-                                                            "ID", //$NON-NLS-1$
-                                                            "SURFACE NAME", //$NON-NLS-1$
-                                                            "STATUS", //$NON-NLS-1$
-                                                            "MATERIAL NAME" }; //$NON-NLS-1$
+                "ID",
+                "SURFACE NAME",
+                "STATUS",
+                "MATERIAL NAME" };
         final int numberOfSurfacesColumns = surfacesColumnNames.length;
         final int[] surfacesSpanLengths = new int[] { numberOfSurfacesColumns };
 
@@ -378,10 +388,10 @@ public final class Region2D extends Extents2D {
         // space in the numeric columns and thus occasionally clipping the
         // verbose right-most Surface Material Name column.
         final int[] surfacesColumnWidths = new int[] {
-                                                       20, // COLUMN_SURFACE_ID
-                                                       180, // COLUMN_SURFACE_NAME
-                                                       100, // COLUMN_SURFACE_STATUS
-                                                       240 }; // COLUMN_SURFACE_MATERIAL_NAME
+                20, // COLUMN_SURFACE_ID
+                180, // COLUMN_SURFACE_NAME
+                100, // COLUMN_SURFACE_STATUS
+                240 }; // COLUMN_SURFACE_MATERIAL_NAME
 
         // Get a table to use for the Region Surfaces.
         // NOTE: This also sets the column headers and their styles.
@@ -402,8 +412,8 @@ public final class Region2D extends Extents2D {
             final List< Cell > surfacesRowData = new ArrayList<>();
 
             final String status = surfacePropertiesReference.isSurfaceBypassed()
-                ? "Bypassed" //$NON-NLS-1$
-                : "Enabled"; //$NON-NLS-1$
+                ? "Bypassed"
+                : "Enabled";
             PdfTools.addTableCell( surfacesRowData,
                                    fonts,
                                    Integer.toString( surfacePropertiesReference
@@ -414,13 +424,14 @@ public final class Region2D extends Extents2D {
             PdfTools.addTableCell( surfacesRowData, fonts, status );
             PdfTools.addTableCell( surfacesRowData,
                                    fonts,
-                                   surfacePropertiesReference.getMaterialName() );
+                                   surfacePropertiesReference
+                                           .getSurfaceMaterial().abbreviation() );
 
             surfacesTableData.add( surfacesRowData );
         }
 
         // Write the table to as many pages as are required to fit.
-        point.setPosition( PdfTools.PORTRAIT_LEFT_MARGIN, point.getY() + 20f );
+        point.setPosition( PdfTools.PORTRAIT_LEFT_MARGIN, point.getY() + 20.0f );
         PdfTools.writeTable( document,
                              page,
                              point,
@@ -447,16 +458,16 @@ public final class Region2D extends Extents2D {
                      HEIGHT_METERS_DEFAULT,
                      surfacePropertiesList.get( 0 ).getSurfaceName(),
                      SurfaceProperties.BYPASSED_DEFAULT,
-                     SurfaceProperties.MATERIAL_NAME_DEFAULT,
+                     SurfaceProperties.SURFACE_MATERIAL_DEFAULT,
                      surfacePropertiesList.get( 1 ).getSurfaceName(),
                      SurfaceProperties.BYPASSED_DEFAULT,
-                     SurfaceProperties.MATERIAL_NAME_DEFAULT,
+                     SurfaceProperties.SURFACE_MATERIAL_DEFAULT,
                      surfacePropertiesList.get( 2 ).getSurfaceName(),
                      SurfaceProperties.BYPASSED_DEFAULT,
-                     SurfaceProperties.MATERIAL_NAME_DEFAULT,
+                     SurfaceProperties.SURFACE_MATERIAL_DEFAULT,
                      surfacePropertiesList.get( 3 ).getSurfaceName(),
                      SurfaceProperties.BYPASSED_DEFAULT,
-                     SurfaceProperties.MATERIAL_NAME_DEFAULT );
+                     SurfaceProperties.SURFACE_MATERIAL_DEFAULT);
     }
 
     /*
@@ -481,30 +492,30 @@ public final class Region2D extends Extents2D {
                              final double pBoundaryHeight,
                              final String pSurface1Name,
                              final boolean pSurface1Bypassed,
-                             final String pSurface1MaterialName,
+                             final SurfaceMaterial pSurface1Material,
                              final String pSurface2Name,
                              final boolean pSurface2Bypassed,
-                             final String pSurface2MaterialName,
+                             final SurfaceMaterial pSurface2Material,
                              final String pSurface3Name,
                              final boolean pSurface3Bypassed,
-                             final String pSurface3MaterialName,
+                             final SurfaceMaterial pSurface3Material,
                              final String pSurface4Name,
                              final boolean pSurface4Bypassed,
-                             final String pSurface4MaterialName ) {
+                             final SurfaceMaterial pSurface4Material ) {
         setExtents( pBoundaryX, pBoundaryY, pBoundaryWidth, pBoundaryHeight );
 
         setSurfaceProperties( pSurface1Name,
                               pSurface1Bypassed,
-                              pSurface1MaterialName,
+                              pSurface1Material,
                               pSurface2Name,
                               pSurface2Bypassed,
-                              pSurface2MaterialName,
+                              pSurface2Material,
                               pSurface3Name,
                               pSurface3Bypassed,
-                              pSurface3MaterialName,
+                              pSurface3Material,
                               pSurface4Name,
                               pSurface4Bypassed,
-                              pSurface4MaterialName );
+                              pSurface4Material );
     }
 
     /*
@@ -533,39 +544,60 @@ public final class Region2D extends Extents2D {
     public void setSurfaceProperties( final int pSurfaceIndex,
                                       final String pSurfaceName,
                                       final boolean pSurfaceBypassed,
-                                      final String pSurfaceMaterialName ) {
-        final SurfaceProperties surfaceProperties = surfacePropertiesList.get( pSurfaceIndex );
+                                      final SurfaceMaterial pSurfaceMaterial ) {
+        final SurfaceProperties surfaceProperties = surfacePropertiesList.get(
+                pSurfaceIndex );
         surfaceProperties.setSurfaceNumber( pSurfaceIndex + 1 );
         surfaceProperties.setSurfaceName( pSurfaceName );
         surfaceProperties.setSurfaceBypassed( pSurfaceBypassed );
-        surfaceProperties.setMaterialName( pSurfaceMaterialName );
+        surfaceProperties.setSurfaceMaterial( pSurfaceMaterial );
     }
 
-    private void setSurfaceProperties( final ObservableList< SurfaceProperties > pSurfacePropertiesList ) {
-        for ( int surfaceIndex = 0; surfaceIndex < NUMBER_OF_SURFACES; surfaceIndex++ ) {
-            final SurfaceProperties surfaceProperties = pSurfacePropertiesList.get( surfaceIndex );
+    private void setSurfaceProperties(
+            final ObservableList< SurfaceProperties > pSurfacePropertiesList ) {
+        for ( int surfaceIndex = 0;
+              surfaceIndex < NUMBER_OF_SURFACES;
+              surfaceIndex++ ) {
+            final SurfaceProperties surfaceProperties = pSurfacePropertiesList
+                    .get( surfaceIndex );
             setSurfaceProperties( surfaceIndex,
                                   surfaceProperties.getSurfaceName(),
                                   surfaceProperties.isSurfaceBypassed(),
-                                  surfaceProperties.getMaterialName() );
+                                  surfaceProperties.getSurfaceMaterial() );
         }
     }
 
     public void setSurfaceProperties( final String pSurface1Name,
                                       final boolean pSurface1Bypassed,
-                                      final String pSurface1MaterialName,
+                                      final SurfaceMaterial pSurface1Material,
                                       final String pSurface2Name,
                                       final boolean pSurface2Bypassed,
-                                      final String pSurface2MaterialName,
+                                      final SurfaceMaterial pSurface2Material,
                                       final String pSurface3Name,
                                       final boolean pSurface3Bypassed,
-                                      final String pSurface3MaterialName,
+                                      final SurfaceMaterial pSurface3Material,
                                       final String pSurface4Name,
                                       final boolean pSurface4Bypassed,
-                                      final String pSurface4MaterialName ) {
-        setSurfaceProperties( 0, pSurface1Name, pSurface1Bypassed, pSurface1MaterialName );
-        setSurfaceProperties( 1, pSurface2Name, pSurface2Bypassed, pSurface2MaterialName );
-        setSurfaceProperties( 2, pSurface3Name, pSurface3Bypassed, pSurface3MaterialName );
-        setSurfaceProperties( 3, pSurface4Name, pSurface4Bypassed, pSurface4MaterialName );
+                                      final SurfaceMaterial pSurface4Material ) {
+        setSurfaceProperties(
+                0,
+                pSurface1Name,
+                pSurface1Bypassed,
+                pSurface1Material );
+        setSurfaceProperties(
+                1,
+                pSurface2Name,
+                pSurface2Bypassed,
+                pSurface2Material );
+        setSurfaceProperties(
+                2,
+                pSurface3Name,
+                pSurface3Bypassed,
+                pSurface3Material );
+        setSurfaceProperties(
+                3,
+                pSurface4Name,
+                pSurface4Bypassed,
+                pSurface4Material );
     }
 }

@@ -1,4 +1,4 @@
-/**
+/*
  * MIT License
  *
  * Copyright (c) 2020, 2025 Mark Schmieder
@@ -32,8 +32,10 @@ package com.mhschmieder.fxcadgraphics;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -46,54 +48,30 @@ public final class SurfaceProperties {
     public static final boolean   BYPASSED_DEFAULT      = true;
 
     // Declare the Surface Material default name.
-    public static final String MATERIAL_NAME_DEFAULT
-            = SurfaceMaterial.RIGID.abbreviation();
+    public static final SurfaceMaterial SURFACE_MATERIAL_DEFAULT
+            = SurfaceMaterial.RIGID;
 
     private final IntegerProperty surfaceNumber;
     private final StringProperty  surfaceName;
     private final BooleanProperty surfaceBypassed;
-    private final StringProperty  materialName;
+    private final ObjectProperty< SurfaceMaterial > surfaceMaterial;
 
     public SurfaceProperties( final int pSurfaceNumber,
                               final String pSurfaceName,
                               final boolean pSurfaceBypassed,
-                              final String pMaterialName ) {
+                              final SurfaceMaterial pMaterialName ) {
         surfaceNumber = new SimpleIntegerProperty( pSurfaceNumber );
         surfaceName = new SimpleStringProperty( pSurfaceName );
         surfaceBypassed = new SimpleBooleanProperty( pSurfaceBypassed );
-        materialName = new SimpleStringProperty( pMaterialName );
+        surfaceMaterial = new SimpleObjectProperty<>( pMaterialName );
     }
 
-    public String getMaterialName() {
-        return materialName.get();
-    }
-
-    public String getSurfaceName() {
-        return surfaceName.get();
+    public IntegerProperty surfaceNumberProperty() {
+        return surfaceNumber;
     }
 
     public int getSurfaceNumber() {
         return surfaceNumber.get();
-    }
-
-    public boolean isSurfaceBypassed() {
-        return surfaceBypassed.get();
-    }
-
-    public StringProperty materialNameProperty() {
-        return materialName;
-    }
-
-    public void setMaterialName( final String pMaterialName ) {
-        materialName.set( pMaterialName );
-    }
-
-    public void setSurfaceBypassed( final boolean pSurfaceBypassed ) {
-        surfaceBypassed.set( pSurfaceBypassed );
-    }
-
-    public void setSurfaceName( final String pSurfaceName ) {
-        surfaceName.set( pSurfaceName );
     }
 
     public void setSurfaceNumber( final int pSurfaceNumber ) {
@@ -104,11 +82,35 @@ public final class SurfaceProperties {
         return surfaceBypassed;
     }
 
+    public boolean isSurfaceBypassed() {
+        return surfaceBypassed.get();
+    }
+
+    public void setSurfaceBypassed( final boolean pSurfaceBypassed ) {
+        surfaceBypassed.set( pSurfaceBypassed );
+    }
+
     public StringProperty surfaceNameProperty() {
         return surfaceName;
     }
 
-    public IntegerProperty surfaceNumberProperty() {
-        return surfaceNumber;
+    public String getSurfaceName() {
+        return surfaceName.get();
+    }
+
+    public void setSurfaceName( final String pSurfaceName ) {
+        surfaceName.set( pSurfaceName );
+    }
+
+    public ObjectProperty< SurfaceMaterial > surfaceMaterialProperty() {
+        return surfaceMaterial;
+    }
+
+    public SurfaceMaterial getSurfaceMaterial() {
+        return surfaceMaterial.get();
+    }
+
+    public void setSurfaceMaterial( final SurfaceMaterial pMaterialName ) {
+        surfaceMaterial.set( pMaterialName );
     }
 }
