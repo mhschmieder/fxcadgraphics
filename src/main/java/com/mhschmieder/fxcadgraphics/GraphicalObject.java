@@ -30,11 +30,6 @@
  */
 package com.mhschmieder.fxcadgraphics;
 
-import java.util.Collection;
-import java.util.List;
-
-import org.apache.commons.math3.util.FastMath;
-
 import com.mhschmieder.fxgraphicstoolkit.geometry.GeometryUtilities;
 import com.mhschmieder.fxgraphicstoolkit.paint.ColorConstants;
 import com.mhschmieder.fxgraphicstoolkit.paint.ColorUtilities;
@@ -42,7 +37,6 @@ import com.mhschmieder.fxgraphicstoolkit.shape.ShapeGroup;
 import com.mhschmieder.fxlayergraphics.LayerAssignable;
 import com.mhschmieder.fxlayergraphics.LayerUtilities;
 import com.mhschmieder.fxlayergraphics.model.LayerProperties;
-
 import javafx.collections.ObservableList;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
@@ -51,6 +45,10 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Transform;
+import org.apache.commons.math3.util.FastMath;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * The <code>GraphicalObject</code> class is the abstract base class for all

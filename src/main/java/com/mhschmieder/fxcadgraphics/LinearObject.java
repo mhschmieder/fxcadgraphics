@@ -30,17 +30,11 @@
  */
 package com.mhschmieder.fxcadgraphics;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.math3.util.FastMath;
-
 import com.mhschmieder.commonstoolkit.lang.LabeledObject;
 import com.mhschmieder.fxgraphicstoolkit.geometry.GeometryUtilities;
 import com.mhschmieder.fxgraphicstoolkit.shape.ShapeGroup;
 import com.mhschmieder.fxgraphicstoolkit.shape.ShapeUtilities;
 import com.mhschmieder.fxlayergraphics.model.LayerProperties;
-
 import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -52,6 +46,10 @@ import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeType;
+import org.apache.commons.math3.util.FastMath;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The <code>LinearObject</code> class is the abstract base class for all linear

@@ -1,4 +1,4 @@
-/**
+/*
  * MIT License
  *
  * Copyright (c) 2020, 2025 Mark Schmieder
@@ -47,27 +47,27 @@ public final class SurfaceMaterialUtilities {
         final ArrayList< String > surfaceMaterials = new ArrayList<>();
 
         surfaceMaterials.add( SurfaceMaterial.ACOUSTIC_TILE_ON_RIGID_SURF_KF
-                              .toPresentationString() );
+                              .abbreviation() );
         surfaceMaterials.add( SurfaceMaterial.BRICK_WALL_PAINTED_LB
-                              .toPresentationString() );
+                              .abbreviation() );
         surfaceMaterials.add( SurfaceMaterial.BRICK_WALL_UNPAINTED_LB
-                              .toPresentationString() );
+                              .abbreviation() );
         surfaceMaterials.add( SurfaceMaterial.CARPET_HEAVY_ON_CONCRETE_CH
-                              .toPresentationString() );
+                              .abbreviation() );
         surfaceMaterials.add( SurfaceMaterial.CONCRETE_BLOCK_PAINTED_CH
-                              .toPresentationString() );
+                              .abbreviation() );
         surfaceMaterials.add( SurfaceMaterial.CONCRETE_BLOCK_UNPAINTED_CH
-                              .toPresentationString() );
+                              .abbreviation() );
         surfaceMaterials.add( SurfaceMaterial.PLASTER_ON_LATHE_CH
-                              .toPresentationString() );
+                              .abbreviation() );
         surfaceMaterials.add( SurfaceMaterial.POURED_CONCRETE_PAINTED_LB
-                              .toPresentationString() );
+                              .abbreviation() );
         surfaceMaterials.add( SurfaceMaterial.POURED_CONCRETE_UNPAINTED_LB
-                              .toPresentationString() );
+                              .abbreviation() );
         surfaceMaterials.add( SurfaceMaterial.RIGID
-                              .toPresentationString() );
+                              .abbreviation() );
         surfaceMaterials.add( SurfaceMaterial.VELOUR_TEN_OZ_PER_YARD_SQR_TOUCHING_WALL_CH
-                              .toPresentationString() );
+                              .abbreviation() );
 
         return surfaceMaterials;
     }

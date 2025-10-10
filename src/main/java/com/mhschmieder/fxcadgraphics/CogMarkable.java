@@ -30,9 +30,9 @@
  */
 package com.mhschmieder.fxcadgraphics;
 
-import java.util.List;
-
 import javafx.scene.shape.Shape;
+
+import java.util.List;
 
 /**
  * This is an interface that defines a contract on what method(s) is/are

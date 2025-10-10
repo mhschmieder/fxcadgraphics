@@ -32,7 +32,6 @@ package com.mhschmieder.fxcadgraphics;
 
 import com.mhschmieder.fxgraphicstoolkit.beans.BeanFactory;
 import com.mhschmieder.fxgraphicstoolkit.geometry.Extents2D;
-
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;

@@ -30,10 +30,6 @@
  */
 package com.mhschmieder.fxcadgraphics;
 
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.mhschmieder.commonstoolkit.text.TextUtilities;
 import com.mhschmieder.fxgraphicstoolkit.beans.BeanFactory;
 import com.mhschmieder.fxgraphicstoolkit.geometry.Extents2D;
@@ -46,11 +42,14 @@ import com.pdfjet.PDF;
 import com.pdfjet.Page;
 import com.pdfjet.Point;
 import com.pdfjet.Table;
-
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.shape.Rectangle;
+
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The <code>Region2D</code> class is the implementation class for a Region as

@@ -30,19 +30,12 @@
  */
 package com.mhschmieder.fxcadgraphics;
 
-import java.text.NumberFormat;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import com.mhschmieder.commonstoolkit.lang.LabeledObject;
 import com.mhschmieder.commonstoolkit.text.TextUtilities;
 import com.mhschmieder.fxgraphicstoolkit.geometry.GeometryUtilities;
 import com.mhschmieder.fxgraphicstoolkit.shape.ShapeGroup;
 import com.mhschmieder.fxlayergraphics.LayerUtilities;
 import com.mhschmieder.fxlayergraphics.model.LayerProperties;
-
 import javafx.collections.ObservableList;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
@@ -50,6 +43,12 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+
+import java.text.NumberFormat;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * The <code>GraphicalObjectCollection</code> class is the concrete

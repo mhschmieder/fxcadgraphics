@@ -46,8 +46,8 @@ public final class SurfaceProperties {
     public static final boolean   BYPASSED_DEFAULT      = true;
 
     // Declare the Surface Material default name.
-    public static final String  MATERIAL_NAME_DEFAULT  = SurfaceMaterial.RIGID
-            .toPresentationString();
+    public static final String MATERIAL_NAME_DEFAULT
+            = SurfaceMaterial.RIGID.abbreviation();
 
     private final IntegerProperty surfaceNumber;
     private final StringProperty  surfaceName;

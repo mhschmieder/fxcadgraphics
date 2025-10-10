@@ -30,10 +30,6 @@
  */
 package com.mhschmieder.fxcadgraphics;
 
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
-import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
-import org.apache.commons.math3.util.FastMath;
-
 import com.mhschmieder.fxgraphicstoolkit.geometry.FacingDirection;
 import com.mhschmieder.fxgraphicstoolkit.geometry.Orientation;
 import com.mhschmieder.fxlayergraphics.LayerUtilities;
@@ -41,8 +37,10 @@ import com.mhschmieder.fxlayergraphics.model.LayerProperties;
 import com.mhschmieder.mathtoolkit.geometry.euclidian.Axis;
 import com.mhschmieder.mathtoolkit.geometry.euclidian.OrthogonalAxes;
 import com.mhschmieder.mathtoolkit.geometry.euclidian.VectorUtilities;
-
 import javafx.scene.transform.Affine;
+import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
+import org.apache.commons.math3.util.FastMath;
 
 /**
  * The <code>SolidObject</code> class is the abstract base class for all solid

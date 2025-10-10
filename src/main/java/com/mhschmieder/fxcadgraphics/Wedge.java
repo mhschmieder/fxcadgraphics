@@ -30,20 +30,18 @@
  */
 package com.mhschmieder.fxcadgraphics;
 
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Path2D;
-
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
-import org.apache.commons.math3.util.FastMath;
-
 import com.mhschmieder.fxgraphicstoolkit.geometry.Orientation;
 import com.mhschmieder.mathtoolkit.geometry.euclidian.VectorUtilities;
-
 import javafx.collections.ObservableList;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
+import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.apache.commons.math3.util.FastMath;
+
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Path2D;
 
 /**
  * <code>Wedge</code> stores the three dimensional locations of the corner

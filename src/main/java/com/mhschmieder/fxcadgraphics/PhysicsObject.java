@@ -30,11 +30,6 @@
  */
 package com.mhschmieder.fxcadgraphics;
 
-import java.util.List;
-
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
-import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
-
 import com.mhschmieder.fxgraphicstoolkit.geometry.FacingDirection;
 import com.mhschmieder.fxgraphicstoolkit.geometry.Orientation;
 import com.mhschmieder.fxgraphicstoolkit.shape.ShapeUtilities;
@@ -44,9 +39,12 @@ import com.mhschmieder.mathtoolkit.geometry.euclidian.OrthogonalAxes;
 import com.mhschmieder.mathtoolkit.geometry.euclidian.VectorUtilities;
 import com.mhschmieder.physicstoolkit.MassComputable;
 import com.mhschmieder.physicstoolkit.MassProperties;
-
 import javafx.geometry.Point2D;
 import javafx.scene.shape.Shape;
+import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
+
+import java.util.List;
 
 /**
  * The <code>PhysicsObject</code> class is the abstract base class for all

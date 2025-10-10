@@ -30,11 +30,10 @@
  */
 package com.mhschmieder.fxcadgraphics;
 
-import java.text.NumberFormat;
-
 import com.mhschmieder.commonstoolkit.text.TextUtilities;
-
 import javafx.collections.ObservableList;
+
+import java.text.NumberFormat;
 
 /**
  * This is a utility class for CAD oriented functionality.

@@ -1,4 +1,4 @@
-/**
+/*
  * MIT License
  *
  * Copyright (c) 2020, 2025 Mark Schmieder
@@ -30,6 +30,9 @@
  */
 package com.mhschmieder.fxcadgraphics;
 
+import com.mhschmieder.commonstoolkit.lang.Abbreviated;
+import com.mhschmieder.commonstoolkit.lang.EnumUtilities;
+
 /**
  * An enumeration of standard surface materials as specified in Harry Ferdinand, 
  * Olson's Acoustical Engineering textbook from 1957, designed to cover the basic 
@@ -39,79 +42,41 @@ package com.mhschmieder.fxcadgraphics;
  * Although frequently used in the context of physics for material properties, or
  * acoustics for absorption and other characteristics, surface materials are also
  * important to general CAD modeling, for visual representation and lighting.
+ * <p>
+ * TODO: Implement Labeled and provide more human-readable descriptions.
  */
-public enum SurfaceMaterial {
-    ACOUSTIC_TILE_ON_RIGID_SURF_KF,
-    BRICK_WALL_PAINTED_LB,
-    BRICK_WALL_UNPAINTED_LB,
-    CARPET_HEAVY_ON_CONCRETE_CH,
-    CONCRETE_BLOCK_PAINTED_CH,
-    CONCRETE_BLOCK_UNPAINTED_CH,
-    PLASTER_ON_LATHE_CH,
-    POURED_CONCRETE_PAINTED_LB,
-    POURED_CONCRETE_UNPAINTED_LB,
-    RIGID,
-    VELOUR_TEN_OZ_PER_YARD_SQR_TOUCHING_WALL_CH;
+public enum SurfaceMaterial implements Abbreviated< SurfaceMaterial > {
+    ACOUSTIC_TILE_ON_RIGID_SURF_KF( "AcousticTileOnRigidSurfKF" ),
+    BRICK_WALL_PAINTED_LB( "BrickWallPaintedLB" ),
+    BRICK_WALL_UNPAINTED_LB( "BrickWallUnpaintedLB" ),
+    CARPET_HEAVY_ON_CONCRETE_CH( "CarpetHeavyOnConcreteCH" ),
+    CONCRETE_BLOCK_PAINTED_CH( "ConcreteBlockPaintedCH" ),
+    CONCRETE_BLOCK_UNPAINTED_CH( "ConcreteBlockUnpaintedCH" ),
+    PLASTER_ON_LATHE_CH( "PlasterOnLathCH" ),
+    POURED_CONCRETE_PAINTED_LB( "PouredConcretePaintedLB" ),
+    POURED_CONCRETE_UNPAINTED_LB( "PouredConcreteUnpaintedLB" ),
+    RIGID( "Rigid" ),
+    VELOUR_TEN_OZ_PER_YARD_SQR_TOUCHING_WALL_CH( "VelourTenOzPerYardSqrTouchingWallCH" );
+
+    private String abbreviation;
+
+    SurfaceMaterial( final String pAbbreviation ) {
+        abbreviation = pAbbreviation;
+    }
+
+    @Override
+    public final String abbreviation() {
+        return abbreviation;
+    }
+
+    @Override
+    public SurfaceMaterial valueOfAbbreviation( final String abbreviatedText ) {
+        return ( SurfaceMaterial ) EnumUtilities
+                .getAbbreviatedEnumFromAbbreviation(
+                        abbreviatedText, values() );
+    }
 
     public static SurfaceMaterial defaultValue() {
         return RIGID;
-    }
-    
-    public static String toLegacyString( final SurfaceMaterial surfaceMaterial ) {
-        String legacyString = "";
-        
-        switch ( surfaceMaterial ) {
-        case ACOUSTIC_TILE_ON_RIGID_SURF_KF:
-            legacyString = "AcousticTileOnRigidSurfKF";
-            break;
-        case BRICK_WALL_PAINTED_LB:
-            legacyString = "BrickWallPaintedLB";
-            break;
-        case BRICK_WALL_UNPAINTED_LB:
-            legacyString = "BrickWallUnpaintedLB";
-            break;
-        case CARPET_HEAVY_ON_CONCRETE_CH:
-            legacyString = "CarpetHeavyOnConcreteCH";
-            break;
-        case CONCRETE_BLOCK_PAINTED_CH:
-            legacyString = "ConcreteBlockPaintedCH";
-            break;
-        case CONCRETE_BLOCK_UNPAINTED_CH:
-            legacyString = "ConcreteBlockUnpaintedCH";
-            break;
-        case PLASTER_ON_LATHE_CH:
-            legacyString = "PlasterOnLathCH";
-            break;
-        case POURED_CONCRETE_PAINTED_LB:
-            legacyString = "PouredConcretePaintedLB";
-            break;
-        case POURED_CONCRETE_UNPAINTED_LB:
-            legacyString = "PouredConcreteUnpaintedLB";
-            break;
-        case RIGID:
-            legacyString = "Rigid";
-            break;
-        case VELOUR_TEN_OZ_PER_YARD_SQR_TOUCHING_WALL_CH:
-            legacyString = "VelourTenOzPerYardSqrTouchingWallCH";
-            break;
-        default:
-            final String errMessage = "Unexpected SurfaceMaterial " + surfaceMaterial;
-            throw new IllegalArgumentException( errMessage );
-        }
-        
-        return legacyString;
-    }
-    
-    public static String toPresentrationString(final SurfaceMaterial surfaceMaterial ) {
-        // TODO: Replace the legacy string forwarding with more descriptive labels.
-        return toLegacyString( surfaceMaterial );
-    }
-    
-    public String toLegacyString() {
-        return toLegacyString( this );
-    }
-   
-    public String toPresentationString() {
-        return toPresentrationString( this );
     }
 }

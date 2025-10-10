@@ -30,13 +30,11 @@
  */
 package com.mhschmieder.fxcadgraphics;
 
-import org.apache.commons.math3.util.FastMath;
-
 import com.mhschmieder.fxlayergraphics.LayerUtilities;
 import com.mhschmieder.fxlayergraphics.model.LayerProperties;
-
 import javafx.geometry.Point2D;
 import javafx.scene.shape.Line;
+import org.apache.commons.math3.util.FastMath;
 
 /**
  * The <code>PolarLine</code> class is the concrete class for Polar Lines.
