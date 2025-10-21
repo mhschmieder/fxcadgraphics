@@ -30,11 +30,11 @@
  */
 package com.mhschmieder.fxcadgraphics;
 
-import com.mhschmieder.commonstoolkit.lang.LabeledObject;
 import com.mhschmieder.fxgraphicstoolkit.geometry.GeometryUtilities;
 import com.mhschmieder.fxgraphicstoolkit.shape.ShapeGroup;
 import com.mhschmieder.fxgraphicstoolkit.shape.ShapeUtilities;
 import com.mhschmieder.fxlayergraphics.model.LayerProperties;
+import com.mhschmieder.jcommons.lang.LabeledObject;
 import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;

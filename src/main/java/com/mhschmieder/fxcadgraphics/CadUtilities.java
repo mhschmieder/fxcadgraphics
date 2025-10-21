@@ -30,7 +30,7 @@
  */
 package com.mhschmieder.fxcadgraphics;
 
-import com.mhschmieder.commonstoolkit.text.TextUtilities;
+import com.mhschmieder.jcommons.text.TextUtilities;
 import javafx.collections.ObservableList;
 
 import java.text.NumberFormat;

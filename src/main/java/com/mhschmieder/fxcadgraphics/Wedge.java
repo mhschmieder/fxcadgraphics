@@ -31,7 +31,7 @@
 package com.mhschmieder.fxcadgraphics;
 
 import com.mhschmieder.fxgraphicstoolkit.geometry.Orientation;
-import com.mhschmieder.mathtoolkit.geometry.euclidian.VectorUtilities;
+import com.mhschmieder.jmath.geometry.euclidian.VectorUtilities;
 import javafx.collections.ObservableList;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;

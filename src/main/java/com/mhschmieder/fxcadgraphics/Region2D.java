@@ -30,13 +30,13 @@
  */
 package com.mhschmieder.fxcadgraphics;
 
-import com.mhschmieder.commonstoolkit.text.TextUtilities;
 import com.mhschmieder.fxgraphicstoolkit.beans.BeanFactory;
 import com.mhschmieder.fxgraphicstoolkit.geometry.Extents2D;
-import com.mhschmieder.pdftoolkit.PdfFonts;
-import com.mhschmieder.pdftoolkit.PdfTools;
-import com.mhschmieder.physicstoolkit.DistanceUnit;
-import com.mhschmieder.physicstoolkit.UnitConversion;
+import com.mhschmieder.jcommons.text.TextUtilities;
+import com.mhschmieder.jpdfexport.PdfFonts;
+import com.mhschmieder.jpdfexport.PdfTools;
+import com.mhschmieder.jphysics.DistanceUnit;
+import com.mhschmieder.jphysics.UnitConversion;
 import com.pdfjet.Cell;
 import com.pdfjet.PDF;
 import com.pdfjet.Page;

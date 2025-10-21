@@ -30,12 +30,12 @@
  */
 package com.mhschmieder.fxcadgraphics;
 
-import com.mhschmieder.commonstoolkit.lang.LabeledObject;
-import com.mhschmieder.commonstoolkit.text.TextUtilities;
 import com.mhschmieder.fxgraphicstoolkit.geometry.GeometryUtilities;
 import com.mhschmieder.fxgraphicstoolkit.shape.ShapeGroup;
 import com.mhschmieder.fxlayergraphics.LayerUtilities;
 import com.mhschmieder.fxlayergraphics.model.LayerProperties;
+import com.mhschmieder.jcommons.lang.LabeledObject;
+import com.mhschmieder.jcommons.text.TextUtilities;
 import javafx.collections.ObservableList;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
@@ -57,7 +57,7 @@ import java.util.stream.Collectors;
  * <p>
  * TODO: If possible, refactor to use {@code < ? extends LabeledObject >} and
  *  then delete the uniquefier methods as redundant vs. the more generalized
- *  versions that are now in LabeledObjectManager in commonstoolkit.
+ *  versions that are now in LabeledObjectManager in jcommons.
  */
 public final class GraphicalObjectCollection< T extends GraphicalObject > {
 

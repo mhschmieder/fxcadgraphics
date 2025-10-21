@@ -30,9 +30,9 @@
  */
 package com.mhschmieder.fxcadgraphics;
 
-import com.mhschmieder.commonstoolkit.lang.Abbreviated;
-import com.mhschmieder.commonstoolkit.lang.EnumUtilities;
-import com.mhschmieder.commonstoolkit.lang.Labeled;
+import com.mhschmieder.jcommons.lang.Abbreviated;
+import com.mhschmieder.jcommons.lang.EnumUtilities;
+import com.mhschmieder.jcommons.lang.Labeled;
 
 /**
  * An enumeration of standard surface materials as specified in Harry Ferdinand, 
