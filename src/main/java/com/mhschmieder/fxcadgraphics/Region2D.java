@@ -31,8 +31,8 @@
 package com.mhschmieder.fxcadgraphics;
 
 import com.mhschmieder.jcommons.text.TextUtilities;
-import com.mhschmieder.jpdfexport.PdfFonts;
-import com.mhschmieder.jpdfexport.PdfTools;
+import com.mhschmieder.jpdfwriter.PdfFonts;
+import com.mhschmieder.jpdfwriter.PdfTools;
 import com.mhschmieder.jphysics.DistanceUnit;
 import com.mhschmieder.jphysics.UnitConversion;
 import com.pdfjet.Cell;
@@ -185,11 +185,6 @@ public final class Region2D extends Extents2D {
                 pSurface4Bypassed,
                 pSurface4Material );
         surfaceList.add( surface4Properties );
-
-        // Bind all the properties to the associated dirty flag.
-        // NOTE: This is done during initialization, as it is best to make
-        //  singleton objects and just update their values vs. reconstructing.
-        makeBooleanBindings();
     }
 
     /*
