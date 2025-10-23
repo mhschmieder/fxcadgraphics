@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020, 2025 Mark Schmieder
+ * Copyright (c) 2020, 2025, Mark Schmieder. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -36,13 +36,13 @@ import com.mhschmieder.jcommons.lang.Labeled;
 
 /**
  * An enumeration of standard surface materials as specified in Harry Ferdinand, 
- * Olson's Acoustical Engineering textbook from 1957, designed to cover the basic 
- * range of acoustic absorption properties and other attributes, and including 
- * named materials that are composites of several layers.
+ * Olson's Acoustical Engineering textbook from 1957, designed to cover the
+ * basic  range of acoustic absorption properties and other attributes, and
+ * including  named materials that are composites of several layers.
  * <p>
- * Although frequently used in the context of physics for material properties, or
- * acoustics for absorption and other characteristics, surface materials are also
- * important to general CAD modeling, for visual representation and lighting.
+ * Although frequently used in the context of physics for material properties,
+ * or acoustics for absorption and other characteristics, surface materials are
+ * also important to general CAD modeling, for visual representation/lighting.
  * <p>
  * TODO: Switch to more human-readable descriptions for the regular labels.
  */

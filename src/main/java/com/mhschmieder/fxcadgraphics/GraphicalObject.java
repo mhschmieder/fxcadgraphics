@@ -408,8 +408,7 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >,
      *         x-coordinate for this Graphical Object
      */
     public double getReferencePointX() {
-        final double referencePointX = getLocationX();
-        return referencePointX;
+        return getLocationX();
     }
 
     /**
@@ -427,8 +426,7 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >,
      *         y-coordinate for this Graphical Object
      */
     public double getReferencePointY() {
-        final double referencePointY = getLocationY();
-        return referencePointY;
+        return getLocationY();
     }
 
     /**
@@ -536,11 +534,8 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >,
         final double centerX2 = otherBbox.getMinX() + ( 0.5d * otherBbox.getWidth() );
         final double centerY2 = otherBbox.getMinY() + ( 0.5d * otherBbox.getHeight() );
 
-        final boolean thisObjectIsCloserThanOtherObjectToClickPoint = ( FastMath
-                .abs( clickPoint.distance( centerX1, centerY1 ) ) < FastMath
-                        .abs( clickPoint.distance( centerX2, centerY2 ) ) );
-
-        return thisObjectIsCloserThanOtherObjectToClickPoint;
+        return ( FastMath.abs( clickPoint.distance( centerX1, centerY1 ) )
+                < FastMath.abs( clickPoint.distance( centerX2, centerY2 ) ) );
     }
 
     /**
