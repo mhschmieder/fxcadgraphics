@@ -30,8 +30,8 @@
  */
 package com.mhschmieder.fxcadgraphics;
 
-import com.mhschmieder.fxgraphicstoolkit.geometry.GeometryUtilities;
-import com.mhschmieder.fxgraphicstoolkit.shape.ShapeGroup;
+import com.mhschmieder.fxgraphics.geometry.GeometryUtilities;
+import com.mhschmieder.fxgraphics.shape.ShapeGroup;
 import com.mhschmieder.fxlayergraphics.LayerUtilities;
 import com.mhschmieder.fxlayergraphics.model.LayerProperties;
 import com.mhschmieder.jcommons.lang.LabeledObject;
