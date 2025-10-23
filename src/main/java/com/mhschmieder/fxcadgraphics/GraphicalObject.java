@@ -1,7 +1,7 @@
-/**
+/*
  * MIT License
  *
- * Copyright (c) 2020, 2025 Mark Schmieder
+ * Copyright (c) 2020, 2025, Mark Schmieder. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -67,7 +67,8 @@ import java.util.List;
  *  that is derived from GraphicalObjectCollection, and be sure to declare other
  *  downstream collections as of that type.
  */
-public abstract class GraphicalObject implements Comparable< GraphicalObject >, LayerAssignable {
+public abstract class GraphicalObject implements Comparable< GraphicalObject >,
+        LayerAssignable {
 
     // By default, Graphical Objects are not selected.
     protected static final boolean SELECTED_DEFAULT      = false;
