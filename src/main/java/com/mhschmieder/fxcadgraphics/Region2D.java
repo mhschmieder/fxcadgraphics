@@ -31,8 +31,8 @@
 package com.mhschmieder.fxcadgraphics;
 
 import com.mhschmieder.jcommons.text.TextUtilities;
-import com.mhschmieder.jpdfexport.PdfFonts;
-import com.mhschmieder.jpdfexport.PdfTools;
+import com.mhschmieder.jpdfreport.PdfFonts;
+import com.mhschmieder.jpdfreport.PdfTools;
 import com.mhschmieder.jphysics.DistanceUnit;
 import com.mhschmieder.jphysics.UnitConversion;
 import com.pdfjet.Cell;
