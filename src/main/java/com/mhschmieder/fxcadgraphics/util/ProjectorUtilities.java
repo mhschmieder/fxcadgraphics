@@ -28,7 +28,12 @@
  *
  * Project: https://github.com/mhschmieder/fxcadgraphics
  */
-package com.mhschmieder.fxcadgraphics;
+package com.mhschmieder.fxcadgraphics.util;
+
+import com.mhschmieder.fxcadgraphics.CartesianLine;
+import com.mhschmieder.fxcadgraphics.GraphicalObject;
+import com.mhschmieder.fxcadgraphics.GraphicalObjectCollection;
+import com.mhschmieder.fxcadgraphics.PolarLine;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -41,7 +46,7 @@ import java.util.HashSet;
  */
 public final class ProjectorUtilities {
 
-    public static Collection< CartesianLine > getSelectedCartesianProjectors( final GraphicalObjectCollection< CartesianLine > cartesianLineCollection ) {
+    public static Collection<CartesianLine> getSelectedCartesianProjectors(final GraphicalObjectCollection< CartesianLine > cartesianLineCollection ) {
         // Get all of the selected Cartesian Lines that are marked as
         // Projectors.
         final Collection< CartesianLine > selectedCartesianProjectors = new HashSet<>( 20 );
@@ -55,7 +60,7 @@ public final class ProjectorUtilities {
         return selectedCartesianProjectors;
     }
 
-    public static Collection< PolarLine > getSelectedPolarProjectors( final GraphicalObjectCollection< PolarLine > polarLineCollection ) {
+    public static Collection<PolarLine> getSelectedPolarProjectors(final GraphicalObjectCollection< PolarLine > polarLineCollection ) {
         // Get all of the selected Polar Lines that are marked as Projectors.
         final Collection< PolarLine > selectedPolarProjectors = new HashSet<>( 20 );
         final Collection< PolarLine > selectedPolarLines = polarLineCollection.getSelection();
@@ -78,7 +83,7 @@ public final class ProjectorUtilities {
         // Fill the Linear Objects selection set with all of the Projectors.
         // NOTE: It is safer to avoid parallel streams right after clearing one
         //  of the collections as a bulk action.
-        collection.stream().filter( GraphicalObject::isEditable ).forEach( cartesianLine -> {
+        collection.stream().filter( GraphicalObject::isEditable ).forEach(cartesianLine -> {
             if ( cartesianLine.isEditable() && cartesianLine.isUseAsProjector() ) {
                 cartesianLineCollection.addToSelection( cartesianLine );
                 deselection.add( cartesianLine );

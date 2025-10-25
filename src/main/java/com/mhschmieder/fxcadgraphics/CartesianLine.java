@@ -64,8 +64,8 @@ public class CartesianLine extends LinearObject {
     private Line _line = new Line();
 
     // NOTE: Since this class declares additional fields to the parent class,
-    // we cannot just invoke the super-constructor from each constructor, but
-    // need to invoke incrementally more complex local constructors instead.
+    //  we cannot just invoke the super-constructor from each constructor, but
+    //  need to invoke incrementally more complex local constructors instead.
     // TODO: Make better use of parent class constructors and setters.
     public CartesianLine() {
         this( X1_DEFAULT,
@@ -76,12 +76,6 @@ public class CartesianLine extends LinearObject {
               LayerUtilities.makeDefaultLayer(),
               USE_AS_PROJECTOR_DEFAULT,
               NUMBER_OF_PROJECTION_ZONES_DEFAULT );
-    }
-
-    public CartesianLine( final CartesianLine cartesianLine ) {
-        super( cartesianLine );
-
-        setCartesianLine( cartesianLine );
     }
 
     public CartesianLine( final double x1,
@@ -155,6 +149,12 @@ public class CartesianLine extends LinearObject {
                           layer,
                           useAsProjector,
                           numberOfProjectionZones );
+    }
+
+    public CartesianLine( final CartesianLine cartesianLine ) {
+        super( cartesianLine );
+
+        setCartesianLine( cartesianLine );
     }
 
     @Override
@@ -278,7 +278,11 @@ public class CartesianLine extends LinearObject {
                                         final boolean useAsProjector,
                                         final int numberOfProjectionZones ) {
         setLine( p1, p2 );
-        setLineObject( cartesianLineLabel, layer, useAsProjector, numberOfProjectionZones );
+        setLineObject(
+                cartesianLineLabel,
+                layer,
+                useAsProjector,
+                numberOfProjectionZones );
     }
 
     @Override

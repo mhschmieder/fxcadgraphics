@@ -21,10 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the FxCadGraphics Library
+ * This file is part of the fxcadgraphics Library
  *
  * You should have received a copy of the MIT License along with the
- * FxCadGraphics Library. If not, see <https://opensource.org/licenses/MIT>.
+ * fxcadgraphics Library. If not, see <https://opensource.org/licenses/MIT>.
  *
  * Project: https://github.com/mhschmieder/fxcadgraphics
  */
@@ -37,25 +37,22 @@ import javafx.scene.shape.Line;
  * The <code>Surface</code> class is the implementation class for a Surface as
  * used in some CAD apps. This class describes Surface Materials, ID, enabled
  * status and Surface End Points.
- * <p>
- * NOTE: This class is kept around in case of future use, but is effectively
- *  replaced by the newer {@code SurfaceProperties} observable class.
  */
-public final class Surface extends CartesianLine {
-
-    // Surfaces are bypassed by default as they are only approximate.
-    public static final boolean BYPASSED_DEFAULT       = true;
+public class Surface extends CartesianLine {
 
     // Declare an identifier number for this surface
-    private static final int    SURFACE_NUMBER_DEFAULT = 1;
+    protected static final int SURFACE_NUMBER_DEFAULT = 1;
 
-    // Declare the surface material name.
-    public static final String  MATERIAL_NAME_DEFAULT
-            = SurfaceMaterial.RIGID.abbreviation();
+    // Surfaces are bypassed by default as they are only approximate.
+    public static final boolean SURFACE_BYPASSED_DEFAULT = true;
 
-    private boolean             _bypassed              = BYPASSED_DEFAULT;
-    private int                 _surfaceNumber         = SURFACE_NUMBER_DEFAULT;
-    private String              _materialName          = MATERIAL_NAME_DEFAULT;
+    // Declare the default Surface Material.
+    public static final SurfaceMaterial SURFACE_MATERIAL_DEFAULT
+            = SurfaceMaterial.RIGID;
+
+    protected boolean surfaceBypassed;
+    protected int surfaceNumber;
+    protected SurfaceMaterial surfaceMaterial;
 
     // This is the default constructor; it sets all instance variables to
     // default values.
@@ -67,60 +64,79 @@ public final class Surface extends CartesianLine {
     }
 
     // This is the preferred default constructor using a unique Surface ID.
-    public Surface( final int surfaceNumber ) {
-        this( surfaceNumber, BYPASSED_DEFAULT, MATERIAL_NAME_DEFAULT );
+    public Surface( final int pSurfaceNumber ) {
+        this(
+                pSurfaceNumber,
+                SURFACE_BYPASSED_DEFAULT,
+                SURFACE_MATERIAL_DEFAULT,
+                "Surface " + pSurfaceNumber );
     }
 
     // This is the partially qualified constructor, when all but extents are
     // known.
-    public Surface( final int surfaceNumber, final boolean bypassed, final String materialName ) {
-        this( surfaceNumber,
-              bypassed,
-              materialName,
-              CartesianLine.X1_DEFAULT,
-              CartesianLine.Y1_DEFAULT,
-              CartesianLine.X2_DEFAULT,
-              CartesianLine.Y2_DEFAULT );
+    public Surface( final int pSurfaceNumber,
+                    final boolean pSurfaceBypassed,
+                    final SurfaceMaterial pSurfaceMaterial,
+                    final String pSurfaceLabel ) {
+        this(
+                pSurfaceNumber,
+                pSurfaceBypassed,
+                pSurfaceMaterial,
+                CartesianLine.X1_DEFAULT,
+                CartesianLine.Y1_DEFAULT,
+                CartesianLine.X2_DEFAULT,
+                CartesianLine.Y2_DEFAULT,
+                pSurfaceLabel );
     }
 
     // This is the fully qualified constructor, using separate coordinates.
-    // TODO: Pass in and use a unique Surface Name and Layer.
-    @SuppressWarnings("nls")
-    public Surface( final int surfaceNumber,
-                    final boolean bypassed,
-                    final String materialName,
+    // TODO: Pass in and use a unique Layer.
+    public Surface( final int pSurfaceNumber,
+                    final boolean pSurfaceBypassed,
+                    final SurfaceMaterial pSurfaceMaterial,
                     final double x1,
                     final double y1,
                     final double x2,
-                    final double y2 ) {
-        super( x1, y1, x2, y2, "", LayerUtilities.makeDefaultLayer(), false, 1 );
+                    final double y2,
+                    final String pSurfaceLabel ) {
+        super( x1,
+                y1,
+                x2,
+                y2,
+                pSurfaceLabel,
+                LayerUtilities.makeDefaultLayer(),
+                false,
+                1 );
 
-        setSurfaceNumber( surfaceNumber );
-        setBypassed( bypassed );
-        setMaterialName( materialName );
+        setSurfaceNumber( pSurfaceNumber );
+        setSurfaceBypassed( pSurfaceBypassed );
+        setSurfaceMaterial( pSurfaceMaterial );
     }
 
     // This is the fully qualified constructor, using a Line.
     // TODO: Pass in and use a unique Surface Name and Layer.
-    @SuppressWarnings("nls")
-    public Surface( final int surfaceNumber,
-                    final boolean bypassed,
-                    final String materialName,
-                    final Line line ) {
-        super( line, "", LayerUtilities.makeDefaultLayer(), false, 1 );
+    public Surface( final int pSurfaceNumber,
+                    final boolean pSurfaceBypassed,
+                    final SurfaceMaterial pSurfaceMaterial,
+                    final Line pLine ) {
+        super( pLine,
+                "",
+                LayerUtilities.makeDefaultLayer(),
+                false,
+                1 );
 
-        setSurfaceNumber( surfaceNumber );
-        setBypassed( bypassed );
-        setMaterialName( materialName );
+        setSurfaceNumber( pSurfaceNumber );
+        setSurfaceBypassed( pSurfaceBypassed );
+        setSurfaceMaterial( pSurfaceMaterial );
     }
 
     // NOTE: This is the copy constructor, and is offered in place of clone()
-    // to guarantee that the source object is never modified by the new target
-    // object created here.
-    public Surface( final Surface surface ) {
+    //  to guarantee that the source object is never modified by the new target
+    //  object created here.
+    public Surface( final Surface pSurface ) {
         super();
 
-        setSurface( surface );
+        setSurface( pSurface );
     }
 
     // NOTE: Cloning is disabled as it is dangerous; use the copy constructor
@@ -128,6 +144,57 @@ public final class Surface extends CartesianLine {
     @Override
     protected Object clone() throws CloneNotSupportedException {
         throw new CloneNotSupportedException();
+    }
+
+    public int getSurfaceNumber() {
+        return surfaceNumber;
+    }
+
+    public void setSurfaceNumber( final int pSurfaceNumber ) {
+        surfaceNumber = pSurfaceNumber;
+    }
+
+    public boolean isSurfaceBypassed() {
+        return surfaceBypassed;
+    }
+
+    public void setSurfaceBypassed( final boolean pSurfaceBypassed ) {
+        surfaceBypassed = pSurfaceBypassed;
+    }
+
+    public SurfaceMaterial getSurfaceMaterial() {
+        return surfaceMaterial;
+    }
+
+    public void setSurfaceMaterial( final SurfaceMaterial pSurfaceMaterial ) {
+        surfaceMaterial = pSurfaceMaterial;
+    }
+
+    // Fully qualified pseudo-constructor
+    // TODO: Pass in and use a unique surface name and layer.
+    protected void setSurface( final Line pLine,
+                               final int pSurfaceNumber,
+                               final boolean pSurfaceBypassed,
+                               final SurfaceMaterial pSurfaceMaterial ) {
+        setCartesianLine(
+                pLine,
+                "",
+                LayerUtilities.makeDefaultLayer(),
+                false,
+                1 );
+        setSurfaceNumber( pSurfaceNumber );
+        setSurfaceBypassed( pSurfaceBypassed );
+        setSurfaceMaterial( pSurfaceMaterial );
+    }
+
+    // Pseudo-copy constructor.
+    // TODO: Pass in and use a unique Surface Name.
+    protected void setSurface( final Surface pSurface ) {
+        setSurface(
+                pSurface.getLine(),
+                pSurface.getSurfaceNumber(),
+                pSurface.isSurfaceBypassed(),
+                pSurface.getSurfaceMaterial() );
     }
 
     @Override
@@ -142,8 +209,8 @@ public final class Surface extends CartesianLine {
         final Surface other = ( Surface ) obj;
         if ( !super.equals( obj ) 
                 || ( getSurfaceNumber() != other.getSurfaceNumber() ) 
-                || ( isBypassed() != other.isBypassed() ) 
-                || !getMaterialName().equals( other.getMaterialName() ) ) {
+                || ( isSurfaceBypassed() != other.isSurfaceBypassed() )
+                || ( getSurfaceMaterial() != other.getSurfaceMaterial() ) ) {
             return false;
         }
 
@@ -153,55 +220,9 @@ public final class Surface extends CartesianLine {
         return true;
     }
 
-    public String getMaterialName() {
-        return _materialName;
-    }
-
-    public int getSurfaceNumber() {
-        return _surfaceNumber;
-    }
-
     @Override
     public int hashCode() {
         // TODO: Replace auto-generated method stub?
         return super.hashCode();
-    }
-
-    public boolean isBypassed() {
-        return _bypassed;
-    }
-
-    public void setBypassed( final boolean bypassed ) {
-        _bypassed = bypassed;
-    }
-
-    public void setMaterialName( final String materialName ) {
-        _materialName = materialName;
-    }
-
-    // Fully qualified pseudo-constructor
-    // TODO: Pass in and use a unique surface name and layer.
-    @SuppressWarnings("nls")
-    protected void setSurface( final Line line,
-                               final int surfaceNumber,
-                               final boolean bypassed,
-                               final String materialName ) {
-        setCartesianLine( line, "", LayerUtilities.makeDefaultLayer(), false, 1 );
-        setSurfaceNumber( surfaceNumber );
-        setBypassed( bypassed );
-        setMaterialName( materialName );
-    }
-
-    // Pseudo-copy constructor.
-    // TODO: Pass in and use a unique Surface Name.
-    protected void setSurface( final Surface surface ) {
-        setSurface( surface.getLine(),
-                    surface.getSurfaceNumber(),
-                    surface.isBypassed(),
-                    surface.getMaterialName() );
-    }
-
-    public void setSurfaceNumber( final int surfaceNumber ) {
-        _surfaceNumber = surfaceNumber;
     }
 }
