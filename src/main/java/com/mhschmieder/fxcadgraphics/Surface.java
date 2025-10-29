@@ -30,7 +30,7 @@
  */
 package com.mhschmieder.fxcadgraphics;
 
-import com.mhschmieder.fxlayergraphics.LayerUtilities;
+import com.mhschmieder.fxlayergraphics.LayerManager;
 import javafx.scene.shape.Line;
 
 /**
@@ -104,7 +104,7 @@ public class Surface extends CartesianLine {
                 x2,
                 y2,
                 pSurfaceLabel,
-                LayerUtilities.makeDefaultLayer(),
+                LayerManager.makeDefaultLayer(),
                 false,
                 1 );
 
@@ -121,7 +121,7 @@ public class Surface extends CartesianLine {
                     final Line pLine ) {
         super( pLine,
                 "",
-                LayerUtilities.makeDefaultLayer(),
+                LayerManager.makeDefaultLayer(),
                 false,
                 1 );
 
@@ -179,7 +179,7 @@ public class Surface extends CartesianLine {
         setCartesianLine(
                 pLine,
                 "",
-                LayerUtilities.makeDefaultLayer(),
+                LayerManager.makeDefaultLayer(),
                 false,
                 1 );
         setSurfaceNumber( pSurfaceNumber );

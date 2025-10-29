@@ -33,7 +33,7 @@ package com.mhschmieder.fxcadgraphics;
 import com.mhschmieder.fxgraphics.geometry.GeometryUtilities;
 import com.mhschmieder.fxgraphics.shape.ShapeGroup;
 import com.mhschmieder.fxgraphics.shape.ShapeUtilities;
-import com.mhschmieder.fxlayergraphics.model.LayerProperties;
+import com.mhschmieder.fxlayergraphics.Layer;
 import com.mhschmieder.jcommons.lang.LabeledObject;
 import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
@@ -494,7 +494,7 @@ public abstract class LinearObject extends GraphicalObject
     }
 
     protected final void setLineObject( final String pLineObjectLabel,
-                                        final LayerProperties pLayer,
+                                        final Layer pLayer,
                                         final boolean pUseAsProjector,
                                         final int pNumberOfProjectionZones ) {
         setLabel( pLineObjectLabel );

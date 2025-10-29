@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020, 2025 Mark Schmieder
+ * Copyright (c) 2020, 2025, Mark Schmieder. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,8 +32,8 @@ package com.mhschmieder.fxcadgraphics;
 
 import com.mhschmieder.fxgraphics.geometry.FacingDirection;
 import com.mhschmieder.fxgraphics.geometry.Orientation;
-import com.mhschmieder.fxlayergraphics.LayerUtilities;
-import com.mhschmieder.fxlayergraphics.model.LayerProperties;
+import com.mhschmieder.fxlayergraphics.Layer;
+import com.mhschmieder.fxlayergraphics.LayerManager;
 import com.mhschmieder.jmath.geometry.euclidian.Axis;
 import com.mhschmieder.jmath.geometry.euclidian.OrthogonalAxes;
 import com.mhschmieder.jmath.geometry.euclidian.VectorUtilities;
@@ -109,7 +109,7 @@ public abstract class SolidObject extends GraphicalObject {
                            final Orientation orientation,
                            final FacingDirection facingDirection,
                            final boolean inverted ) {
-        this( LayerUtilities.makeDefaultLayer(),
+        this( LayerManager.makeDefaultLayer(),
               locationX,
               locationY,
               angleDegrees,
@@ -119,7 +119,7 @@ public abstract class SolidObject extends GraphicalObject {
     }
 
     // Fully qualified constructor, using standard Location.
-    protected SolidObject( final LayerProperties layer,
+    protected SolidObject( final Layer layer,
                            final double locationX,
                            final double locationY,
                            final double angleDegrees,
@@ -142,7 +142,7 @@ public abstract class SolidObject extends GraphicalObject {
     }
 
     // Fully qualified constructor, using Geometric Center.
-    protected SolidObject( final LayerProperties layer,
+    protected SolidObject( final Layer layer,
                            final Vector3D gcInVenueCoordinates,
                            final double angleDegrees,
                            final Orientation orientation,

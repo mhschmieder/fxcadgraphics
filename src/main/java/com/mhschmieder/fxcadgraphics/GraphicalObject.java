@@ -34,9 +34,9 @@ import com.mhschmieder.fxgraphics.geometry.GeometryUtilities;
 import com.mhschmieder.fxgraphics.paint.ColorConstants;
 import com.mhschmieder.fxgraphics.paint.ColorUtilities;
 import com.mhschmieder.fxgraphics.shape.ShapeGroup;
+import com.mhschmieder.fxlayergraphics.Layer;
 import com.mhschmieder.fxlayergraphics.LayerAssignable;
-import com.mhschmieder.fxlayergraphics.LayerUtilities;
-import com.mhschmieder.fxlayergraphics.model.LayerProperties;
+import com.mhschmieder.fxlayergraphics.LayerManager;
 import javafx.collections.ObservableList;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
@@ -89,8 +89,8 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >,
     // TODO: Remove this as the Node representation captures this status?
     private boolean                _selected;
 
-    // NOTE: Layer Properties are Observable and thus can use data binding.
-    private LayerProperties        _layer;
+    // NOTE: Graphics-based classes generally shy away from observable models.
+    private Layer                  _layer;
 
     // NOTE: We may want to add a z-coordinate at some point, for scalability.
     private double                 _locationX;
@@ -106,11 +106,11 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >,
 
     // Default constructor (disabled since this is an abstract class)
     protected GraphicalObject() {
-        this( LayerUtilities.makeDefaultLayer(), X_DEFAULT, Y_DEFAULT, ANGLE_DEGREES_DEFAULT );
+        this( LayerManager.makeDefaultLayer(), X_DEFAULT, Y_DEFAULT, ANGLE_DEGREES_DEFAULT );
     }
 
     // Fully qualified constructor
-    protected GraphicalObject( final LayerProperties layer,
+    protected GraphicalObject( final Layer layer,
                                final double locationX,
                                final double locationY,
                                final double angleDegrees ) {
@@ -351,12 +351,12 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >,
     }
 
     @Override
-    public final LayerProperties getLayer() {
+    public final Layer getLayer() {
         return _layer;
     }
 
     public final Color getLayerColor() {
-        return ( _layer == null ) ? LayerUtilities.LAYER_COLOR_DEFAULT : _layer.getLayerColor();
+        return ( _layer == null ) ? LayerManager.LAYER_COLOR_DEFAULT : _layer.getLayerColor();
     }
 
     public final double getLocationX() {
@@ -574,7 +574,7 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >,
     }
 
     public final boolean isEditable() {
-        final LayerProperties layer = getLayer();
+        final Layer layer = getLayer();
         final boolean visible = layer.isLayerVisible();
         final boolean locked = layer.isLayerLocked();
         return !locked && visible;
@@ -621,7 +621,7 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >,
     }
 
     public final boolean isLocked() {
-        final LayerProperties layer = getLayer();
+        final Layer layer = getLayer();
         final boolean locked = layer.isLayerLocked();
         return locked;
     }
@@ -698,7 +698,7 @@ public abstract class GraphicalObject implements Comparable< GraphicalObject >,
     }
 
     @Override
-    public final void setLayer( final LayerProperties layer ) {
+    public final void setLayer(final Layer layer) {
         _layer = layer;
     }
 

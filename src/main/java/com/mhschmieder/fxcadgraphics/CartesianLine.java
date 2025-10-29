@@ -30,8 +30,8 @@
  */
 package com.mhschmieder.fxcadgraphics;
 
-import com.mhschmieder.fxlayergraphics.LayerUtilities;
-import com.mhschmieder.fxlayergraphics.model.LayerProperties;
+import com.mhschmieder.fxlayergraphics.Layer;
+import com.mhschmieder.fxlayergraphics.LayerManager;
 import javafx.geometry.Point2D;
 import javafx.scene.shape.Line;
 import org.apache.commons.math3.util.FastMath;
@@ -73,7 +73,7 @@ public class CartesianLine extends LinearObject {
               X2_DEFAULT,
               Y2_DEFAULT,
               CARTESIAN_LINE_LABEL_DEFAULT,
-              LayerUtilities.makeDefaultLayer(),
+              LayerManager.makeDefaultLayer(),
               USE_AS_PROJECTOR_DEFAULT,
               NUMBER_OF_PROJECTION_ZONES_DEFAULT );
     }
@@ -83,7 +83,7 @@ public class CartesianLine extends LinearObject {
                           final double x2,
                           final double y2,
                           final String cartesianLineLabel,
-                          final LayerProperties layer,
+                          final Layer layer,
                           final boolean useAsProjector,
                           final int numberOfProjectionZones ) {
         super( cartesianLineLabel, useAsProjector, numberOfProjectionZones );
@@ -100,7 +100,7 @@ public class CartesianLine extends LinearObject {
 
     public CartesianLine( final Line line,
                           final String cartesianLineLabel,
-                          final LayerProperties layer ) {
+                          final Layer layer ) {
         this( line,
               cartesianLineLabel,
               layer,
@@ -110,7 +110,7 @@ public class CartesianLine extends LinearObject {
 
     public CartesianLine( final Line line,
                           final String cartesianLineLabel,
-                          final LayerProperties layer,
+                          final Layer layer,
                           final boolean useAsProjector,
                           final int numberOfProjectionZones ) {
         this( line.getStartX(),
@@ -126,7 +126,7 @@ public class CartesianLine extends LinearObject {
     public CartesianLine( final Point2D p1,
                           final Point2D p2,
                           final String cartesianLineLabel,
-                          final LayerProperties layer ) {
+                          final Layer layer ) {
         this( p1,
               p2,
               cartesianLineLabel,
@@ -138,7 +138,7 @@ public class CartesianLine extends LinearObject {
     public CartesianLine( final Point2D p1,
                           final Point2D p2,
                           final String cartesianLineLabel,
-                          final LayerProperties layer,
+                          final Layer layer,
                           final boolean useAsProjector,
                           final int numberOfProjectionZones ) {
         super();
@@ -244,7 +244,7 @@ public class CartesianLine extends LinearObject {
                                         final double x2,
                                         final double y2,
                                         final String cartesianLineLabel,
-                                        final LayerProperties layer,
+                                        final Layer layer,
                                         final boolean useAsProjector,
                                         final int numberOfProjectionZones ) {
         setLine( x1, y1, x2, y2 );
@@ -253,7 +253,7 @@ public class CartesianLine extends LinearObject {
 
     public final void setCartesianLine( final Line line,
                                         final String cartesianLineLabel,
-                                        final LayerProperties layer,
+                                        final Layer layer,
                                         final boolean useAsProjector,
                                         final int numberOfProjectionZones ) {
         setLine( line );
@@ -264,7 +264,7 @@ public class CartesianLine extends LinearObject {
                                         final double angleDegrees,
                                         final double distance,
                                         final String cartesianLineLabel,
-                                        final LayerProperties layer,
+                                        final Layer layer,
                                         final boolean useAsProjector,
                                         final int numberOfProjectionZones ) {
         setLine( p1, angleDegrees, distance );
@@ -274,7 +274,7 @@ public class CartesianLine extends LinearObject {
     public final void setCartesianLine( final Point2D p1,
                                         final Point2D p2,
                                         final String cartesianLineLabel,
-                                        final LayerProperties layer,
+                                        final Layer layer,
                                         final boolean useAsProjector,
                                         final int numberOfProjectionZones ) {
         setLine( p1, p2 );

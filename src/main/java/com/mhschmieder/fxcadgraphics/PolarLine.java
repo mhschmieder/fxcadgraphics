@@ -30,8 +30,8 @@
  */
 package com.mhschmieder.fxcadgraphics;
 
-import com.mhschmieder.fxlayergraphics.LayerUtilities;
-import com.mhschmieder.fxlayergraphics.model.LayerProperties;
+import com.mhschmieder.fxlayergraphics.Layer;
+import com.mhschmieder.fxlayergraphics.LayerManager;
 import javafx.geometry.Point2D;
 import javafx.scene.shape.Line;
 import org.apache.commons.math3.util.FastMath;
@@ -82,7 +82,7 @@ public class PolarLine extends LinearObject {
               END_ANGLE_DEGREES_DEFAULT,
               END_DISTANCE_DEFAULT,
               POLAR_LINE_LABEL_DEFAULT,
-              LayerUtilities.makeDefaultLayer(),
+              LayerManager.makeDefaultLayer(),
               USE_AS_PROJECTOR_DEFAULT,
               NUMBER_OF_PROJECTION_ZONES_DEFAULT );
     }
@@ -94,7 +94,7 @@ public class PolarLine extends LinearObject {
                       final double endAngleDegrees,
                       final double endDistance,
                       final String polarLineLabel,
-                      final LayerProperties layer,
+                      final Layer layer,
                       final boolean useAsProjector,
                       final int numberOfProjectionZones ) {
         super( polarLineLabel, useAsProjector, numberOfProjectionZones );
@@ -123,7 +123,7 @@ public class PolarLine extends LinearObject {
                       final double endAngleDegrees,
                       final double endDistance,
                       final String polarLineLabel,
-                      final LayerProperties layer,
+                      final Layer layer,
                       final boolean useAsProjector,
                       final int numberOfProjectionZones ) {
         this( referencePoint.getX(),
@@ -328,7 +328,7 @@ public class PolarLine extends LinearObject {
                                     final double endAngleDegrees,
                                     final double endDistance,
                                     final String polarLineLabel,
-                                    final LayerProperties layer,
+                                    final Layer layer,
                                     final boolean useAsProjector,
                                     final int numberOfProjectionZones ) {
         setLine( inclinometerPositionX,
@@ -359,7 +359,7 @@ public class PolarLine extends LinearObject {
                                     final double endAngleDegrees,
                                     final double endDistance,
                                     final String polarLineLabel,
-                                    final LayerProperties layer,
+                                    final Layer layer,
                                     final boolean useAsProjector,
                                     final int numberOfProjectionZones ) {
         setPolarLine( referencePoint.getX(),

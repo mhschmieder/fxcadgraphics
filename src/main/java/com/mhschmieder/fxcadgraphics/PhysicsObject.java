@@ -1,7 +1,7 @@
-/**
+/*
  * MIT License
  *
- * Copyright (c) 2020, 2025 Mark Schmieder
+ * Copyright (c) 2020, 2025, Mark Schmieder. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,8 +33,8 @@ package com.mhschmieder.fxcadgraphics;
 import com.mhschmieder.fxgraphics.geometry.FacingDirection;
 import com.mhschmieder.fxgraphics.geometry.Orientation;
 import com.mhschmieder.fxgraphics.shape.ShapeUtilities;
-import com.mhschmieder.fxlayergraphics.LayerUtilities;
-import com.mhschmieder.fxlayergraphics.model.LayerProperties;
+import com.mhschmieder.fxlayergraphics.Layer;
+import com.mhschmieder.fxlayergraphics.LayerManager;
 import com.mhschmieder.jmath.geometry.euclidian.OrthogonalAxes;
 import com.mhschmieder.jmath.geometry.euclidian.VectorUtilities;
 import com.mhschmieder.jphysics.MassComputable;
@@ -65,7 +65,7 @@ public abstract class PhysicsObject extends SolidObject
     // we cannot just invoke the super-constructor from each constructor, but
     // need to invoke incrementally more complex local constructors instead.
     public PhysicsObject() {
-        this( LayerUtilities.makeDefaultLayer(),
+        this( LayerManager.makeDefaultLayer(),
               GC_IN_VENUE_COORDINATES_DEFAULT,
               ANGLE_DEGREES_DEFAULT,
               ORIENTATION_DEFAULT,
@@ -75,7 +75,7 @@ public abstract class PhysicsObject extends SolidObject
     }
 
     // Fully qualified constructor.
-    protected PhysicsObject( final LayerProperties layer,
+    protected PhysicsObject( final Layer layer,
                              final Vector3D gcInVenueCoordinates,
                              final double angleDegrees,
                              final Orientation orientation,

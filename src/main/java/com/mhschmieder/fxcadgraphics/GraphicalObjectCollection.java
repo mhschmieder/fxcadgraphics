@@ -1,7 +1,7 @@
-/**
+/*
  * MIT License
  *
- * Copyright (c) 2020, 2025 Mark Schmieder
+ * Copyright (c) 2020, 2025, Mark Schmieder. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,11 +32,10 @@ package com.mhschmieder.fxcadgraphics;
 
 import com.mhschmieder.fxgraphics.geometry.GeometryUtilities;
 import com.mhschmieder.fxgraphics.shape.ShapeGroup;
-import com.mhschmieder.fxlayergraphics.LayerUtilities;
-import com.mhschmieder.fxlayergraphics.model.LayerProperties;
+import com.mhschmieder.fxlayergraphics.Layer;
+import com.mhschmieder.fxlayergraphics.LayerManager;
 import com.mhschmieder.jcommons.lang.LabeledObject;
 import com.mhschmieder.jcommons.text.TextUtilities;
-import javafx.collections.ObservableList;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -47,6 +46,7 @@ import javafx.scene.shape.Rectangle;
 import java.text.NumberFormat;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -168,7 +168,7 @@ public final class GraphicalObjectCollection< T extends GraphicalObject > {
     // Reassign the Layer in all selected objects, and then update the displayed
     // color to match, accounting for Layer Lock status and current background
     // color masking.
-    public void applyLayerToSelectedObjects( final LayerProperties layer,
+    public void applyLayerToSelectedObjects( final Layer layer,
                                              final Color backColor,
                                              final Color defaultColor ) {
         _selection.forEach( graphicalObject -> {
@@ -190,7 +190,8 @@ public final class GraphicalObjectCollection< T extends GraphicalObject > {
 
         // NOTE: It is safer to avoid parallel streams right after clearing one
         // of the collections as a bulk action.
-        _selection.stream().forEach( graphicalObject -> addToDeselection( graphicalObject ) );
+        _selection.stream().forEach( graphicalObject ->
+                addToDeselection( graphicalObject ) );
 
         // Clear the current selection set for the next user action.
         _selection.clear();
@@ -205,9 +206,9 @@ public final class GraphicalObjectCollection< T extends GraphicalObject > {
         replaceReferences( graphicalObjectClones );
     }
 
-    // Delete all of the Graphical Objects from the collection.
+    // Delete all the Graphical Objects from the collection.
     public void deleteAll() {
-        // Delete all of the Graphical Objects from the collection.
+        // Delete all the Graphical Objects from the collection.
         _collection.clear();
 
         // Clear the selection set of Graphical Objects for the next selection.
@@ -351,18 +352,18 @@ public final class GraphicalObjectCollection< T extends GraphicalObject > {
 
     public String getCurrentLayerNameFromSelection( final String currentLayerName ) {
         String currentLayerNameCandidate = currentLayerName;
-        if ( LayerUtilities.VARIOUS_LAYER_NAME.equals( currentLayerNameCandidate ) ) {
+        if ( LayerManager.VARIOUS_LAYER_NAME.equals( currentLayerNameCandidate ) ) {
             return currentLayerNameCandidate;
         }
 
         for ( final T graphicalObject : _selection ) {
-            final LayerProperties layer = graphicalObject.getLayer();
+            final Layer layer = graphicalObject.getLayer();
             final String layerName = layer.getLayerName();
             if ( currentLayerNameCandidate.isEmpty() ) {
                 currentLayerNameCandidate = layerName;
             }
             else if ( !layerName.equals( currentLayerNameCandidate ) ) {
-                currentLayerNameCandidate = LayerUtilities.VARIOUS_LAYER_NAME;
+                currentLayerNameCandidate = LayerManager.VARIOUS_LAYER_NAME;
                 break;
             }
         }
@@ -371,7 +372,7 @@ public final class GraphicalObjectCollection< T extends GraphicalObject > {
     }
 
     @SuppressWarnings("unchecked")
-    public Collection< T > getDeepClonedClipboard( final LayerProperties layer ) {
+    public Collection< T > getDeepClonedClipboard( final Layer layer ) {
         // Deep-clone the Graphical Objects on the clipboard before modifying
         // them, so that their pre-edit and post-edit states are distinct
         // objects (vs. reference counting on the same underlying object).
@@ -624,12 +625,14 @@ public final class GraphicalObjectCollection< T extends GraphicalObject > {
      *            The full list of current Layers, for checking whether a
      *            Graphical Object's current assignment is to a Deleted Layer
      */
-    public void reassignObjectsOnDeletedLayers( final LayerProperties activeLayer,
-                                                final ObservableList< LayerProperties > layerCollection ) {
+    public void reassignObjectsOnDeletedLayers(
+            final Layer activeLayer,
+            final List< Layer > layerCollection ) {
         // NOTE: The context of invocation isn't thread-safe and is highly
         //  re-entrant, so avoid parallel streams here to avoid freeze-ups.
-        _collection.stream().forEach( graphicalObject -> LayerUtilities
-                .reassignObjectOnDeletedLayer( graphicalObject, layerCollection, activeLayer ) );
+        _collection.stream().forEach( graphicalObject -> LayerManager
+                .reassignObjectOnDeletedLayer(
+                        graphicalObject, layerCollection, activeLayer ) );
     }
 
     /**
