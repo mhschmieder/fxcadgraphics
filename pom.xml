@@ -66,12 +66,6 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.mhschmieder</groupId>
-            <artifactId>jpdfreport</artifactId>
-            <version>0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
         	<groupId>com.mhschmieder</groupId>
         	<artifactId>fxacousticscontrols</artifactId>
         	<version>0.1-SNAPSHOT</version>
