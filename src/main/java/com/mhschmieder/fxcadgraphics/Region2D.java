@@ -207,7 +207,7 @@ public final class Region2D extends Extents2D {
                 pRegion2D.getY(),
                 pRegion2D.getWidth(),
                 pRegion2D.getHeight(),
-                pRegion2D.getSurfaceProperties() );
+                pRegion2D.getSurfaces() );
     }
 
     // NOTE: Cloning is disabled as it is dangerous; use the copy constructor
@@ -285,7 +285,8 @@ public final class Region2D extends Extents2D {
         Point point = new Point(
                 PdfTools.PORTRAIT_LEFT_MARGIN,
                 initialPoint.getY() + 20 );
-        point = PdfTools.writeTable( document,
+        point = PdfTools.writeTable(
+                document,
                 page,
                 point,
                 fonts,
@@ -317,7 +318,8 @@ public final class Region2D extends Extents2D {
         // Get a table to use for the Region Surfaces.
         // NOTE: This also sets the column headers and their styles.
         final List< List< Cell > > surfacesTableData = new ArrayList<>();
-        final Table surfacesTable = PdfTools.createTable( surfacesTableData,
+        final Table surfacesTable = PdfTools.createTable(
+                surfacesTableData,
                 fonts,
                 surfacesSpanNames,
                 surfacesSpanLengths,
@@ -327,33 +329,34 @@ public final class Region2D extends Extents2D {
                 false );
 
         // Write the Region Surfaces Table.
-        final List< Surface > numberedSurfaceProperties =
-                getSurfaceProperties();
-        for ( final Surface surfacePropertiesReference : numberedSurfaceProperties ) {
+        final List< Surface > numberedSurfaces = getSurfaces();
+        for ( final Surface surfaceReference : numberedSurfaces ) {
             final List< Cell > surfacesRowData = new ArrayList<>();
 
-            final String status = surfacePropertiesReference.isSurfaceBypassed()
+            final String status = surfaceReference.isSurfaceBypassed()
                     ? "Bypassed"
                     : "Enabled";
-            PdfTools.addTableCell( surfacesRowData,
+            PdfTools.addTableCell(
+                    surfacesRowData,
                     fonts,
-                    Integer.toString( surfacePropertiesReference
-                            .getSurfaceNumber() ) );
-            PdfTools.addTableCell( surfacesRowData,
+                    Integer.toString( surfaceReference.getSurfaceNumber() ) );
+            PdfTools.addTableCell(
+                    surfacesRowData,
                     fonts,
-                    surfacePropertiesReference.getLabel() );
+                    surfaceReference.getLabel() );
             PdfTools.addTableCell( surfacesRowData, fonts, status );
-            PdfTools.addTableCell( surfacesRowData,
+            PdfTools.addTableCell(
+                    surfacesRowData,
                     fonts,
-                    surfacePropertiesReference
-                            .getSurfaceMaterial().abbreviation() );
+                    surfaceReference.getSurfaceMaterial().abbreviation() );
 
             surfacesTableData.add( surfacesRowData );
         }
 
         // Write the table to as many pages as are required to fit.
         point.setPosition( PdfTools.PORTRAIT_LEFT_MARGIN, point.getY() + 20.0f );
-        PdfTools.writeTable( document,
+        PdfTools.writeTable(
+                document,
                 page,
                 point,
                 fonts,
@@ -364,7 +367,7 @@ public final class Region2D extends Extents2D {
                 false );
     }
 
-    public List< Surface > getSurfaceProperties() {
+    public List< Surface > getSurfaces() {
         return surfaceList;
     }
 
@@ -461,7 +464,7 @@ public final class Region2D extends Extents2D {
                 pRegion2D.getY(),
                 pRegion2D.getWidth(),
                 pRegion2D.getHeight(),
-                pRegion2D.getSurfaceProperties() );
+                pRegion2D.getSurfaces() );
     }
 
     public void setSurfaces(final int pSurfaceIndex,
