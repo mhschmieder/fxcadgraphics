@@ -30,11 +30,11 @@
  */
 package com.mhschmieder.fxcadgraphics;
 
-import com.mhschmieder.jgraphics.geometry.FacingDirection;
-import com.mhschmieder.jgraphics.geometry.Orientation;
 import com.mhschmieder.fxgraphics.shape.ShapeUtilities;
 import com.mhschmieder.fxlayergraphics.Layer;
 import com.mhschmieder.fxlayergraphics.LayerManager;
+import com.mhschmieder.jgraphics.geometry.FacingDirection;
+import com.mhschmieder.jgraphics.geometry.Orientation;
 import com.mhschmieder.jmath.geometry.euclidian.OrthogonalAxes;
 import com.mhschmieder.jmath.geometry.euclidian.VectorUtilities;
 import com.mhschmieder.jphysics.MassComputable;
