@@ -30,7 +30,7 @@
  */
 package com.mhschmieder.fxcadgraphics;
 
-import com.mhschmieder.fxlayergraphics.LayerManager;
+import com.mhschmieder.fxgraphics.layers.LayerManager;
 import javafx.scene.shape.Line;
 
 /**

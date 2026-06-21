@@ -33,7 +33,7 @@ package com.mhschmieder.fxcadgraphics;
 import com.mhschmieder.fxgraphics.geometry.GeometryUtilities;
 import com.mhschmieder.fxgraphics.shape.ShapeGroup;
 import com.mhschmieder.fxgraphics.shape.ShapeUtilities;
-import com.mhschmieder.fxlayergraphics.Layer;
+import com.mhschmieder.fxgraphics.layers.Layer;
 import com.mhschmieder.jcommons.lang.LabeledObject;
 import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;

@@ -30,8 +30,8 @@
  */
 package com.mhschmieder.fxcadgraphics;
 
-import com.mhschmieder.fxlayergraphics.Layer;
-import com.mhschmieder.fxlayergraphics.LayerManager;
+import com.mhschmieder.fxgraphics.layers.Layer;
+import com.mhschmieder.fxgraphics.layers.LayerManager;
 import javafx.geometry.Point2D;
 import javafx.scene.shape.Line;
 import org.apache.commons.math3.util.FastMath;

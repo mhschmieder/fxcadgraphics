@@ -32,8 +32,8 @@ package com.mhschmieder.fxcadgraphics;
 
 import com.mhschmieder.fxgraphics.geometry.GeometryUtilities;
 import com.mhschmieder.fxgraphics.shape.ShapeGroup;
-import com.mhschmieder.fxlayergraphics.Layer;
-import com.mhschmieder.fxlayergraphics.LayerManager;
+import com.mhschmieder.fxgraphics.layers.Layer;
+import com.mhschmieder.fxgraphics.layers.LayerManager;
 import com.mhschmieder.jcommons.lang.LabeledObject;
 import com.mhschmieder.jcommons.text.TextUtilities;
 import javafx.geometry.BoundingBox;

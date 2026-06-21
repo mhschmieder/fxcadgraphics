@@ -31,8 +31,8 @@
 package com.mhschmieder.fxcadgraphics;
 
 import com.mhschmieder.fxgraphics.shape.ShapeUtilities;
-import com.mhschmieder.fxlayergraphics.Layer;
-import com.mhschmieder.fxlayergraphics.LayerManager;
+import com.mhschmieder.fxgraphics.layers.Layer;
+import com.mhschmieder.fxgraphics.layers.LayerManager;
 import com.mhschmieder.jmath.geometry.euclidian.FacingDirection;
 import com.mhschmieder.jmath.geometry.euclidian.Orientation;
 import com.mhschmieder.jmath.geometry.euclidian.OrthogonalAxes;
